@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-17T18:16:52Z",
+    "at": "2026-11-17T18:52:15Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.2.2 (ce8ea8f): Button, IconButton and PromptInput previews now render the real React Aria components from bundle.js.",
+    "note": "Naksha 0.2.3 (90b9cea): the seven form controls render live from bundle.js; key glyphs are drawn icons.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
