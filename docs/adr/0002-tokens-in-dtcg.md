@@ -1,6 +1,6 @@
 # 0002. Tokens are written in W3C DTCG 2025.10
 
-Status: Proposed · 17 Nov 2026
+Status: Accepted · 17 Nov 2026
 
 ## Context
 
@@ -13,7 +13,7 @@ Tokens are JSON files in the [Design Tokens Community Group format, 2025.10](htt
 - `primitives/` holds raw values. Semantic tokens alias them and never hold a raw colour (a test enforces this).
 - Themes are a resolver modifier: `themes/light.tokens.json` and `themes/dark.tokens.json` define the same names with different aliases.
 - Colours use the object form (`colorSpace`, `components`, `hex`). Dimensions use `{ value, unit }` in px.
-- Things the format has no type for live in `$extensions["dev.naksha"]`: letter-spacing in em, the `ch` unit on `size.measure`, mobile values for layout tokens, sample text for type styles.
+- Things the format has no type for live in `$extensions["dev.naksha"]`: letter-spacing in em, the `ch` unit on `size.measure`, fluid and smallest values for layout tokens, sample text for type styles.
 
 The build (`scripts/build.mjs`) has no dependencies. It reads the resolver, resolves aliases and writes every output.
 

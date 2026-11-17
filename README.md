@@ -60,21 +60,11 @@ npm run lint     # no raw colours or stray pixel spacing in css/
 
 ## Decisions
 
-Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the token format, naming, breakpoints, Devanagari, Indian number grouping (₹1,25,000), how the artifact stays in sync, and why there is no Figma library.
+Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the token format, naming, breakpoints and the fluid grid, Devanagari, Indian number grouping (₹1,25,000), why there is no Figma library, and the one contrast pair kept on purpose.
 
 ## Roadmap
 
-| Phase | |
-| --- | --- |
-| 0 | Repo, token source and build, tests, lint, CI ← *here* |
-| 1 | React components on top of the CSS |
-| 2 | The components still missing from the gap list |
-| 3 | Charts |
-| 4 | A drawn icon library, about 310 icons in tiers |
-| 5 | Patterns built from the components |
-| 6 | Access and language: Devanagari, Indian number and date formats |
-| 7 | Brand assets |
-| 8 | 1.0 |
+Phase 0 (repo, tokens, build, tests, decisions) is done. Phase 1 puts every component on React Aria and runs the real components inside the artifact. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licence
 

@@ -1,6 +1,6 @@
 # 0003. One name, three spellings
 
-Status: Proposed · 17 Nov 2026
+Status: Accepted · 17 Nov 2026
 
 ## Decision
 

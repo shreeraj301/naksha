@@ -136,3 +136,14 @@ test("the artifact output is complete", () => {
     assert.match(html.split("\n")[0], /^<!-- @dsCard /, `${c} preview needs the @dsCard marker on line 1`);
   }
 });
+
+test("fluid layout tokens: clamp in naksha.css, fixed largest value in the artifact", () => {
+  const tmp = mkdtempSync(join(tmpdir(), "naksha-"));
+  build(SRC, tmp);
+  const css = readFileSync(join(tmp, "css/naksha.css"), "utf8");
+  assert.match(css, /--layout-gutter: clamp\(1rem, 0\.55rem \+ 1\.9vw, 2\.5rem\);/);
+  assert.match(css, /--layout-section: calc\(var\(--layout-unit\) \* 8\);/);
+  const art = readFileSync(join(tmp, "artifact/tokens.css"), "utf8");
+  assert.match(art, /--layout-gutter: 40px;/);
+  for (const t of maps.light.values()) if (t.ext.fluid) assert.ok(t.ext.min, `${t.name} is fluid but has no min`);
+});

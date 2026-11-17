@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.0 · Decisions closed
+
+### Changed
+- Breakpoints now come from the portfolio's own media queries, measured in the browser: 600, 900, 1200, 1440 (were 600, 840, 1200, 1600 from Material 3). ADR 0004.
+- `layout-gutter`, `layout-unit` and `layout-section` are fluid in `naksha.css`, copying the portfolio's clamps exactly. The mobile media-query override is gone. The artifact shows the largest size.
+- `display-xl` is 100px at its largest, matching the portfolio `--t-xl` (was 96px, with no recorded reason).
+- The cover reads Naksha, with the tagline "A design system for my products."
+
+### Decided
+- ADRs 0002 to 0006 accepted. ADR 0008 records why `fg-subtle` keeps its value and stays off `bg-subtle`.
+- Dates and numbers checked again in Chrome 156: "Sept" also appears there, and compact numbers read 1.3Cr.
+
+### Added
+- `docs/ROADMAP.md`, with the Phase 1 plan.
+
 ## 0.1.0 · Phase 0
 
 The design system moves from a Python script inside the artifact to its own repo.

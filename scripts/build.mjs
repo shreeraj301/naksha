@@ -42,7 +42,7 @@ export function build(src = SRC, out = OUT) {
   for (const d of ["css", "js", "artifact", "fonts"]) mkdirSync(join(out, d), { recursive: true });
 
   // ---------- CSS ----------
-  const decl = (map, t) => `  --${t.name}: ${cssDecl(map, t)};`;
+  const decl = (map, t, fluid = false) => `  --${t.name}: ${fluid && t.ext.fluid ? t.ext.fluid : cssDecl(map, t)};`;
   const themedFor = (theme) => [...maps[theme].values()].filter((t) => themed.has(t.path.join(".")));
   const order = ["space", "radius", "size", "layout", "bp", "border", "dur", "ease", "z"];
   const sharedVars = order.flatMap(byTop).filter((t) => t.type !== "color");
@@ -54,7 +54,7 @@ export function build(src = SRC, out = OUT) {
   const fontFace = (f, prefix) =>
     `@font-face { font-family: "${f.family}"; src: url("${prefix}${basename(f.file)}") format("woff2"); font-weight: ${f.weight}; font-style: ${f.style ?? "normal"}; font-display: swap; }`;
 
-  const cssBody = (fontPrefix, { mediaDark, mobile }) => {
+  const cssBody = (fontPrefix, { mediaDark, fluid }) => {
     const L = [HEADER];
     for (const f of fonts) L.push(fontFace(f, fontPrefix));
     const lightVars = [...shared.filter(isPrimColor), ...themedFor(source.defaultTheme)].map((t) => decl(light, t));
@@ -64,18 +64,13 @@ export function build(src = SRC, out = OUT) {
       L.push(`[data-theme="${th}"] {\n${vars}\n}`);
       if (mediaDark && th === "dark") L.push(`@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {\n${vars.replaceAll("\n", "\n  ").replace(/^/, "  ")}\n  }\n}`);
     }
-    const rest = [...sharedVars.map((t) => decl(light, t)), ...byTop("font").map((t) => decl(light, t)), ...byTop("weight").map((t) => decl(light, t))];
+    const rest = [...sharedVars.map((t) => decl(light, t, fluid)), ...byTop("font").map((t) => decl(light, t)), ...byTop("weight").map((t) => decl(light, t))];
     L.push(`:root {\n${rest.join("\n")}\n}`);
-    if (mobile) {
-      const mob = shared.filter((t) => t.ext.mobile).map((t) => `    --${t.name}: ${cssValue(t.type, t.ext.mobile)};`);
-      const bp = resolveToken(light, light.get("bp.medium"));
-      L.push(`@media (max-width: ${bp.value - 0.02}px) {\n  :root {\n${mob.join("\n")}\n  }\n}`);
-    }
     for (const t of typeStyles) L.push(typeClass(t));
     return L.join("\n") + "\n";
   };
 
-  writeFileSync(join(out, "css/naksha.css"), cssBody("../fonts/", { mediaDark: true, mobile: true }));
+  writeFileSync(join(out, "css/naksha.css"), cssBody("../fonts/", { mediaDark: true, fluid: true }));
   const cm = byTop("bp").map((t) => {
     const v = resolveToken(light, t);
     return `@custom-media --bp-${t.path[1]} (min-width: ${v.value}${v.unit});`;
@@ -136,7 +131,7 @@ export function build(src = SRC, out = OUT) {
 
   // ---------- Claude artifact ----------
   // The artifact type requires this exact first line, dash included.
-  writeFileSync(join(out, "artifact/tokens.css"), cssBody("fonts/", { mediaDark: false, mobile: false }).replace(HEADER, `/* ${NAME} — generated from tokens.json */`));
+  writeFileSync(join(out, "artifact/tokens.css"), cssBody("fonts/", { mediaDark: false, fluid: false }).replace(HEADER, `/* ${NAME} — generated from tokens.json */`));
   const desc = (top) => source.base.map((f) => f.tree[top]?.$description).find(Boolean);
   const aval = (map, t) => (isAlias(t.value) ? `{${aliasPath(t.value).replaceAll(".", "-")}}` : cssValue(t.type, resolveToken(map, t), t.ext));
   const list = (top) => byTop(top).filter((t) => t.type !== "color").map((t) => ({ name: t.name, value: aval(light, t), usage: t.description }));

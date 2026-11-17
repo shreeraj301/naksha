@@ -1,5 +1,5 @@
 {
-  "$description": "Page grid. Mobile values live in $extensions and apply below the bp.medium breakpoint.",
+  "$description": "Page grid. Gutter, unit and section gap are fluid like the portfolio: $value is the largest size, $extensions min the smallest, fluid the CSS that moves between them.",
   "layout": {
     "columns": {
       "$type": "number",
@@ -12,13 +12,14 @@
         "value": 40,
         "unit": "px"
       },
-      "$description": "Page margin and column gutter on desktop (the portfolio --gutter max). 16px on mobile.",
+      "$description": "Page margin and column gutter. Fluid, 16px to 40px: the portfolio --gutter clamp, copied exactly.",
       "$extensions": {
         "dev.naksha": {
-          "mobile": {
+          "min": {
             "value": 16,
             "unit": "px"
-          }
+          },
+          "fluid": "clamp(1rem, 0.55rem + 1.9vw, 2.5rem)"
         }
       }
     },
@@ -28,13 +29,14 @@
         "value": 16,
         "unit": "px"
       },
-      "$description": "The portfolio --u max. 8px on mobile.",
+      "$description": "The base step for page rhythm. Fluid, 8px to 16px: the portfolio --u clamp, copied exactly.",
       "$extensions": {
         "dev.naksha": {
-          "mobile": {
+          "min": {
             "value": 8,
             "unit": "px"
-          }
+          },
+          "fluid": "clamp(0.5rem, 0.35rem + 0.6vw, 1rem)"
         }
       }
     },
@@ -44,13 +46,14 @@
         "value": 128,
         "unit": "px"
       },
-      "$description": "Gap between page sections on desktop. 64px on mobile.",
+      "$description": "Gap between page sections: 8 units, so 64px to 128px as the unit grows.",
       "$extensions": {
         "dev.naksha": {
-          "mobile": {
+          "min": {
             "value": 64,
             "unit": "px"
-          }
+          },
+          "fluid": "calc(var(--layout-unit) * 8)"
         }
       }
     },
@@ -65,34 +68,34 @@
   },
   "bp": {
     "$type": "dimension",
-    "$description": "Window classes after Material 3 (compact < 600, medium, expanded, large, extra-large). Min-widths. Use the generated @custom-media or the JS export; CSS variables cannot sit inside a media query.",
+    "$description": "Min-width breakpoints, taken from the media queries the portfolio uses (measured 17 Nov 2026, ADR 0004). Use the generated @custom-media or the JS export; CSS variables cannot sit inside a media query.",
     "medium": {
       "$value": {
         "value": 600,
         "unit": "px"
       },
-      "$description": "Large phones in landscape, small tablets. Mobile layout values stop here."
+      "$description": "Phones end. The portfolio switches at 599/600px in 6 queries."
     },
     "expanded": {
       "$value": {
-        "value": 840,
+        "value": 900,
         "unit": "px"
       },
-      "$description": "Tablets, split view. Two-column layouts start."
+      "$description": "Tablets end, two-column layouts start. The portfolio's main switch: 899/900px in 25 queries."
     },
     "large": {
       "$value": {
         "value": 1200,
         "unit": "px"
       },
-      "$description": "Laptops. Full 12-column grid."
+      "$description": "Full desktop grid. The portfolio switches at 1199px."
     },
     "xlarge": {
       "$value": {
-        "value": 1600,
+        "value": 1440,
         "unit": "px"
       },
-      "$description": "Wide desktops. Content stops growing; margins take the rest."
+      "$description": "Wide screens. The portfolio adds a step at 1440px."
     }
   },
   "z": {

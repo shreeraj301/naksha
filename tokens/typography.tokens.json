@@ -82,17 +82,17 @@
       "$value": {
         "fontFamily": "{font.display}",
         "fontSize": {
-          "value": 96,
+          "value": 100,
           "unit": "px"
         },
         "fontWeight": "{weight.extrabold}",
         "letterSpacing": {
-          "value": -1.44,
+          "value": -1.5,
           "unit": "px"
         },
         "lineHeight": 0.85
       },
-      "$description": "Section openers. Caps. 40px on mobile.",
+      "$description": "Section openers. Caps. 100px at the largest, 40px on mobile: the portfolio --t-xl clamp (2.5rem to 6.25rem).",
       "$extensions": {
         "dev.naksha": {
           "group": "Display",
