@@ -26,6 +26,7 @@ I trained as an architect before I designed software. A good plan reads at a gla
 ```
 
 ```js
+import { Button, PromptInput } from "naksha";
 import { color, space, dur, ease, cssVar } from "naksha/tokens";
 
 color.dark["bg-canvas"];   // "#151413"
@@ -80,7 +81,7 @@ Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the t
 
 ## Roadmap
 
-Phase 0 is done, and Phase 1, step 0 (tooling, CSS architecture, artifact plumbing, the agent skill) is in. Next: Button and PromptInput on React Aria, running live in the artifact. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+Phase 0 is done. Phase 1 has started: Button, IconButton and PromptInput are React components on React Aria and run live in the artifact. Next: the form controls. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licence
 

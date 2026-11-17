@@ -5,7 +5,7 @@ Updated 17 Nov 2026, after the design-system research. Each phase ends with a do
 | Phase | What | Status |
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
-| 1 | React components on React Aria, running live in the artifact | Step 0 done (0.2.1); step 1 next |
+| 1 | React components on React Aria, running live in the artifact | Steps 0 and 1 done (0.2.2); step 2 next |
 | 2 | Components still missing | Scope written when Phase 1 ends |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
@@ -62,6 +62,8 @@ These two prove the whole pipeline, from source to bundle to preview to republis
 - **Every component README** from this step on uses one template: Usage, Best practices, Content, Accessibility (what Naksha provides, what designers decide, what developers must not break, a testing table for default, states, keyboard and screen reader), Release phase (Beta until 1.0), Change log. The Content section follows a word list and tone-by-situation rules that start in the brand book now.
 
 Done when, for both: previews render from the bundle in both themes; screenshots match today's previews with no visible change (any difference gets reviewed, not waved through); axe reports zero serious or critical issues; keyboard tests pass; the artifact is republished.
+
+Status: done in 0.2.2. The three previews render the live components and match the static screenshots within 4 pixels. Not yet: a manual screen reader pass (every README marks it "Not tested yet").
 
 ### Step 2. Form controls
 

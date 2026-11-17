@@ -4,9 +4,9 @@
 // Also copies React 18.3.1 into dist/artifact/components/lib so previews never depend on a CDN.
 import { build } from "esbuild";
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, readdirSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, cpSync, readdirSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const pkg = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8"));
@@ -23,7 +23,8 @@ await build({
 // 2. Types
 execFileSync(process.execPath, [join(ROOT, "node_modules/typescript/bin/tsc"), "-p", join(ROOT, "tsconfig.json")], { stdio: "inherit" });
 const typesDir = join(ROOT, "dist/types");
-for (const f of readdirSync(typesDir)) copyFileSync(join(typesDir, f), join(ROOT, "dist/js", f.replace(/^index\.d\.ts$/, "naksha.d.ts")));
+cpSync(typesDir, join(ROOT, "dist/js"), { recursive: true });
+writeFileSync(join(ROOT, "dist/js/naksha.d.ts"), readFileSync(join(typesDir, "index.d.ts"), "utf8"));
 
 // 3. Artifact bundle: React comes from the page (window.React, window.ReactDOM)
 const fromWindow = {
@@ -54,7 +55,16 @@ mkdirSync(join(art, "lib"), { recursive: true });
 writeFileSync(join(art, "bundle.js"), code);
 
 // 4. Types for the artifact's API cards
-writeFileSync(join(art, "index.d.ts"), readdirSync(typesDir).filter((f) => f.endsWith(".d.ts")).map((f) => `// ${f}\n${readFileSync(join(typesDir, f), "utf8")}`).join("\n"));
+// One flat file: the artifact reads <Comp>Props from here. Import and re-export lines are dropped; IconName becomes a plain union.
+const { ICONS } = await import(pathToFileURL(join(ROOT, "src/icons.generated.ts")).href).catch(() => ({ ICONS: null }));
+const iconNames = Object.keys(ICONS ?? JSON.parse(readFileSync(join(ROOT, "src/icons.generated.ts"), "utf8").match(/ICONS = (\{[\s\S]*?\}) as const/)[1]));
+const flat = [`/** Naksha ${pkg.version}. Props for every component in window.Naksha. */`, `export type IconName = ${iconNames.map((n) => JSON.stringify(n)).join(" | ")};`];
+const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : e.name.endsWith(".d.ts") ? [join(d, e.name)] : []));
+for (const f of walk(typesDir).filter((f) => !/index\.d\.ts$|icons\.generated\.d\.ts$|cx\.d\.ts$/.test(f)).sort()) {
+  const body = readFileSync(f, "utf8").split("\n").filter((l) => !/^import |^export \{|^export type \{|^export \*/.test(l)).join("\n").trim();
+  if (body) flat.push(`// ${f.slice(typesDir.length + 1)}\n${body}`);
+}
+writeFileSync(join(art, "index.d.ts"), flat.join("\n\n") + "\n");
 
 // 5. React 18.3.1 for previews
 for (const [mod, file] of [["react", "react.production.min.js"], ["react-dom", "react-dom.production.min.js"]]) {

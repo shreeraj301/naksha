@@ -1,6 +1,6 @@
 {
   "name": "naksha",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Naksha, the design system of Shreeraj Narwade. Tokens, components and patterns drawn like a set of architectural sheets.",
   "private": true,
   "type": "module",
@@ -37,7 +37,7 @@
     "skills"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs && node scripts/bundle.mjs && node scripts/skill.mjs",
+    "build": "node scripts/icons.mjs --check && node scripts/build.mjs && node scripts/bundle.mjs && node scripts/skill.mjs",
     "prepare": "node scripts/build.mjs && node scripts/bundle.mjs && node scripts/skill.mjs",
     "test": "npm run build && node --test \"tests/*.test.mjs\" && vitest run",
     "test:visual": "playwright test",

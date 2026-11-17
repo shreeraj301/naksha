@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.2 · Phase 1, step 1: Button and PromptInput
+
+The first live components. In the artifact, the Button, IconButton and PromptInput previews now render the real React components from `bundle.js`, and their screenshots match the static 0.2.1 previews within 4 pixels.
+
+### Added
+- `Button`, `IconButton`, `PromptInput`, `PromptLevel`, `Icon` and `Spinner` in `naksha` and `window.Naksha`, built on React Aria Components 1.22.1.
+- Button: five variants, three sizes, icon names or nodes on either side, pending state (React Aria keeps it focusable and announces it), layout-only `styles`.
+- PromptInput: grows from two to eight lines then scrolls; Enter sends, Shift+Enter adds a line, Enter never sends while an IME is composing; Send becomes Stop while generating; attach by file picker or by dropping on the box; file chips with named remove buttons; a slot beside Send for steering.
+- `Icon` renders Naksha's 38 drawn icons by name; `src/icons.generated.ts` is generated from `artifact/assets/Icons`.
+- Tests: 15 component tests in jsdom, and browser tests on the live previews for press scale, autosize and IME composition.
+- Component READMEs for Button, IconButton and PromptInput follow the new template, with an accessibility testing table.
+
+### Changed
+- A keyboard press no longer scales a button; only pointer presses do. Under reduced motion nothing scales (this rule lost to a more specific selector before, and now wins).
+- The spinner inside a button is heavier (2px at 16px) and its arc covers a third of the ring, so it reads on filled buttons. Standalone spinners are unchanged.
+- The artifact bundle grows from 1.4 KB to about 184 KB minified, almost all of it React Aria.
+
 ## 0.2.1 · Phase 1, step 0
 
 Groundwork for React components. Nothing in the artifact previews changes: all 68 (34 components, light and dark) match the 0.2.0 screenshots within 4 pixels.

@@ -2,15 +2,87 @@
 
 The composer for talking to an AI like garu.
 
+## Usage
+
+```jsx
+import { PromptInput, PromptLevel } from "naksha";
+
+<PromptInput
+  label="Message garu"
+  placeholder="Ask garu about this paper"
+  onSubmit={send}
+  isGenerating={streaming}
+  onStop={stop}
+  attachments={files}
+  onAddFiles={addFiles}
+  onRemoveAttachment={removeFile}
+  onDictate={dictate}
+  level={<PromptLevel onPress={openLevels}>Everyday</PromptLevel>}
+  note="garu can be wrong. Check the sources."
+/>
+```
+
+| Prop | What it does |
+| --- | --- |
+| `label` | required: the text box's name ("Message garu") |
+| `value` / `defaultValue` / `onChange` | controlled or uncontrolled text |
+| `onSubmit(text)` | Enter or Send; never while empty, generating, or composing |
+| `isGenerating`, `onStop` | Send becomes Stop while a reply streams |
+| `attachments`, `onRemoveAttachment` | file chips above the text |
+| `onAddFiles(files)`, `acceptedFileTypes` | turns on Attach and dropping files on the box |
+| `onDictate` | turns on Dictate |
+| `level` | the steering control beside Send, usually `<PromptLevel>` |
+| `note` | the trust line under the box |
+| `showKeyHint` | the Enter / Shift Enter hint under the box; on by default |
+| `styles` | layout only (ADR 0009) |
+
+## Best practices
+
+- Let people steer before they ask: put the reading level (or tone, or model) beside Send, not in a menu after the answer.
+- Always show the trust line when the AI can be wrong, and make sources one tap away in the reply.
+- Show Attach and Dictate only when the product handles them; the component hides them otherwise.
+
+## Content
+
+The placeholder suggests a real question ("Ask garu about this paper"), not "Type here". The trust line is one plain sentence.
+
 ## Anatomy and spacing
-- Box: `bg-raised`, 1px `border-strong` at rest, 8 padding all round. Focus doubles the edge to 2px ink; no offset ring on a box this large.
+
+- Box: `bg-raised`, 1px `border-strong` at rest, 8 padding all round. Focus doubles the edge to 2px ink; no offset ring on a box this large. Dragging files over the box shows the same edge.
 - Text: `body-m` (15/1.5) with 8 / 8 / 4 inner padding, so the first character sits 16 from the edge. Two lines minimum, grows to eight, then scrolls.
 - Toolbar: every control is 32. Ghost IconButtons for attach and dictate (their glyphs also land 16 from the edge), a quiet `mono-label` reading-level trigger, and one primary send.
-- Under the box: a trust line ("garu can be wrong. Check the sources.") and the keyboard hint, `body-s` 12 in `fg-subtle`.
+- Under the box: the trust line and the keyboard hint, `body-s` 12 in `fg-subtle`.
 
 ## Behaviour
+
 - Enter sends, Shift+Enter adds a line. Send is disabled until there is text.
 - Enter never sends while an input method is still composing a word (`isComposing`), so Hindi, Marathi or Japanese typing with an IME is not cut off mid-word.
-- While streaming, Send becomes Stop (`square`, `aria-label="Stop generating"`) so a person can always interrupt.
-- The reading level sits beside Send so people steer the answer before they ask, not after.
-- Attachments appear as file chips above the text with a remove button.
+- While streaming, Send becomes Stop (`square`, "Stop generating") so a person can always interrupt.
+- Attachments appear as file chips above the text, each with a named remove button.
+
+## Accessibility
+
+**What Naksha provides.** A labelled native textarea; Attach, Dictate, Send and Stop are React Aria buttons with names; files can be added by keyboard through Attach as well as by dropping; Stop stays reachable while generating. Works in Windows High Contrast.
+
+**What the designer decides.** The label, placeholder, trust line and which tools to show.
+
+**What the developer must not break.** Keep Stop wired to a real cancel. Announce the reply in the thread (step 4), not in the composer.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Focus, attachment, streaming (screenshots, forced colours) | Tested |
+| Keyboard (Enter, Shift+Enter, IME composition, send disabled when empty) | Tested |
+| Grows from two lines to eight, then scrolls | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.2 | React component: autosize, IME-safe Enter, Stop, attach by picker or drop. |
+| 0.2.0 | CSS component, v2 audit. |
