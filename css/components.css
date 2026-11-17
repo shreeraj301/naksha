@@ -498,9 +498,11 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-chip svg { width: var(--size-icon-sm); height: var(--size-icon-sm); color: var(--fg-subtle); transition: transform var(--dur-ui) var(--ease-out), color var(--dur-hover) ease; }
 .nk-chip.is-hover { border-color: var(--fg-default); background: var(--state-hover); }
 .nk-chip.is-hover svg { color: var(--fg-default); transform: translateX(2px); }
-.nk-chip:active, .nk-chip.is-active { transform: scale(0.97); }
-@media (hover: hover) and (pointer: fine) { .nk-chip:hover { border-color: var(--fg-default); background: var(--state-hover); } .nk-chip:hover svg { color: var(--fg-default); transform: translateX(2px); } }
-.nk-chip[aria-disabled="true"] { color: var(--fg-disabled); border-color: var(--border-default); cursor: not-allowed; }
+.nk-chip:active:not(:disabled):not(:focus-visible), .nk-chip.is-active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .nk-chip:hover:not(:disabled) { border-color: var(--fg-default); background: var(--state-hover); } .nk-chip:hover:not(:disabled) svg { color: var(--fg-default); transform: translateX(2px); } }
+.nk-chip[aria-disabled="true"], .nk-chip:disabled { color: var(--fg-disabled); border-color: var(--border-default); cursor: not-allowed; }
+.nk-chip:disabled svg { color: var(--fg-disabled); }
+.nk-chip[data-pressed]:not([data-focus-visible]):not(:disabled) { transform: scale(0.97); }
 
 /* ---------- AI: Prompt input ---------- */
 .nk-prompt { width: 100%; max-width: 42.5rem; }
@@ -549,6 +551,39 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-thinking { display: inline-flex; gap: 0.1875rem; }
 .nk-thinking i { width: 0.25rem; height: 0.25rem; background: var(--fg-subtle); animation: nk-pulse 1.2s ease-in-out infinite; }
 .nk-thinking i:nth-child(2) { animation-delay: 160ms; } .nk-thinking i:nth-child(3) { animation-delay: 320ms; }
+
+/* ---------- Thread, response status, generated content ---------- */
+.nk-thread-host { display: flex; flex-direction: column; min-height: 0; }
+.nk-thread { display: flex; flex-direction: column; gap: var(--space-32); min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.nk-msg:focus { outline: none; }
+.nk-msg:focus-visible { outline: var(--border-thick) solid var(--border-focus); outline-offset: var(--space-8); }
+.nk-msg--user { flex-wrap: wrap; }
+.nk-msg__actions--user { flex-basis: 100%; justify-content: flex-end; margin: var(--space-4) calc(var(--space-8) * -1) 0 0; }
+/* A pressed thumb keeps an ink edge, so the choice reads without colour. */
+.nk-msg__actions .nk-iconbtn[aria-pressed="true"] { color: var(--fg-default); background: var(--state-pressed); box-shadow: inset 0 0 0 1px var(--fg-default); }
+button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
+.nk-status { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); margin-top: calc(var(--space-4) * -1); }
+.nk-status__toggle { all: unset; display: inline-flex; align-items: center; gap: var(--space-4); cursor: pointer; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.3;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 0.3em; }
+.nk-status__toggle svg { width: var(--size-icon-sm); height: var(--size-icon-sm); transition: transform var(--dur-ui) var(--ease-out); }
+.nk-status__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nk-status__toggle:hover { color: var(--fg-default); }
+.nk-status__toggle[data-focus-visible] { outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
+/* The trace reads like a drafting leader: one hairline down the left, a mark per step. */
+.nk-trace { list-style: none; margin: 0; padding: var(--space-2) 0 var(--space-2) var(--space-12); border-left: var(--border-hairline) solid var(--border-default); display: flex; flex-direction: column; gap: var(--space-8); }
+.nk-trace__step { display: grid; grid-template-columns: var(--size-icon-sm) 1fr; column-gap: var(--space-8); align-items: start; font-size: 0.8125rem; line-height: 1.45; color: var(--fg-muted); }
+.nk-trace__step > svg, .nk-trace__step > .nk-trace__wait { width: var(--size-icon-sm); height: var(--size-icon-sm); margin-top: calc((1lh - var(--size-icon-sm)) / 2); }
+.nk-trace__step small { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-subtle); }
+.nk-trace__step--running { color: var(--fg-default); }
+.nk-trace__step--failed { color: var(--status-danger-fg); }
+.nk-trace__step--pending { color: var(--fg-subtle); }
+.nk-trace__wait { display: grid; place-items: center; }
+.nk-trace__wait::after { content: ""; width: 0.375rem; height: 0.375rem; border: var(--border-hairline) solid currentColor; }
+.nk-generated { margin: 0; border: var(--border-hairline) solid var(--border-default); background: var(--bg-raised); border-radius: var(--radius-surface); max-width: 64ch; }
+.nk-generated__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: 2.5rem; padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16);
+  border-bottom: var(--border-hairline) solid var(--border-default); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-subtle); }
+.nk-generated__body { padding: var(--space-16); font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.55; }
+.nk-generated__body > :first-child { margin-top: 0; } .nk-generated__body > :last-child { margin-bottom: 0; }
 
 /* ---------- touch and motion ---------- */
 @media (pointer: coarse) {
@@ -606,6 +641,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
   .nk-menu__item.is-hover, .nk-menu__item:focus-visible { background: Highlight; color: HighlightText; }
   .nk-menu__item.is-hover svg, .nk-menu__item:focus-visible svg { color: HighlightText; }
   .nk-table tbody tr.is-hover { outline: 1px solid CanvasText; outline-offset: -1px; }
+  .nk-msg__actions .nk-iconbtn[aria-pressed="true"] { outline: var(--border-hairline) solid Highlight; outline-offset: calc(var(--border-hairline) * -1); }
   /* Fields show focus with a doubled edge drawn as a box-shadow, and forced colours drop box-shadows.
      Draw the second line as an inset outline instead, in Highlight, so focus stays visible. */
   .nk-control:focus-within, .nk-control.is-focus, .nk-control--select[aria-expanded="true"], .nk-prompt__box:focus-within, .nk-prompt__box.is-focus, .nk-prompt__drop[data-drop-target] .nk-prompt__box {

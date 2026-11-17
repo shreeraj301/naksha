@@ -7,7 +7,7 @@ description: Build or review UI with Naksha, Shreeraj Narwade's design system (t
 
 # Naksha
 
-Version 0.2.4.
+Version 0.2.5.
 
 A design system drawn like a set of architectural sheets: paper and ink, square edges, hairline rules, mono sheet labels, and seven section hues that mark where you are. It comes straight from the live portfolio CSS, and it is built for product work: AI tools, fintech, legal and other information-heavy screens.
 
@@ -141,7 +141,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [Breadcrumb](references/components/Breadcrumb.md) | Where you are in the sheet set, in `mono-label` caps like the portfolio's sheet labels. |
 | [Button](references/components/Button.md) | Buttons start an action. One `primary` per region; everything else is `secondary` or `ghost`. |
 | [Card](references/components/Card.md) | A sheet in the set: media, sheet code, title, one line, one link. |
-| [ChatMessage](references/components/ChatMessage.md) | One turn in a conversation with an AI. |
+| [ChatMessage](references/components/ChatMessage.md) | One turn in a conversation with an AI. Put turns in a `Thread`. |
 | [Checkbox](references/components/Checkbox.md) | An on or off choice that takes effect when the form is sent, or "select all" with the indeterminate state. If the change applies at once, use Switch. |
 | [Divider](references/components/Divider.md) | Hairline rules between content, like the lines between sheets on the portfolio. |
 | [DropdownMenu](references/components/DropdownMenu.md) | A list of actions, or a choice, that opens from a trigger: usually a ghost IconButton with `ellipsis`. |
@@ -154,6 +154,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [ProgressBar](references/components/ProgressBar.md) | Progress for tasks longer than about two seconds. 4px `bg-band` track, `fg-default` fill, label and `mono-data` value above. |
 | [PromptInput](references/components/PromptInput.md) | The composer for talking to an AI like garu. |
 | [Radio](references/components/Radio.md) | One choice from a short list where every option stays visible. Use `RadioGroup` with a `Radio` per option. |
+| [ResponseStatus](references/components/ResponseStatus.md) | What an agent did for a reply, as a trace of steps. It replaces the bare thinking dots, so people can see the work and judge it. |
 | [SegmentedControl](references/components/SegmentedControl.md) | Switch between two to four views or modes with every option visible, like the portfolio's Human / Agent toggle. The choice applies at once. |
 | [Select](references/components/Select.md) | Pick one option from a list of five or more. For two to four options use SegmentedControl or RadioGroup, so every choice stays visible. |
 | [Skeleton](references/components/Skeleton.md) | A placeholder in the shape of the content that is loading, so nothing shifts when it arrives. |

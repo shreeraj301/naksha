@@ -37,6 +37,17 @@ export type { TooltipProps } from "./components/Tooltip";
 export { toast, Toaster, Toast } from "./components/Toast";
 export type { ToasterProps, ToastProps, ToastOptions, ToastAction, ToastTone } from "./components/Toast";
 
+export { Thread } from "./components/Thread";
+export type { ThreadProps } from "./components/Thread";
+export { ChatMessage, Generated } from "./components/ChatMessage";
+export type { ChatMessageProps, MessageSource, GeneratedProps } from "./components/ChatMessage";
+export { ResponseStatus } from "./components/ResponseStatus";
+export type { ResponseStatusProps, ResponseStep, StepStatus } from "./components/ResponseStatus";
+export { SourceChip, Cite } from "./components/SourceChip";
+export type { SourceChipProps } from "./components/SourceChip";
+export { SuggestionChip } from "./components/SuggestionChip";
+export type { SuggestionChipProps } from "./components/SuggestionChip";
+
 /** Naksha release, set by the build. */
 export const version: string = typeof __NAKSHA_VERSION__ === "string" ? __NAKSHA_VERSION__ : "dev";
 

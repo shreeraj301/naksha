@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.5 · Phase 1, step 4: the AI set
+
+Thread, ChatMessage, ResponseStatus, SourceChip and SuggestionChip are live React components. ChatMessage and SourceChip match the 0.2.4 screenshots within 4 pixels; ResponseStatus is a new card.
+
+### Added
+- `Thread`, `ChatMessage`, `Cite`, `Generated`, `ResponseStatus`, `SourceChip` and `SuggestionChip` in `naksha` and `window.Naksha`.
+- Thread: a `feed` of named, numbered messages with one Tab stop; arrow keys, Page Up, Page Down, Home and End move between them. While a reply streams the feed is busy; when it finishes it is announced once. The view follows the newest message only while you are at the end, and focus never moves on its own.
+- ResponseStatus: a trace of steps (pending, running, done, failed) behind a mono toggle ("2 of 5 steps, 1 failed"), replacing the bare thinking dots. Each step says its state in words for screen readers. While a reply streams, its running step names the status beside the agent.
+- ChatMessage: sources and actions wait until a reply is done; thumbs say whether they are pressed and keep an ink edge; Try again on failed and finished replies; Edit on a person's turn.
+- Generated: content the agent made for the person to use, in a hairline box in the reading face, with its own copy.
+- SourceChip is read as "Source 1: Schedule A, clause 4.2", and can be a link.
+- Tests: 10 component tests and 2 live browser tests (Chrome's names for sources, moving through the thread, following the newest message without moving focus).
+
+### Changed
+- A disabled SuggestionChip greys its arrow too.
+- A keyboard press no longer scales a SuggestionChip, as with Button.
+- The artifact bundle grows from about 385 KB to 394 KB minified.
+
 ## 0.2.4 · Phase 1, step 3: overlays
 
 DropdownMenu, Modal, Tooltip and Toast are live React components. Their previews render from `bundle.js`; DropdownMenu, Modal and PromptInput match the 0.2.3 screenshots within 4 pixels, and the two differences are listed under Changed.

@@ -285,3 +285,42 @@ test("live Toast under reduced motion: it fades in place, nothing slides", async
   expect(props).not.toContain("transform");
   expect(props).toContain("opacity");
 });
+
+test("live ChatMessage: Chrome names sources by number; arrow keys move through the thread", async ({ page }) => {
+  await page.goto(framed("ChatMessage", "light"));
+  await expect(page.getByRole("button", { name: /^Source\s*1\s*:\s*Schedule A, clause 4\.2$/ })).toBeVisible();
+  const articles = page.getByRole("article");
+  await expect(articles).toHaveCount(4);
+  await articles.last().focus();
+  await page.keyboard.press("Home");
+  await expect(articles.first()).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByRole("article", { name: "garu said" }).first()).toBeFocused();
+});
+
+test("live Thread: stays at the newest message while you are there, never steals focus", async ({ page }) => {
+  await page.goto(framed("SuggestionChip", "light"));
+  await page.evaluate(() => {
+    const N = (window as any).Naksha, R = (window as any).React, D = (window as any).ReactDOM;
+    const host = document.createElement("div");
+    host.style.cssText = "height:300px;display:flex;flex-direction:column";
+    host.id = "thread-host";
+    document.body.append(host);
+    const root = D.createRoot(host);
+    (window as any).__render = (n: number) =>
+      root.render(R.createElement(N.Thread, null, Array.from({ length: n }, (_, i) => R.createElement(N.ChatMessage, { key: i, from: i % 2 ? "assistant" : "user", name: "garu" }, `message ${i + 1} `.repeat(20)))));
+    (window as any).__render(6);
+  });
+  const feed = page.locator("#thread-host .nk-thread");
+  const gap = () => feed.evaluate((el) => el.scrollHeight - el.scrollTop - el.clientHeight);
+  expect(await gap()).toBeLessThan(2);
+  const chip = page.locator(".nk-chip").first();
+  await chip.focus();
+  await page.evaluate(() => (window as any).__render(7));
+  expect(await gap(), "a new message keeps the view at the end").toBeLessThan(2);
+  await expect(chip, "and focus stays where the person left it").toBeFocused();
+  await feed.evaluate((el) => (el.scrollTop = 0));
+  await feed.dispatchEvent("scroll");
+  await page.evaluate(() => (window as any).__render(8));
+  expect(await feed.evaluate((el) => el.scrollTop), "reading older messages: the view stays put").toBe(0);
+});

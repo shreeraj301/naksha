@@ -7,7 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage"><div class="nk-row"><div class="nk-cell"><span class="nk-cap">Default</span><button class="nk-source"><b>1</b><span>Schedule A, clause 4.2</span></button></div><div class="nk-cell"><span class="nk-cap">Hover</span><button class="nk-source is-hover"><b>2</b><span>Page 3, notice period</span></button></div><div class="nk-cell"><span class="nk-cap">Focus</span><button class="nk-source is-focus"><b>3</b><span>gov.in/rent-act</span></button></div></div></div>
-
+<div class="nk-stage"><div class="nk-row"><div class="nk-cell"><span class="nk-cap">Default</span><span data-nk="{&quot;$c&quot;: &quot;SourceChip&quot;, &quot;p&quot;: {&quot;n&quot;: 1, &quot;label&quot;: &quot;Schedule A, clause 4.2&quot;, &quot;onPress&quot;: &quot;$noop&quot;}}" style="display:contents"></span></div><div class="nk-cell"><span class="nk-cap">Hover</span><span data-nk="{&quot;$c&quot;: &quot;SourceChip&quot;, &quot;p&quot;: {&quot;n&quot;: 2, &quot;label&quot;: &quot;Page 3, notice period&quot;, &quot;onPress&quot;: &quot;$noop&quot;, &quot;forceState&quot;: &quot;hover&quot;}}" style="display:contents"></span></div><div class="nk-cell"><span class="nk-cap">Focus</span><span data-nk="{&quot;$c&quot;: &quot;SourceChip&quot;, &quot;p&quot;: {&quot;n&quot;: 3, &quot;label&quot;: &quot;gov.in/rent-act&quot;, &quot;onPress&quot;: &quot;$noop&quot;, &quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span></div></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>
