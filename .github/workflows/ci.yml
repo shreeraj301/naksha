@@ -46,6 +46,10 @@ jobs:
       - run: npm run build
       - run: npm run test:visual
       - if: failure()
+        run: |
+          lscpu | grep -E "Model name|Flags" | cut -c1-200
+          pip install --quiet pillow numpy && python3 tests/visual/diff_report.py
+      - if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: visual-diffs
