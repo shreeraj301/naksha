@@ -1,0 +1,121 @@
+{
+  "$description": "Page grid. Mobile values live in $extensions and apply below the bp.medium breakpoint.",
+  "layout": {
+    "columns": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "The portfolio --cols."
+    },
+    "gutter": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "Page margin and column gutter on desktop (the portfolio --gutter max). 16px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "mobile": {
+            "value": 16,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "unit": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "The portfolio --u max. 8px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "mobile": {
+            "value": 8,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "section": {
+      "$type": "dimension",
+      "$value": {
+        "value": 128,
+        "unit": "px"
+      },
+      "$description": "Gap between page sections on desktop. 64px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "mobile": {
+            "value": 64,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "nav-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "Top nav height."
+    }
+  },
+  "bp": {
+    "$type": "dimension",
+    "$description": "Window classes after Material 3 (compact < 600, medium, expanded, large, extra-large). Min-widths. Use the generated @custom-media or the JS export; CSS variables cannot sit inside a media query.",
+    "medium": {
+      "$value": {
+        "value": 600,
+        "unit": "px"
+      },
+      "$description": "Large phones in landscape, small tablets. Mobile layout values stop here."
+    },
+    "expanded": {
+      "$value": {
+        "value": 840,
+        "unit": "px"
+      },
+      "$description": "Tablets, split view. Two-column layouts start."
+    },
+    "large": {
+      "$value": {
+        "value": 1200,
+        "unit": "px"
+      },
+      "$description": "Laptops. Full 12-column grid."
+    },
+    "xlarge": {
+      "$value": {
+        "value": 1600,
+        "unit": "px"
+      },
+      "$description": "Wide desktops. Content stops growing; margins take the rest."
+    }
+  },
+  "z": {
+    "$type": "number",
+    "nav": {
+      "$value": 50,
+      "$description": "Top nav."
+    },
+    "dropdown": {
+      "$value": 60,
+      "$description": "Menus and popovers."
+    },
+    "overlay": {
+      "$value": 80,
+      "$description": "Scrim and modal."
+    },
+    "toast": {
+      "$value": 90,
+      "$description": "Toasts."
+    },
+    "garu": {
+      "$value": 95,
+      "$description": "The garu dock. The portfolio --z-garu."
+    }
+  }
+}

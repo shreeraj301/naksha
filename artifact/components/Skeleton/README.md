@@ -1,0 +1,5 @@
+# Skeleton
+
+A placeholder in the shape of the content that is loading, so nothing shifts when it arrives.
+
+`bg-band` blocks with a slow 1.5s opacity pulse, no shimmer sweep. Line heights 12, 8 apart. No motion under reduced motion. Set `aria-busy="true"` on the region.

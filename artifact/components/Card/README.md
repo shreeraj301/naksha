@@ -1,0 +1,8 @@
+# Card
+
+A sheet in the set: media, sheet code, title, one line, one link.
+
+## Use
+- The whole card is one link with one tab stop. Media is 16:10, flush to the edges, with a hairline under it. Body padding 20, gaps 8; footer 12 / 20 with a hairline above.
+- Sheet code in `mono-label`, `fg-subtle`; title `title-s`; text `body-m` in `fg-muted`; at most one Tag.
+- Hover darkens the edge to ink, the media settles to 1.02 over 450ms (`ease-settle`) and the arrow moves 3px. Cards never lift or cast shadows.

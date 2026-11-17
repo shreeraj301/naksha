@@ -1,0 +1,8 @@
+# Radio
+
+One choice from a short, visible list.
+
+## Use
+- Group radios in a `<fieldset>` with a `<legend>`. Arrow keys move the choice.
+- The only round control in the system (`radius-round`): the circle carries the meaning "pick one".
+- Selected keeps the 16px ring in `fg-default` and grows a 6px dot over 140ms.

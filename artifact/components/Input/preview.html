@@ -1,0 +1,35 @@
+<!-- @dsCard group="Forms" height=584 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Input · preview</title>
+
+</head>
+<body>
+<div class="sn-stage"><div class="sn-grid" style="grid-template-columns:repeat(3,minmax(220px,280px))"><div class="sn-cell"><span class="sn-cap">Default</span><label class="sn-field"><span class="sn-field__label">Email</span><span class="sn-control"><input placeholder="name@company.com" value=""></span><div class="sn-field__help"><span>We only use this to reply.</span></div></label></div><div class="sn-cell"><span class="sn-cap">Hover</span><label class="sn-field"><span class="sn-field__label">Email</span><span class="sn-control is-hover"><input placeholder="name@company.com" value=""></span><div class="sn-field__help"><span>We only use this to reply.</span></div></label></div><div class="sn-cell"><span class="sn-cap">Focus</span><label class="sn-field"><span class="sn-field__label">Email</span><span class="sn-control is-focus"><input placeholder="" value="alex@exam"></span><div class="sn-field__help"><span>We only use this to reply.</span></div></label></div><div class="sn-cell"><span class="sn-cap">Filled</span><label class="sn-field"><span class="sn-field__label">Email</span><span class="sn-control"><input placeholder="" value="alex@example.com"></span><div class="sn-field__help"><span>We only use this to reply.</span></div></label></div><div class="sn-cell"><span class="sn-cap">Error</span><label class="sn-field sn-field--error"><span class="sn-field__label">Email</span><span class="sn-control"><input placeholder="" value="alex@example"></span><div class="sn-field__help"><svg class="sn-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/> <line x1="12" x2="12" y1="8" y2="12"/> <line x1="12" x2="12.01" y1="16" y2="16"/></svg><span>Add the part after the dot, like example.com.</span></div></label></div><div class="sn-cell"><span class="sn-cap">Disabled</span><label class="sn-field sn-field--disabled"><span class="sn-field__label">Email</span><span class="sn-control"><input placeholder="" value="alex@example.com" disabled></span><div class="sn-field__help"><span>Ask an admin to change this.</span></div></label></div><div class="sn-cell"><span class="sn-cap">Leading icon</span><label class="sn-field"><span class="sn-field__label">Search papers</span><span class="sn-control"><svg class="sn-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m21 21-4.34-4.34"/> <circle cx="11" cy="11" r="8"/></svg><input placeholder="Search by title or clause" value=""></span></label></div><div class="sn-cell"><span class="sn-cap">Small · 32</span><label class="sn-field"><span class="sn-field__label">Name <span class="sn-field__opt">Optional</span></span><span class="sn-control sn-control--sm"><input placeholder="Your name" value=""></span></label></div></div><span class="sn-cap">Spec · label 8 · field 40 · helper 6</span><div class="sn-spec" style="padding:24px 48px 32px"><div data-spec="h,pl,pr" class="sn-control" style="width:280px"><input placeholder="name@company.com"></div></div></div>
+<script>
+function snSpec(wrap){
+  var el = wrap.querySelector('[data-spec]'); if(!el) return;
+  wrap.querySelectorAll('.sn-dim,.sn-pad').forEach(function(n){n.remove();});
+  var W = wrap.getBoundingClientRect(), r = el.getBoundingClientRect(), cs = getComputedStyle(el);
+  var x0 = r.left - W.left, y0 = r.top - W.top, round = function(v){return Math.round(v*10)/10;};
+  function dim(cls, st, label){ var d=document.createElement('span'); d.className='sn-dim '+cls+((st.width!==undefined && st.width<26)?' is-narrow':''); for(var k in st) d.style[k]=st[k]+'px'; d.innerHTML='<b>'+label+'</b>'; wrap.appendChild(d); }
+  function pad(st){ var d=document.createElement('span'); d.className='sn-pad'; for(var k in st) d.style[k]=st[k]+'px'; wrap.appendChild(d); }
+  var want = (el.getAttribute('data-spec')||'h,pl,pr,gap').split(',');
+  var pl=parseFloat(cs.paddingLeft), pr=parseFloat(cs.paddingRight), pt=parseFloat(cs.paddingTop), pb=parseFloat(cs.paddingBottom);
+  if(want.indexOf('h')>-1) dim('sn-dim--v is-left', {left:x0-14, top:y0, height:r.height}, round(r.height));
+  if(want.indexOf('w')>-1) dim('sn-dim--h', {left:x0, top:y0-14, width:r.width}, round(r.width));
+  if(want.indexOf('pl')>-1 && pl){ pad({left:x0, top:y0, width:pl, height:r.height}); dim('sn-dim--h', {left:x0, top:y0+r.height+12, width:pl}, round(pl)); }
+  if(want.indexOf('pr')>-1 && pr){ pad({left:x0+r.width-pr, top:y0, width:pr, height:r.height}); dim('sn-dim--h', {left:x0+r.width-pr, top:y0+r.height+12, width:pr}, round(pr)); }
+  if(want.indexOf('pt')>-1 && pt){ pad({left:x0, top:y0, width:r.width, height:pt}); dim('sn-dim--v', {left:x0+r.width+12, top:y0, height:pt}, round(pt)); }
+  if(want.indexOf('pb')>-1 && pb){ pad({left:x0, top:y0+r.height-pb, width:r.width, height:pb}); dim('sn-dim--v', {left:x0+r.width+12, top:y0+r.height-pb, height:pb}, round(pb)); }
+  if(want.indexOf('gap')>-1){ var kids=[].filter.call(el.children,function(c){return c.offsetParent!==null && getComputedStyle(c).position!=='absolute';});
+    if(kids.length>1){ var a=kids[0].getBoundingClientRect(), b=kids[1].getBoundingClientRect(); var g=b.left-a.right; if(g>0) dim('sn-dim--h is-above', {left:a.right-W.left, top:y0-12, width:g}, round(g)); } }
+}
+function snSpecAll(){ document.querySelectorAll('.sn-spec').forEach(snSpec); }
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ snSpecAll(); setTimeout(snSpecAll, 120); });
+window.addEventListener('resize', snSpecAll);
+</script>
+</body>
+</html>

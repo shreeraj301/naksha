@@ -1,0 +1,263 @@
+{
+  "$description": "Space, radius, size and stroke. A 4px scale with 2 and 6 for optical nudges.",
+  "space": {
+    "$type": "dimension",
+    "0": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "No gap."
+    },
+    "2": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Hairline nudges: segmented padding, kbd inset."
+    },
+    "4": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "Tight gaps: tag dot to label, title to meta."
+    },
+    "6": {
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "Small button gap, field to helper text."
+    },
+    "8": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Icon to label, label to field, menu padding."
+    },
+    "12": {
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Control padding (sm), alert and composer gaps."
+    },
+    "16": {
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Control padding (md), list gaps."
+    },
+    "20": {
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Control padding (lg), card body padding."
+    },
+    "24": {
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Modal padding, card stack gaps."
+    },
+    "32": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Group spacing inside a section."
+    },
+    "40": {
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "Desktop page gutter (the portfolio --gutter max)."
+    },
+    "48": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "Between related blocks."
+    },
+    "64": {
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "Mobile section gap."
+    },
+    "80": {
+      "$value": {
+        "value": 80,
+        "unit": "px"
+      },
+      "$description": "Large breaks."
+    },
+    "96": {
+      "$value": {
+        "value": 96,
+        "unit": "px"
+      },
+      "$description": "Hero breathing room."
+    },
+    "128": {
+      "$value": {
+        "value": 128,
+        "unit": "px"
+      },
+      "$description": "Desktop section gap (8 × --u)."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "$description": "Square by decision: the drawing-sheet edge. The scale exists so a product can soften later by changing radius-control and radius-surface only.",
+    "control": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "Buttons, fields, tags, segmented controls."
+    },
+    "surface": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "Cards, menus, modals, toasts, alerts."
+    },
+    "round": {
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$description": "Only where a circle means something: radio, people avatars, status dots, spinner."
+    },
+    "2": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Reserve."
+    },
+    "4": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "Reserve."
+    },
+    "8": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Reserve."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "control": {
+      "sm": {
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "Small controls (desktop). 36px on touch."
+      },
+      "md": {
+        "$value": {
+          "value": 40,
+          "unit": "px"
+        },
+        "$description": "Default controls (desktop). 44px on touch."
+      },
+      "lg": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "$description": "Large controls (desktop). 52px on touch."
+      },
+      "touch": {
+        "sm": {
+          "$value": {
+            "value": 36,
+            "unit": "px"
+          },
+          "$description": "Small controls under pointer: coarse."
+        },
+        "md": {
+          "$value": {
+            "value": 44,
+            "unit": "px"
+          },
+          "$description": "Default controls under pointer: coarse."
+        },
+        "lg": {
+          "$value": {
+            "value": 52,
+            "unit": "px"
+          },
+          "$description": "Large controls under pointer: coarse."
+        }
+      }
+    },
+    "icon": {
+      "sm": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Icons in sm and md controls."
+      },
+      "md": {
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$description": "Icons in lg controls, alerts, navigation."
+      },
+      "lg": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Standalone icons, empty states."
+      }
+    },
+    "measure": {
+      "$type": "number",
+      "$value": 64,
+      "$description": "Longest line for body-l reading text.",
+      "$extensions": {
+        "dev.naksha": {
+          "unit": "ch"
+        }
+      }
+    }
+  },
+  "border": {
+    "$type": "dimension",
+    "hairline": {
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$description": "Every edge and rule."
+    },
+    "thick": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Focus outline, current-tab rule, focused field edge."
+    }
+  }
+}

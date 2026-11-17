@@ -1,0 +1,5 @@
+# SuggestionChip
+
+A prompt starter, written the way the person would ask.
+
+Up to three, shown before the first message or after an answer, hidden once the person starts typing. Clicking sends the prompt (or fills the composer if it needs editing). `border-strong` edge, `label-s`, 32 tall; the arrow nudges on hover.

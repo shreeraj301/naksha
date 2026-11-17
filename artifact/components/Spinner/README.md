@@ -1,0 +1,5 @@
+# Spinner
+
+An indeterminate wait inside a control or a small area. A quarter arc in `currentColor` over a `border-default` ring, one turn every 900ms, linear (a faster spin reads as a faster app).
+
+Under reduced motion it stops turning and pulses slowly. Give it `role="img"` and `aria-label="Loading"`, or hide it and set `aria-busy` on the region.

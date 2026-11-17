@@ -1,0 +1,700 @@
+{
+  "$description": "Raw palette. Pinned to the portfolio CSS where a value exists. Design with semantic tokens, never these.",
+  "stone": {
+    "$type": "color",
+    "50": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9569,
+          0.9451,
+          0.9216
+        ],
+        "hex": "#f4f1eb"
+      }
+    },
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9255,
+          0.9098,
+          0.8784
+        ],
+        "hex": "#ece8e0"
+      },
+      "$description": "The portfolio --c-on-ink."
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9098,
+          0.8941,
+          0.8627
+        ],
+        "hex": "#e8e4dc"
+      },
+      "$description": "Paper. The portfolio --c-bg."
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8667,
+          0.8471,
+          0.8078
+        ],
+        "hex": "#ddd8ce"
+      },
+      "$description": "Paper two. The portfolio --c-bg-2."
+    },
+    "400": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7412,
+          0.7176,
+          0.6745
+        ],
+        "hex": "#bdb7ac"
+      },
+      "$description": "The portfolio --c-band."
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6549,
+          0.6314,
+          0.5882
+        ],
+        "hex": "#a7a196"
+      },
+      "$description": "The portfolio --c-on-ink-muted."
+    },
+    "600": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4157,
+          0.3961,
+          0.3647
+        ],
+        "hex": "#6a655d"
+      },
+      "$description": "Darkened so placeholder text and control edges hold AA on paper."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3412,
+          0.3255,
+          0.302
+        ],
+        "hex": "#57534d"
+      },
+      "$description": "The portfolio --c-muted."
+    },
+    "800": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2039,
+          0.1922,
+          0.1804
+        ],
+        "hex": "#34312e"
+      }
+    },
+    "850": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1412,
+          0.1333,
+          0.1216
+        ],
+        "hex": "#24221f"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1098,
+          0.1059,
+          0.098
+        ],
+        "hex": "#1c1b19"
+      }
+    },
+    "950": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0824,
+          0.0784,
+          0.0745
+        ],
+        "hex": "#151413"
+      },
+      "$description": "Ink. The portfolio --c-fg."
+    }
+  },
+  "blue": {
+    "$type": "color",
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.898,
+          0.9373,
+          0.9961
+        ],
+        "hex": "#e5effe"
+      }
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8078,
+          0.8745,
+          0.9765
+        ],
+        "hex": "#cedff9"
+      }
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6902,
+          0.8039,
+          0.9686
+        ],
+        "hex": "#b0cdf7"
+      }
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.498,
+          0.6431,
+          0.8549
+        ],
+        "hex": "#7fa4da"
+      },
+      "$description": "The portfolio --v-read."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2706,
+          0.3882,
+          0.5647
+        ],
+        "hex": "#456390"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0902,
+          0.1608,
+          0.2627
+        ],
+        "hex": "#172943"
+      }
+    }
+  },
+  "green": {
+    "$type": "color",
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.902,
+          0.9529,
+          0.8863
+        ],
+        "hex": "#e6f3e2"
+      }
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8118,
+          0.902,
+          0.7804
+        ],
+        "hex": "#cfe6c7"
+      }
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6941,
+          0.8431,
+          0.6471
+        ],
+        "hex": "#b1d7a5"
+      }
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5529,
+          0.749,
+          0.4863
+        ],
+        "hex": "#8dbf7c"
+      },
+      "$description": "The portfolio --v-play."
+    },
+    "600": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4353,
+          0.6039,
+          0.3647
+        ],
+        "hex": "#6f9a5d"
+      },
+      "$description": "The portfolio --v-green."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2627,
+          0.4235,
+          0.2039
+        ],
+        "hex": "#436c34"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0941,
+          0.1882,
+          0.0549
+        ],
+        "hex": "#18300e"
+      }
+    }
+  },
+  "terracotta": {
+    "$type": "color",
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1.0,
+          0.9137,
+          0.8902
+        ],
+        "hex": "#ffe9e3"
+      }
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1.0,
+          0.8235,
+          0.7765
+        ],
+        "hex": "#ffd2c6"
+      }
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1.0,
+          0.7137,
+          0.6314
+        ],
+        "hex": "#ffb6a1"
+      }
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8706,
+          0.4784,
+          0.3686
+        ],
+        "hex": "#de7a5e"
+      },
+      "$description": "The portfolio --v-build."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6118,
+          0.2824,
+          0.1922
+        ],
+        "hex": "#9c4831"
+      }
+    },
+    "800": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4588,
+          0.1922,
+          0.1176
+        ],
+        "hex": "#75311e"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2824,
+          0.0902,
+          0.0353
+        ],
+        "hex": "#481709"
+      }
+    }
+  },
+  "ochre": {
+    "$type": "color",
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9608,
+          0.9333,
+          0.8471
+        ],
+        "hex": "#f5eed8"
+      }
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9216,
+          0.8706,
+          0.7098
+        ],
+        "hex": "#ebdeb5"
+      }
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8745,
+          0.7882,
+          0.5216
+        ],
+        "hex": "#dfc985"
+      }
+    },
+    "400": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8118,
+          0.7176,
+          0.4353
+        ],
+        "hex": "#cfb76f"
+      }
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8863,
+          0.7686,
+          0.3882
+        ],
+        "hex": "#e2c463"
+      },
+      "$description": "The portfolio --v-pause and --action."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4588,
+          0.3686,
+          0.0
+        ],
+        "hex": "#755e00"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2,
+          0.1569,
+          0.0
+        ],
+        "hex": "#332800"
+      }
+    }
+  },
+  "peach": {
+    "$type": "color",
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9843,
+          0.9216,
+          0.8824
+        ],
+        "hex": "#fbebe1"
+      }
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9569,
+          0.8471,
+          0.7765
+        ],
+        "hex": "#f4d8c6"
+      }
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9333,
+          0.7529,
+          0.6353
+        ],
+        "hex": "#eec0a2"
+      }
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9294,
+          0.6902,
+          0.5333
+        ],
+        "hex": "#edb088"
+      },
+      "$description": "The portfolio --v-sit."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5294,
+          0.3373,
+          0.2039
+        ],
+        "hex": "#875634"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2392,
+          0.1294,
+          0.051
+        ],
+        "hex": "#3d210d"
+      }
+    }
+  },
+  "violet": {
+    "$type": "color",
+    "100": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9412,
+          0.9255,
+          0.9843
+        ],
+        "hex": "#f0ecfb"
+      }
+    },
+    "200": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8824,
+          0.851,
+          0.9569
+        ],
+        "hex": "#e1d9f4"
+      }
+    },
+    "300": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8157,
+          0.7608,
+          0.9373
+        ],
+        "hex": "#d0c2ef"
+      }
+    },
+    "500": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6627,
+          0.5882,
+          0.8118
+        ],
+        "hex": "#a996cf"
+      },
+      "$description": "The portfolio --v-plug."
+    },
+    "700": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4157,
+          0.349,
+          0.5333
+        ],
+        "hex": "#6a5988"
+      }
+    },
+    "900": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1765,
+          0.1373,
+          0.2431
+        ],
+        "hex": "#2d233e"
+      }
+    }
+  },
+  "ink": {
+    "$type": "color",
+    "a08": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0824,
+          0.0784,
+          0.0745
+        ],
+        "hex": "#151413",
+        "alpha": 0.0784
+      },
+      "$description": "Ink at 8%. Hover layer on paper."
+    },
+    "a16": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0824,
+          0.0784,
+          0.0745
+        ],
+        "hex": "#151413",
+        "alpha": 0.1608
+      },
+      "$description": "Ink at 16%. The portfolio --c-line."
+    },
+    "a40": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0824,
+          0.0784,
+          0.0745
+        ],
+        "hex": "#151413",
+        "alpha": 0.4
+      },
+      "$description": "Ink at 40%. The portfolio --c-line-strong."
+    }
+  },
+  "paper": {
+    "$type": "color",
+    "a08": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9255,
+          0.9098,
+          0.8784
+        ],
+        "hex": "#ece8e0",
+        "alpha": 0.0784
+      },
+      "$description": "Paper at 8%. Hover layer on ink."
+    },
+    "a16": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9255,
+          0.9098,
+          0.8784
+        ],
+        "hex": "#ece8e0",
+        "alpha": 0.1608
+      },
+      "$description": "Paper at 16%. Hairline on ink."
+    },
+    "a40": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9255,
+          0.9098,
+          0.8784
+        ],
+        "hex": "#ece8e0",
+        "alpha": 0.4
+      },
+      "$description": "Paper at 40%. Strong rule on ink."
+    }
+  },
+  "black": {
+    "$type": "color",
+    "a48": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "hex": "#000000",
+        "alpha": 0.4784
+      },
+      "$description": "Scrim and shadow in dark."
+    }
+  }
+}

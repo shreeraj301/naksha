@@ -1,0 +1,8 @@
+# Tabs
+
+Switch between sibling views of the same thing (Overview / Research / Process).
+
+## Use
+- `label-m` labels in `fg-muted`; the current tab is `fg-default` with a 2px ink rule that slides between tabs on `ease-in-out` over 200ms.
+- Counts sit beside the label in `mono-data`, `fg-subtle`.
+- `role="tablist"`; arrow keys move focus, Enter or Space selects. For actions use Buttons; for filters use SegmentedControl.

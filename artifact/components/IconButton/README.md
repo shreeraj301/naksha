@@ -1,0 +1,11 @@
+# IconButton
+
+A square button that holds one icon, for frequent actions in toolbars, cards and composers.
+
+## Use
+- Always give it an `aria-label` and a Tooltip with the same words. If the action is rare or important, use a Button with a label instead.
+- `ghost` is the default (icon in `fg-muted`, `fg-default` on hover). `primary` for the single send or confirm in a composer. `secondary` when it sits beside secondary buttons.
+- Sizes match Button heights: 32, 40, 48 (36, 44, 52 on touch). Icons are 16, 16, 20.
+
+## States
+Hover adds `state-hover`; pressed scales to 0.94 (a small target needs a slightly bigger squeeze to read). Focus is the system outline. Disabled keeps the shape and drops to `fg-disabled`.

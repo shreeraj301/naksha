@@ -1,0 +1,345 @@
+{
+  "$description": "Semantic colour and elevation for the light theme. Same names in every theme; only the aliases change.",
+  "bg": {
+    "canvas": {
+      "$type": "color",
+      "$value": "{stone.200}",
+      "$description": "Page ground. Everything sits on paper (light) or ink (dark)."
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{stone.300}",
+      "$description": "Wells, table headers, modal footers, the user's chat block."
+    },
+    "raised": {
+      "$type": "color",
+      "$value": "{stone.50}",
+      "$description": "Fields, menus, popovers and composers: anything you type into or that floats."
+    },
+    "band": {
+      "$type": "color",
+      "$value": "{stone.400}",
+      "$description": "Skeletons, progress tracks, media placeholders."
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "Tooltips, toasts, the source number tile."
+    },
+    "disabled": {
+      "$type": "color",
+      "$value": "{stone.300}",
+      "$description": "Fill of a disabled control."
+    }
+  },
+  "state": {
+    "hover": {
+      "$type": "color",
+      "$value": "{ink.a08}",
+      "$description": "Layer over a transparent control on hover."
+    },
+    "pressed": {
+      "$type": "color",
+      "$value": "{ink.a16}",
+      "$description": "Layer on press, and for selected rows."
+    }
+  },
+  "fg": {
+    "default": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "Body text, titles and icons on bg-canvas, bg-subtle and bg-raised. 14.5:1 light, 15:1 dark."
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{stone.700}",
+      "$description": "Secondary text on bg-canvas, bg-subtle and bg-raised. 5.4:1 or better in both themes."
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{stone.600}",
+      "$description": "Placeholders, sheet codes, separators. 4.56:1 on bg-canvas, 5.1:1 on bg-raised. Not on bg-subtle (4.07:1 in light): use fg-muted there."
+    },
+    "disabled": {
+      "$type": "color",
+      "$value": "{stone.500}",
+      "$description": "Text and icons of disabled controls only (exempt from contrast)."
+    },
+    "on-inverse": {
+      "$type": "color",
+      "$value": "{stone.100}",
+      "$description": "Text on bg-inverse and action-primary."
+    },
+    "on-inverse-muted": {
+      "$type": "color",
+      "$value": "{stone.500}",
+      "$description": "Secondary text on bg-inverse. 7.2:1 light, 6.3:1 dark."
+    }
+  },
+  "border": {
+    "default": {
+      "$type": "color",
+      "$value": "{ink.a16}",
+      "$description": "Hairlines: dividers, card and table edges. Decorative, never the only edge of a control."
+    },
+    "strong": {
+      "$type": "color",
+      "$value": "{ink.a40}",
+      "$description": "Emphasised rules, table header rule, composer edge at rest."
+    },
+    "control": {
+      "$type": "color",
+      "$value": "{stone.600}",
+      "$description": "Edges of inputs, checkboxes, switches. 3:1 or better on every ground."
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "The focus outline: 2px solid, 2px offset. 14:1 on paper, 15:1 on ink."
+    }
+  },
+  "action": {
+    "primary": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "Primary button fill. Ink in light, paper in dark."
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{stone.800}",
+      "$description": "Primary button hover."
+    },
+    "primary-pressed": {
+      "$type": "color",
+      "$value": "{stone.700}",
+      "$description": "Primary button pressed."
+    },
+    "on-primary": {
+      "$type": "color",
+      "$value": "{stone.100}",
+      "$description": "Text and icons on action-primary."
+    },
+    "highlight": {
+      "$type": "color",
+      "$value": "{ochre.500}",
+      "$description": "Highlight button and highlight tag. The portfolio --action (pause yellow)."
+    },
+    "highlight-hover": {
+      "$type": "color",
+      "$value": "{ochre.300}",
+      "$description": "Highlight button hover."
+    },
+    "highlight-pressed": {
+      "$type": "color",
+      "$value": "{ochre.400}",
+      "$description": "Highlight button pressed. Ink on it holds 9:1."
+    },
+    "on-highlight": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "Text on action-highlight in both themes. 10.8:1."
+    },
+    "danger": {
+      "$type": "color",
+      "$value": "{terracotta.700}",
+      "$description": "Destructive button fill."
+    },
+    "danger-hover": {
+      "$type": "color",
+      "$value": "{terracotta.800}",
+      "$description": "Destructive button hover. One step darker, not a jump to brown."
+    },
+    "danger-pressed": {
+      "$type": "color",
+      "$value": "{terracotta.900}",
+      "$description": "Destructive button pressed."
+    },
+    "on-danger": {
+      "$type": "color",
+      "$value": "{stone.100}",
+      "$description": "Text on action-danger. 5.1:1 light, 10.9:1 dark."
+    }
+  },
+  "status": {
+    "success-bg": {
+      "$type": "color",
+      "$value": "{green.100}",
+      "$description": "Success surface (alerts, tags)."
+    },
+    "success-fg": {
+      "$type": "color",
+      "$value": "{green.700}",
+      "$description": "Success text and icons on status-success-bg and bg-canvas. 4.8:1 or better."
+    },
+    "success-border": {
+      "$type": "color",
+      "$value": "{green.500}",
+      "$description": "Success edge, dot or bar. Decorative."
+    },
+    "warning-bg": {
+      "$type": "color",
+      "$value": "{ochre.100}",
+      "$description": "Warning surface."
+    },
+    "warning-fg": {
+      "$type": "color",
+      "$value": "{ochre.700}",
+      "$description": "Warning text and icons on status-warning-bg and bg-canvas. 4.9:1 or better."
+    },
+    "warning-border": {
+      "$type": "color",
+      "$value": "{ochre.500}",
+      "$description": "Warning edge, dot or bar. Decorative."
+    },
+    "danger-bg": {
+      "$type": "color",
+      "$value": "{terracotta.100}",
+      "$description": "Error surface."
+    },
+    "danger-fg": {
+      "$type": "color",
+      "$value": "{terracotta.700}",
+      "$description": "Error text, icons and the error edge of a field. 4.9:1 or better."
+    },
+    "danger-border": {
+      "$type": "color",
+      "$value": "{terracotta.500}",
+      "$description": "Error dot or bar. Decorative."
+    },
+    "info-bg": {
+      "$type": "color",
+      "$value": "{blue.100}",
+      "$description": "Info surface."
+    },
+    "info-fg": {
+      "$type": "color",
+      "$value": "{blue.700}",
+      "$description": "Info text and icons on status-info-bg and bg-canvas. 4.8:1 or better."
+    },
+    "info-border": {
+      "$type": "color",
+      "$value": "{blue.500}",
+      "$description": "Info edge, dot or bar. Decorative."
+    }
+  },
+  "section": {
+    "read": {
+      "$type": "color",
+      "$value": "{blue.500}",
+      "$description": "Read (work). Swatches and covers only; never carries text."
+    },
+    "play": {
+      "$type": "color",
+      "$value": "{green.500}",
+      "$description": "Play (experiments). Swatches and covers only."
+    },
+    "build": {
+      "$type": "color",
+      "$value": "{terracotta.500}",
+      "$description": "Build (architecture). Swatches and covers only."
+    },
+    "pause": {
+      "$type": "color",
+      "$value": "{ochre.500}",
+      "$description": "Pause (writing). Swatches and covers only."
+    },
+    "sit": {
+      "$type": "color",
+      "$value": "{peach.500}",
+      "$description": "Sit (about). Swatches and covers only."
+    },
+    "gather": {
+      "$type": "color",
+      "$value": "{stone.500}",
+      "$description": "Gather (contact). Swatches and covers only."
+    },
+    "plug": {
+      "$type": "color",
+      "$value": "{violet.500}",
+      "$description": "Plug (agents and garu). Agent avatars, swatches."
+    }
+  },
+  "overlay": {
+    "scrim": {
+      "$type": "color",
+      "$value": "{ink.a40}",
+      "$description": "Backdrop behind a modal."
+    }
+  },
+  "selection": {
+    "$type": "color",
+    "$value": "{ochre.300}",
+    "$description": "Text selection: a highlighter pen over the drawing."
+  },
+  "spec": {
+    "redline": {
+      "$type": "color",
+      "$value": "{terracotta.700}",
+      "$description": "Dimension lines and numbers in spec drawings. 4.9:1 on paper."
+    }
+  },
+  "shadow": {
+    "overlay": {
+      "$type": "shadow",
+      "$description": "Menus, popovers, toasts, modals. The page is flat; only things that float get this, and they keep their hairline.",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.08235294117647059,
+              0.0784313725490196,
+              0.07450980392156863
+            ],
+            "alpha": 0.18,
+            "hex": "#151413"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 12,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 32,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -8,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0.08235294117647059,
+              0.0784313725490196,
+              0.07450980392156863
+            ],
+            "alpha": 0.12,
+            "hex": "#151413"
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 6,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -2,
+            "unit": "px"
+          }
+        }
+      ]
+    }
+  }
+}

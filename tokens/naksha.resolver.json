@@ -1,0 +1,52 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
+  "name": "Naksha",
+  "version": "2025.10",
+  "description": "How the token files combine. The theme modifier swaps one file; everything else is shared.",
+  "sets": {
+    "base": {
+      "sources": [
+        {
+          "$ref": "primitives/color.tokens.json"
+        },
+        {
+          "$ref": "dimension.tokens.json"
+        },
+        {
+          "$ref": "layout.tokens.json"
+        },
+        {
+          "$ref": "motion.tokens.json"
+        },
+        {
+          "$ref": "typography.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "default": "light",
+      "contexts": {
+        "light": [
+          {
+            "$ref": "themes/light.tokens.json"
+          }
+        ],
+        "dark": [
+          {
+            "$ref": "themes/dark.tokens.json"
+          }
+        ]
+      }
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/base"
+    },
+    {
+      "$ref": "#/modifiers/theme"
+    }
+  ]
+}

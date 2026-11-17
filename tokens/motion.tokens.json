@@ -1,0 +1,78 @@
+{
+  "$description": "UI motion stays under 300ms. Page motion uses the portfolio's longer steps.",
+  "dur": {
+    "$type": "duration",
+    "press": {
+      "$value": {
+        "value": 140,
+        "unit": "ms"
+      },
+      "$description": "Press scale on buttons and chips."
+    },
+    "hover": {
+      "$value": {
+        "value": 150,
+        "unit": "ms"
+      },
+      "$description": "Colour and border changes on hover."
+    },
+    "ui": {
+      "$value": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "$description": "Menus, tooltips, accordion, tab rule. The portfolio --d-1."
+    },
+    "overlay": {
+      "$value": {
+        "value": 280,
+        "unit": "ms"
+      },
+      "$description": "Modals, toasts, sheets entering. Exit at 200ms."
+    },
+    "page": {
+      "$value": {
+        "value": 450,
+        "unit": "ms"
+      },
+      "$description": "Section reveals. The portfolio --d-3."
+    },
+    "hero": {
+      "$value": {
+        "value": 900,
+        "unit": "ms"
+      },
+      "$description": "Hero sequences and seamless loops. The portfolio --d-5."
+    }
+  },
+  "ease": {
+    "$type": "cubicBezier",
+    "out": {
+      "$value": [
+        0.16,
+        1.0,
+        0.3,
+        1.0
+      ],
+      "$description": "Anything entering or responding: menus, toasts, press. The portfolio --e-out."
+    },
+    "settle": {
+      "$value": [
+        0.22,
+        1.0,
+        0.36,
+        1.0
+      ],
+      "$description": "Things settling into place like paper. The portfolio --e-set."
+    },
+    "in-out": {
+      "$value": [
+        0.77,
+        0.0,
+        0.175,
+        1.0
+      ],
+      "$description": "Things moving between two places on screen (tab rule, segmented thumb)."
+    }
+  }
+}

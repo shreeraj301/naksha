@@ -1,0 +1,11 @@
+# Alert
+
+An inline message tied to a page or section. Icon plus words, never colour alone.
+
+## Use
+- Title in 15/600, one sentence of text in `body-m`, at most one action as a Link. Dismiss is a small ghost IconButton labelled "Dismiss".
+- Tint surface (`status-*-bg`), 1px tone edge (`status-*-border`), icon in `status-*-fg`. Text stays `fg-default` for full contrast on every tint.
+- `role="status"` for info and success; `role="alert"` only for errors that block the task.
+
+## Spacing
+Padding 12 / 12 / 12 / 16 (the icon side gets 4 more so the icon's box does not crowd the edge). Icon 20 to text 12. Title to text 2.

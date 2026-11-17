@@ -1,0 +1,8 @@
+# Tooltip
+
+Names an icon-only control or shows its shortcut. Never holds anything a person needs to finish a task.
+
+## Behaviour
+- Appears on hover after 400ms and immediately on keyboard focus; hides on Escape and blur.
+- Once one tooltip is open, neighbours open instantly with no animation, so a toolbar reads fast.
+- Enter: opacity and scale from 0.97 over 125ms, `ease-out`, from the side nearest the trigger. 6px from the trigger. Max width 240.

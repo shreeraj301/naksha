@@ -1,0 +1,7 @@
+# Textarea
+
+A multi-line field for long input, with an optional live character counter.
+
+## Use
+- Same label, helper and error rules as Input. Minimum height 120; it grows with content and then scrolls.
+- The counter is `mono-data` in `fg-subtle`, right-aligned on the helper line ("0 / 6,000", as on the portfolio). Past the limit it turns `status-danger-fg`; announce it with `aria-live="polite"` once within 10% of the limit.

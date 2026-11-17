@@ -1,0 +1,48 @@
+<!-- @dsCard height=320 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shreeraj Narwade</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--bg-canvas); color:var(--fg-default); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:320px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:320px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:320px; }
+  .ink { fill:var(--fg-default); } .read { fill:var(--section-read); } .build { fill:var(--section-build); }
+  .pause { fill:var(--section-pause); } .play { fill:var(--section-play); } .plug { fill:var(--section-plug); }
+  .reg { stroke:var(--border-strong); stroke-width:1; fill:none; }
+  .rule { stroke:var(--border-strong); stroke-width:1; }
+  .words { position:absolute; left:var(--space-40); bottom:var(--space-40); max-width:440px; }
+  .name { margin:0; font-family:var(--font-display); font-weight:800; font-size:112px; line-height:0.9; letter-spacing:-0.015em; color:var(--fg-default); }
+  .tag { margin:var(--space-12) 0 0 3px; font-size:14px; line-height:20px; color:var(--fg-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 320" width="480" height="320">
+<!--
+  blocks      fg-default slab 144x272 bled off the top (ink: the system is paper and ink) · section-build 144x144 · section-read 96x192 · section-pause 96x72 · section-play 48x48 · section-plug 24x24 (agents, kept small) ≈ 33% of 960x320
+  arrangement a strip of sheets on one baseline (y 248, space-48 above the bottom edge), space-24 gutters, like drawings pinned in a row
+  pattern     registration crosses, from "a precise, technical, drafting" system: 8px plus marks at a space-48 diagonal pitch on the ground only
+  scales      every side a multiple of space-24; gutters space-24; pitch space-24 / space-48; corners radius-control (0) everywhere
+-->
+<rect class="ink" x="24" y="-24" width="144" height="272"/>
+<rect class="read" x="192" y="56" width="96" height="192"/>
+<rect class="pause" x="192" y="56" width="96" height="72"/>
+<rect class="build" x="312" y="104" width="144" height="144"/>
+<rect class="play" x="408" y="56" width="48" height="48"/>
+<rect class="plug" x="312" y="80" width="24" height="24"/>
+<line class="rule" x1="0" y1="272.5" x2="480" y2="272.5"/>
+<path class="reg" d="M20 264h8M24 260v8"/><path class="reg" d="M68 264h8M72 260v8"/><path class="reg" d="M116 264h8M120 260v8"/><path class="reg" d="M164 264h8M168 260v8"/><path class="reg" d="M212 24h8M216 20v8"/><path class="reg" d="M212 264h8M216 260v8"/><path class="reg" d="M260 24h8M264 20v8"/><path class="reg" d="M260 264h8M264 260v8"/><path class="reg" d="M308 24h8M312 20v8"/><path class="reg" d="M308 264h8M312 260v8"/><path class="reg" d="M332 48h8M336 44v8"/><path class="reg" d="M356 24h8M360 20v8"/><path class="reg" d="M356 72h8M360 68v8"/><path class="reg" d="M356 264h8M360 260v8"/><path class="reg" d="M380 48h8M384 44v8"/><path class="reg" d="M404 24h8M408 20v8"/><path class="reg" d="M404 264h8M408 260v8"/><path class="reg" d="M452 24h8M456 20v8"/><path class="reg" d="M452 264h8M456 260v8"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Shreeraj<br>Narwade</h1>
+<p class="tag">Paper, ink and seven section hues. A drawing set for product work.</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# ChatMessage
+
+One turn in a conversation with an AI.
+
+## Use
+- The person's turn is a `bg-subtle` block on the right, max 75% wide, no avatar. The agent's turn has a square agent Avatar, its name, an `AI` status in `mono-label`, and no bubble, so long answers read like a page (`body-l`, measure 64ch).
+- Any answer that states a fact carries numbered SourceChips that match superscripts in the text.
+- Actions under an answer: copy, good, bad, try again, as 32px ghost IconButtons with tooltips.
+- Streaming shows "Thinking", three pulsing squares and a block caret. Error says what happened in plain words and offers Try again.
+- garu writes in lowercase. Announce new messages with `aria-live="polite"`.

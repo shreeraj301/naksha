@@ -1,0 +1,8 @@
+# DropdownMenu
+
+A floating list of actions from a trigger (a ghost IconButton with `ellipsis`, or a Select).
+
+## Behaviour
+- Opens 4px from the trigger and scales from 0.97 with opacity over 200ms, `ease-out`, from the corner nearest the trigger. Opened by keyboard: no animation.
+- Focus moves to the first item; arrow keys move, Escape closes and returns focus to the trigger.
+- Items are 32 tall, 8 padding, 16 icon in `fg-muted`, shortcut in `mono-data`. Danger items go last after a separator. Group long menus with a `mono-label` heading; seven items before you group.

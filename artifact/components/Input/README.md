@@ -1,0 +1,14 @@
+# Input
+
+A single-line text field with a visible label above it and helper or error text below.
+
+## Use
+- Always a visible label (`label-s`, `fg-default`). Placeholders show the format, never the label.
+- Mark optional fields with "Optional" in `fg-muted`; do not star required ones.
+- Helper text (`body-s`, `fg-muted`) sits 6px under the field. In error it is replaced by a message that says how to fix the problem, with a `circle-alert` icon, in `status-danger-fg`, linked by `aria-describedby`.
+
+## Anatomy and spacing
+Label to field 8 · field 40 (44 touch) · field padding 12 · icon to text 8 · field to helper 6 · fields in a form 20 apart.
+
+## States
+Rest: `bg-raised` with a 1px `border-control` edge (3:1). Hover: edge `fg-muted`. Focus: the edge doubles to 2px ink (`border-focus`); a field is a box you type into, so it shows focus on its own edge rather than an offset ring. Error: `status-danger-fg` edge. Disabled: `bg-disabled`, `border-default`.

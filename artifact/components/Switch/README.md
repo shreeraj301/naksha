@@ -1,0 +1,7 @@
+# Switch
+
+Turns a setting on or off immediately, with no Save button.
+
+## Use
+- `role="switch"` with `aria-checked`. The label names the setting ("Agent view"), not the action.
+- Track 36 × 20, thumb 12, both square: the system has no rounded controls. The thumb slides 16px over 200ms on `ease-in-out` because it moves between two places.

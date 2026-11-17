@@ -1,0 +1,441 @@
+{
+  "$description": "Four families with one job each. Condensed for display, Archivo for UI, Newsreader for reading, Plex Mono for data.",
+  "font": {
+    "$type": "fontFamily",
+    "display": {
+      "$value": [
+        "Archivo Condensed",
+        "Arial Narrow",
+        "sans-serif"
+      ]
+    },
+    "sans": {
+      "$value": [
+        "Archivo",
+        "system-ui",
+        "sans-serif"
+      ]
+    },
+    "serif": {
+      "$value": [
+        "Newsreader",
+        "Georgia",
+        "serif"
+      ]
+    },
+    "mono": {
+      "$value": [
+        "IBM Plex Mono",
+        "ui-monospace",
+        "monospace"
+      ]
+    },
+    "devanagari": {
+      "$value": [
+        "Noto Sans Devanagari",
+        "sans-serif"
+      ],
+      "$description": "Proposed (ADR 0005). Devanagari text in any style falls back to this. Not shipped yet."
+    }
+  },
+  "weight": {
+    "$type": "fontWeight",
+    "regular": {
+      "$value": 400
+    },
+    "medium": {
+      "$value": 500
+    },
+    "semibold": {
+      "$value": 600
+    },
+    "extrabold": {
+      "$value": 800
+    }
+  },
+  "text": {
+    "$type": "typography",
+    "display-hero": {
+      "$value": {
+        "fontFamily": "{font.display}",
+        "fontSize": {
+          "value": 240,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.extrabold}",
+        "letterSpacing": {
+          "value": -4.8,
+          "unit": "px"
+        },
+        "lineHeight": 0.8
+      },
+      "$description": "One per page: the name on the home sheet. Caps. Fluid in code: clamp(72px, …, 304px).",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Display",
+          "letterSpacingEm": -0.02,
+          "sample": "SHEET 00"
+        }
+      }
+    },
+    "display-xl": {
+      "$value": {
+        "fontFamily": "{font.display}",
+        "fontSize": {
+          "value": 96,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.extrabold}",
+        "letterSpacing": {
+          "value": -1.44,
+          "unit": "px"
+        },
+        "lineHeight": 0.85
+      },
+      "$description": "Section openers. Caps. 40px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Display",
+          "letterSpacingEm": -0.015,
+          "sample": "READ"
+        }
+      }
+    },
+    "display-l": {
+      "$value": {
+        "fontFamily": "{font.display}",
+        "fontSize": {
+          "value": 52,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.extrabold}",
+        "letterSpacing": {
+          "value": -0.52,
+          "unit": "px"
+        },
+        "lineHeight": 0.9
+      },
+      "$description": "Case-study titles, cover names. Caps. 28px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Display",
+          "letterSpacingEm": -0.01,
+          "sample": "FOUND IT"
+        }
+      }
+    },
+    "title-l": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 40,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": {
+          "value": -0.8,
+          "unit": "px"
+        },
+        "lineHeight": 1.1
+      },
+      "$description": "Product page titles. 28px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Title",
+          "letterSpacingEm": -0.02,
+          "sample": "Explain this paper"
+        }
+      }
+    },
+    "title-m": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 28,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": {
+          "value": -0.42,
+          "unit": "px"
+        },
+        "lineHeight": 1.15
+      },
+      "$description": "Modal titles, panel titles. 22px on mobile.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Title",
+          "letterSpacingEm": -0.015,
+          "sample": "Agree to this change?"
+        }
+      }
+    },
+    "title-s": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.semibold}",
+        "letterSpacing": {
+          "value": -0.2,
+          "unit": "px"
+        },
+        "lineHeight": 1.3
+      },
+      "$description": "Card titles, group headers.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Title",
+          "letterSpacingEm": -0.01,
+          "sample": "Upcoming charges"
+        }
+      }
+    },
+    "body-l": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 17,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": -0.051,
+          "unit": "px"
+        },
+        "lineHeight": 1.55
+      },
+      "$description": "Reading text and AI answers. Measure 64ch.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Text",
+          "letterSpacingEm": -0.003,
+          "sample": "Architect turned product designer. I design for how people think and decide."
+        }
+      }
+    },
+    "body-m": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 15,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": 0.0,
+          "unit": "px"
+        },
+        "lineHeight": 1.5
+      },
+      "$description": "Default UI text.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Text",
+          "letterSpacingEm": 0.0,
+          "sample": "The rent moves up by 5% from 1 January."
+        }
+      }
+    },
+    "body-s": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 13,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": 0.026,
+          "unit": "px"
+        },
+        "lineHeight": 1.45
+      },
+      "$description": "Helper text, captions, meta.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Text",
+          "letterSpacingEm": 0.002,
+          "sample": "We never store what you paste."
+        }
+      }
+    },
+    "label-m": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 15,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.medium}",
+        "letterSpacing": {
+          "value": -0.075,
+          "unit": "px"
+        },
+        "lineHeight": 1.2
+      },
+      "$description": "Buttons, tabs, field labels (md and lg).",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Text",
+          "letterSpacingEm": -0.005,
+          "sample": "Save changes"
+        }
+      }
+    },
+    "label-s": {
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 13,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.medium}",
+        "letterSpacing": {
+          "value": 0.0,
+          "unit": "px"
+        },
+        "lineHeight": 1.2
+      },
+      "$description": "Small buttons, field labels (sm), menu shortcuts.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Text",
+          "letterSpacingEm": 0.0,
+          "sample": "Copy link"
+        }
+      }
+    },
+    "mono-label": {
+      "$value": {
+        "fontFamily": "{font.mono}",
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": 0.48,
+          "unit": "px"
+        },
+        "lineHeight": 1.3
+      },
+      "$description": "Sheet codes, tags, column heads, breadcrumbs. Caps, tracked +4% so small capitals stay legible.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Mono",
+          "letterSpacingEm": 0.04,
+          "sample": "RD-01 · FINTECH · 2026"
+        }
+      }
+    },
+    "mono-data": {
+      "$value": {
+        "fontFamily": "{font.mono}",
+        "fontSize": {
+          "value": 13,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": 0.0,
+          "unit": "px"
+        },
+        "lineHeight": 1.45
+      },
+      "$description": "Numbers, amounts, dates, counters, code. Tabular figures.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Mono",
+          "letterSpacingEm": 0.0,
+          "sample": "₹1,250.00   18 DEC 2026"
+        }
+      }
+    },
+    "serif-quote": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 28,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": -0.28,
+          "unit": "px"
+        },
+        "lineHeight": 1.25
+      },
+      "$description": "Pull quotes and poetry (the Pause section).",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Serif",
+          "letterSpacingEm": -0.01,
+          "sample": "A plan reads at a glance or not at all."
+        }
+      }
+    },
+    "serif-body": {
+      "$value": {
+        "fontFamily": "{font.serif}",
+        "fontSize": {
+          "value": 19,
+          "unit": "px"
+        },
+        "fontWeight": "{weight.regular}",
+        "letterSpacing": {
+          "value": 0.0,
+          "unit": "px"
+        },
+        "lineHeight": 1.55
+      },
+      "$description": "Essays. Measure 60ch.",
+      "$extensions": {
+        "dev.naksha": {
+          "group": "Serif",
+          "letterSpacingEm": 0.0,
+          "sample": "Architecture gave me a habit: watch how people move before drawing a wall."
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "dev.naksha": {
+      "fontFiles": [
+        {
+          "family": "Archivo",
+          "file": "fonts/Archivo-Variable.woff2",
+          "weight": "100 900"
+        },
+        {
+          "family": "Archivo Condensed",
+          "file": "fonts/ArchivoCondensed-Variable.woff2",
+          "weight": "100 900"
+        },
+        {
+          "family": "Newsreader",
+          "file": "fonts/Newsreader-Variable.woff2",
+          "weight": "200 800"
+        },
+        {
+          "family": "Newsreader",
+          "file": "fonts/Newsreader-Italic-Variable.woff2",
+          "weight": "200 800",
+          "style": "italic"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "file": "fonts/IBMPlexMono-Regular.woff2",
+          "weight": "400"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "file": "fonts/IBMPlexMono-Medium.woff2",
+          "weight": "500"
+        }
+      ]
+    }
+  }
+}

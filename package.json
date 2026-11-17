@@ -1,0 +1,39 @@
+{
+  "name": "naksha",
+  "version": "0.1.0",
+  "description": "Naksha, the design system of Shreeraj Narwade. Tokens, components and patterns drawn like a set of architectural sheets.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Shreeraj Narwade",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shreeraj301/naksha.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    "./tokens": {
+      "types": "./dist/js/tokens.d.ts",
+      "default": "./dist/js/tokens.js"
+    },
+    "./css": "./dist/css/naksha.css",
+    "./css/components": "./dist/css/components.css",
+    "./css/custom-media": "./dist/css/custom-media.css"
+  },
+  "files": [
+    "dist",
+    "fonts/licenses"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepare": "node scripts/build.mjs",
+    "test": "node scripts/build.mjs && node --test \"tests/*.test.mjs\"",
+    "lint": "stylelint \"css/**/*.css\"",
+    "check": "npm run lint && npm test"
+  },
+  "devDependencies": {
+    "stylelint": "^16.26.1"
+  }
+}
