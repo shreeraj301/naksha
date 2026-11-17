@@ -1,4 +1,8 @@
 import { defineConfig } from "@playwright/test";
+import { resolve } from "node:path";
+
+// Same font rendering on every Linux machine (see tests/visual/fonts.conf).
+process.env.FONTCONFIG_FILE = resolve("tests/visual/fonts.conf");
 
 export default defineConfig({
   testDir: "tests/visual",

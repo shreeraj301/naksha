@@ -31,7 +31,8 @@ jobs:
   visual:
     # Screenshots of every artifact preview (light, dark, forced colours), axe on each,
     # plus reduced-motion and cascade-layer checks. Baselines were made on Ubuntu 24.04
-    # with Playwright 1.63.0 and fonts-inter (it draws the ⌘ ↵ ⇧ ⌫ glyphs no Naksha font has).
+    # with Playwright 1.63.0. tests/visual/fonts.conf pins font rendering, and fonts-inter
+    # draws the ⌘ ↵ ⇧ ⌫ glyphs no Naksha font has.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
