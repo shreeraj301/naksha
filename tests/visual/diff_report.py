@@ -20,3 +20,15 @@ for actual in sorted(glob.glob("test-results/**/*-actual.png", recursive=True)):
 for name, info in rows:
     print(f"{name:45s} {info}")
 print(f"{len(rows)} pairs", file=sys.stderr)
+
+# A small crop of a few pairs, base64-encoded, so the difference can be seen without downloading artifacts.
+import base64, io
+for name in ("Kbd-light", "Button-light", "Breadcrumb-light"):
+    hits = glob.glob(f"test-results/**/{name}-actual.png", recursive=True)
+    if not hits:
+        continue
+    for kind in ("actual", "expected"):
+        im = Image.open(hits[0].replace("-actual.png", f"-{kind}.png")).convert("RGB").crop((0, 0, 480, 120))
+        buf = io.BytesIO()
+        im.quantize(64).save(buf, "PNG", optimize=True)
+        print(f"CROP {name} {kind} {base64.b64encode(buf.getvalue()).decode()}")
