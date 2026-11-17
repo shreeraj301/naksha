@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-17T18:52:15Z",
+    "at": "2026-11-17T19:30:45Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.2.3 (90b9cea): the seven form controls render live from bundle.js; key glyphs are drawn icons.",
+    "note": "Naksha 0.2.4 (0654913): DropdownMenu, Modal, Tooltip and Toast render live from bundle.js; PromptLevel opens its menu.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
