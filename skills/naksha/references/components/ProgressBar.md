@@ -2,6 +2,62 @@
 
 # ProgressBar
 
-Progress for tasks longer than about two seconds. 4px `bg-band` track, `fg-default` fill, label and `mono-data` value above.
+Progress for tasks longer than about two seconds.
 
-`role="progressbar"` with `aria-valuenow`. The fill eases on `ease-settle` over 450ms. Use the indeterminate bar when the length is unknown; Skeleton when layout is known.
+## Usage
+
+```jsx
+import { ProgressBar } from "naksha";
+
+<ProgressBar label="Reading the paper" value={42} />
+<ProgressBar label="Uploading" isIndeterminate />
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `label` | what is in progress |  |
+| `value` | 0 to 100 | 0 |
+| `isIndeterminate` | no known end | `false` |
+| `isCompact` | just the bar; the label is still read | `false` |
+
+## Best practices
+
+- Use the indeterminate bar when the length is unknown, and Skeleton when the layout is known.
+
+## Content
+
+The label says what is happening, as a verb: "Reading the paper".
+
+## Anatomy and spacing
+
+A 4 `bg-band` track and a `fg-default` fill, with the label and a `mono-data` value 8 above.
+
+## States
+
+The fill eases on `ease-settle` over 450ms. The indeterminate bar slides; under reduced motion it pulses.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's ProgressBar: a `progressbar` named by its label, with its value and a percentage as its text.
+
+**What the designer decides.** When to show progress.
+
+**What the developer must not break.** Keep `value` honest: never run it ahead of the work.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Determinate, complete, indeterminate, compact (screenshots) | Tested |
+| Value (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component on React Aria's ProgressBar. |
+| 0.2.0 | CSS component, v2 audit. |

@@ -2,8 +2,61 @@
 
 One to three words of status or category: "Start here", "Live", "Draft", "Due".
 
-## Use
-- Mono caps (`mono-label`), 24px tall, 8 padding, square.
-- Status tones pair colour with a word, never colour alone. Add the 6px dot for live or time-based status.
-- `nk-tag--outline` for neutral categories. A removable filter chip puts a 20px `x` button inside with `aria-label="Remove <label>"`.
+## Usage
+
+```jsx
+import { Tag, TagGroup } from "naksha";
+
+<Tag tone="success" hasDot>Live</Tag>
+<TagGroup label="Categories" items={[{ id: "storage", label: "Storage" }]} onRemove={remove} />
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `Tag` `tone` | `neutral`, `outline`, `inverse`, `highlight`, `success`, `warning`, `danger`, `info` | `neutral` |
+| `Tag` `hasDot` | a small square for live or time-based status | `false` |
+| `TagGroup` `label`, `items` | a named set of `{ id, label }` |  |
+| `TagGroup` `onRemove` | each tag gets a remove button, and Delete removes the focused tag |  |
+
+## Best practices
+
+- Status tones pair colour with a word, never colour alone.
+- `outline` for neutral categories.
 - Not for actions: use Button or SuggestionChip.
+
+## Content
+
+One to three words, set in mono caps.
+
+## Anatomy and spacing
+
+Mono caps (`mono-label`), 24 tall, 8 padding, square. The dot is 6. A removable tag puts a 20 `x` button inside.
+
+## States
+
+Static. In a TagGroup, the focused tag shows the system outline.
+
+## Accessibility
+
+**What Naksha provides.** A Tag is plain text. A TagGroup is React Aria's TagGroup: a named grid you move through with arrow keys, where each remove button is read as "Remove Storage".
+
+**What the designer decides.** Tones and words.
+
+**What the developer must not break.** Use TagGroup, not loose Tags with buttons, for anything people remove.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Removing by keyboard (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React components: Tag, and TagGroup on React Aria's TagGroup. |
+| 0.2.0 | CSS component, v2 audit. |

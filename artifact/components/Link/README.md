@@ -2,7 +2,63 @@
 
 Text that takes you somewhere. Underlined at rest so links never rely on colour alone (WCAG 1.4.1).
 
-## Use
-- The underline is 1px, offset 0.22em, in `border-strong`; it darkens to `fg-default` on hover. A trailing `arrow-right` nudges 2px on hover for "go somewhere" links; use `arrow-up-right` for off-site.
-- `nk-link--muted` for secondary links in meta rows and footers.
+## Usage
+
+```jsx
+import { Link } from "naksha";
+
+<Link href="/read/ledger" iconEnd="arrow-right">Read the case study</Link>
+<Link href="https://notion.so/..." isExternal variant="muted">full report</Link>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `href` | where it goes |  |
+| `isExternal` | opens elsewhere, with `target` and `rel` set | `false` |
+| `variant` | `default`, `muted` | `default` |
+| `iconEnd` | an icon after the text | none |
+| `isDisabled` |  | `false` |
+
+## Best practices
+
+- A trailing `arrow-right` for standalone "go somewhere" links; `arrow-up-right` for off-site.
+- `muted` for secondary links in meta rows and footers.
 - Link text says where it goes: "research notes", never "here".
+
+## Content
+
+Sentence case. The words name the destination.
+
+## Anatomy and spacing
+
+The underline is 1px, offset 0.22em, in `border-strong`. The icon is 1em, 4 after the text.
+
+## States
+
+Hover darkens the underline to `fg-default` and nudges the arrow 2px. Focus is the system outline. Disabled is `fg-disabled` with no underline.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's Link: a real `<a>` with `href`; external links get `rel="noreferrer"`.
+
+**What the designer decides.** The words and the destination.
+
+**What the developer must not break.** Use a Button, not a Link, for actions on the page.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, focus, disabled, inline (screenshots) | Tested |
+| External links (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component on React Aria's Link. |
+| 0.2.0 | CSS component, v2 audit. |

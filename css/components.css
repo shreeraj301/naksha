@@ -230,6 +230,10 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-tag--remove button { all: unset; display: grid; place-items: center; width: 1.25rem; height: 1.25rem; cursor: pointer; color: inherit; opacity: 0.72; }
 .nk-tag--remove button:hover { opacity: 1; background: var(--state-hover); }
 .nk-tag--remove svg { width: 0.75rem; height: 0.75rem; }
+/* TagGroup: the tags flow in their row; React Aria makes the set a grid you move through with arrow keys. */
+.nk-taggroup, .nk-taggroup__list { display: contents; }
+.nk-taggroup .nk-tag { outline: none; cursor: default; }
+.nk-taggroup .nk-tag[data-focus-visible] { outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
 
 /* ---------- Avatar ---------- */
 .nk-avatar { --s: 2rem; display: inline-grid; place-items: center; width: var(--s); height: var(--s); flex: none; overflow: hidden;
@@ -237,6 +241,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
   font-family: var(--font-sans); font-weight: 600; font-size: max(0.625rem, calc(var(--s) * 0.36)); letter-spacing: 0.01em; }
 .nk-avatar svg { width: calc(var(--s) * 0.5); height: calc(var(--s) * 0.5); }
 .nk-avatar--xs { --s: 1.5rem; } .nk-avatar--sm { --s: 2rem; } .nk-avatar--md { --s: 2.5rem; } .nk-avatar--lg { --s: 3rem; }
+.nk-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .nk-avatar--agent { border-radius: var(--radius-control); background: var(--section-plug); color: var(--action-on-highlight); }
 
 /* ---------- Kbd ---------- */
@@ -334,6 +339,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-spin .t { stroke: currentColor; opacity: 0.2; } .nk-spin .a { stroke: currentColor; stroke-linecap: butt; }
 @keyframes nk-rot { to { transform: rotate(360deg); } }
 .nk-skel { background: var(--bg-band); animation: nk-pulse 1.5s ease-in-out infinite; }
+.nk-skel--circle { border-radius: var(--radius-round); flex: none; }
 @keyframes nk-pulse { 50% { opacity: 0.55; } }
 
 /* ---------- Empty state ---------- */
@@ -347,6 +353,9 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 
 /* ---------- Tabs ---------- */
 .nk-tabs { display: flex; gap: var(--space-4); border-bottom: var(--border-hairline) solid var(--border-default); }
+.nk-tabs-root { display: flex; flex-direction: column; }
+.nk-tabpanel { outline: none; }
+.nk-tabpanel[data-focus-visible] { outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
 .nk-tab { all: unset; position: relative; display: inline-flex; align-items: center; gap: var(--space-8); height: var(--size-control-md); padding: 0 var(--space-12); cursor: pointer;
   font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.005em; color: var(--fg-muted); transition: color var(--dur-hover) ease; }
 .nk-tab::after { content: ""; position: absolute; left: var(--space-12); right: var(--space-12); bottom: -1px; height: 2px; background: var(--fg-default); transform: scaleX(0); transition: transform var(--dur-ui) var(--ease-in-out); }
@@ -383,6 +392,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 /* ---------- Accordion ---------- */
 .nk-acc { width: 100%; max-width: 40rem; border-top: var(--border-hairline) solid var(--border-default); }
 .nk-acc__item { border-bottom: var(--border-hairline) solid var(--border-default); }
+.nk-acc__heading { margin: 0; font: inherit; }
 .nk-acc__head { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 2rem 1fr auto; align-items: baseline; gap: var(--space-12); width: 100%; padding: var(--space-20) var(--space-4); cursor: pointer; }
 .nk-acc__idx { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--fg-subtle); }
 .nk-acc__title { font-size: 1.0625rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-default); }
@@ -405,6 +415,9 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 /* ---------- Top nav ---------- */
 .nk-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--space-24); height: var(--layout-nav-height); padding: 0 var(--layout-gutter);
   background: var(--bg-canvas); border-bottom: var(--border-hairline) solid var(--border-default); }
+.nk-nav--compact { --layout-gutter: var(--space-16); }
+/* The menu button is the only navigation on a phone: full ink, not the muted ghost. */
+.nk-nav .nk-iconbtn--ghost { color: var(--fg-default); }
 .nk-nav__id { display: flex; flex-direction: column; gap: var(--space-4); text-decoration: none; color: var(--fg-default); white-space: nowrap; }
 .nk-nav__name { font-family: var(--font-sans); font-weight: 700; font-size: 0.9375rem; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
 .nk-nav__role { font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }

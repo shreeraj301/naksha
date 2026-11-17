@@ -81,7 +81,7 @@ Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the t
 
 ## Roadmap
 
-Phase 0 is done. Phase 1 is under way: Button, IconButton, PromptInput, the seven form controls, the four overlays and the AI set (Thread, ChatMessage, ResponseStatus, SourceChip, SuggestionChip) are React components on React Aria and run live in the artifact. Next: the remaining sixteen, which close Phase 1. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+Phases 0 and 1 are done: all 34 components are React components on React Aria and run live in the artifact. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licence
 

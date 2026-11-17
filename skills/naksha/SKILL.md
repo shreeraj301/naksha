@@ -7,7 +7,7 @@ description: Build or review UI with Naksha, Shreeraj Narwade's design system (t
 
 # Naksha
 
-Version 0.2.5.
+Version 0.3.0.
 
 A design system drawn like a set of architectural sheets: paper and ink, square edges, hairline rules, mono sheet labels, and seven section hues that mark where you are. It comes straight from the live portfolio CSS, and it is built for product work: AI tools, fintech, legal and other information-heavy screens.
 
@@ -135,10 +135,10 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 
 | Component | What it is for |
 | --- | --- |
-| [Accordion](references/components/Accordion.md) | Progressive disclosure for FAQs and dense specs. |
-| [Alert](references/components/Alert.md) | An inline message tied to a page or section. Icon plus words, never colour alone. |
+| [Accordion](references/components/Accordion.md) | Numbered sections that open in place: an FAQ, or the details under a summary. |
+| [Alert](references/components/Alert.md) | A message on the page about the page: saved state, a renewal, a file that would not read. Icon plus words, never colour alone. |
 | [Avatar](references/components/Avatar.md) | A person or an agent, at 24, 32, 40 or 48. |
-| [Breadcrumb](references/components/Breadcrumb.md) | Where you are in the sheet set, in `mono-label` caps like the portfolio's sheet labels. |
+| [Breadcrumb](references/components/Breadcrumb.md) | Where this page sits, in `mono-label` caps like the portfolio's sheet labels. |
 | [Button](references/components/Button.md) | Buttons start an action. One `primary` per region; everything else is `secondary` or `ghost`. |
 | [Card](references/components/Card.md) | A sheet in the set: media, sheet code, title, one line, one link. |
 | [ChatMessage](references/components/ChatMessage.md) | One turn in a conversation with an AI. Put turns in a `Thread`. |
@@ -148,10 +148,10 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [EmptyState](references/components/EmptyState.md) | What a view shows before it has data: what will appear here, and one way to start. |
 | [IconButton](references/components/IconButton.md) | A square button that holds one icon, for frequent actions in toolbars, cards and composers. |
 | [Input](references/components/Input.md) | A single-line text field with a visible label above it and help or an error below. |
-| [Kbd](references/components/Kbd.md) | A keyboard key. Use `<kbd>`, one per key, in `mono-label` sizing without caps transform. |
+| [Kbd](references/components/Kbd.md) | A key on the keyboard. One per key. |
 | [Link](references/components/Link.md) | Text that takes you somewhere. Underlined at rest so links never rely on colour alone (WCAG 1.4.1). |
 | [Modal](references/components/Modal.md) | Blocks the page for one decision that needs full attention. |
-| [ProgressBar](references/components/ProgressBar.md) | Progress for tasks longer than about two seconds. 4px `bg-band` track, `fg-default` fill, label and `mono-data` value above. |
+| [ProgressBar](references/components/ProgressBar.md) | Progress for tasks longer than about two seconds. |
 | [PromptInput](references/components/PromptInput.md) | The composer for talking to an AI like garu. |
 | [Radio](references/components/Radio.md) | One choice from a short list where every option stays visible. Use `RadioGroup` with a `Radio` per option. |
 | [ResponseStatus](references/components/ResponseStatus.md) | What an agent did for a reply, as a trace of steps. It replaces the bare thinking dots, so people can see the work and judge it. |
@@ -159,7 +159,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [Select](references/components/Select.md) | Pick one option from a list of five or more. For two to four options use SegmentedControl or RadioGroup, so every choice stays visible. |
 | [Skeleton](references/components/Skeleton.md) | A placeholder in the shape of the content that is loading, so nothing shifts when it arrives. |
 | [SourceChip](references/components/SourceChip.md) | Ties an AI claim to where it came from: a clause, a page, a URL. |
-| [Spinner](references/components/Spinner.md) | An indeterminate wait inside a control or a small area. A quarter arc in `currentColor` over a `border-default` ring, one turn every 900ms, linear (a faster spin reads as a faster app). |
+| [Spinner](references/components/Spinner.md) | An indeterminate wait inside a control or a small area. |
 | [SuggestionChip](references/components/SuggestionChip.md) | A prompt starter, written the way the person would ask. |
 | [Switch](references/components/Switch.md) | Turns a setting on or off the moment it flips, with no Save button. If the change waits for a form to be sent, use Checkbox. |
 | [Table](references/components/Table.md) | Dense, scannable rows (Found It subscriptions, Ledger statements). |
@@ -168,7 +168,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [Textarea](references/components/Textarea.md) | Several lines of text that grow as people write, with a label, help, an error and an optional character count. For talking to an AI, use PromptInput. |
 | [Toast](references/components/Toast.md) | A short message after an action: "Copied", "Saved", "Subscription cancelled". It comes and goes without taking focus. |
 | [Tooltip](references/components/Tooltip.md) | Names an icon-only control or shows its shortcut. Never holds anything a person needs to finish a task. |
-| [TopNav](references/components/TopNav.md) | The site header from the portfolio: identity left, sectioned nav in the middle, Human / Agent mode right. |
+| [TopNav](references/components/TopNav.md) | The site header from the portfolio: identity left, sectioned nav in the middle, a control on the right. |
 
 The brand book (voice, colour, type, layout, motion, iconography, AI patterns, accessibility): [references/brand-book.md](references/brand-book.md).
 

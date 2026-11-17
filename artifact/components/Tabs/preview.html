@@ -7,7 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage"><div class="nk-cell"><span class="nk-cap">Default</span><div class="nk-tabs" role="tablist"><button class="nk-tab" role="tab" aria-selected="true">Overview</button><button class="nk-tab" role="tab" aria-selected="false">Research <span class="nk-count">22</span></button><button class="nk-tab is-hover" role="tab" aria-selected="false">Process</button><button class="nk-tab" role="tab" aria-selected="false">Outcome</button><button class="nk-tab" role="tab" aria-disabled="true" aria-selected="false">Notes</button></div></div><div class="nk-cell"><span class="nk-cap">Focus</span><div class="nk-tabs" role="tablist"><button class="nk-tab" role="tab" aria-selected="false">Overview</button><button class="nk-tab is-focus" role="tab" aria-selected="true">Research</button><button class="nk-tab" role="tab" aria-selected="false">Process</button></div></div></div>
-
+<div class="nk-stage"><div class="nk-cell"><span class="nk-cap">Default</span><span data-nk="{&quot;$c&quot;: &quot;Tabs&quot;, &quot;p&quot;: {&quot;label&quot;: &quot;Case study sections&quot;, &quot;defaultSelectedKey&quot;: &quot;overview&quot;, &quot;forceHover&quot;: &quot;process&quot;, &quot;items&quot;: [{&quot;id&quot;: &quot;overview&quot;, &quot;label&quot;: &quot;Overview&quot;}, {&quot;id&quot;: &quot;research&quot;, &quot;label&quot;: &quot;Research&quot;, &quot;count&quot;: 22}, {&quot;id&quot;: &quot;process&quot;, &quot;label&quot;: &quot;Process&quot;}, {&quot;id&quot;: &quot;outcome&quot;, &quot;label&quot;: &quot;Outcome&quot;}, {&quot;id&quot;: &quot;notes&quot;, &quot;label&quot;: &quot;Notes&quot;, &quot;isDisabled&quot;: true}]}}" style="display:contents"></span></div><div class="nk-cell"><span class="nk-cap">Focus</span><span data-nk="{&quot;$c&quot;: &quot;Tabs&quot;, &quot;p&quot;: {&quot;label&quot;: &quot;Case study sections, focus&quot;, &quot;defaultSelectedKey&quot;: &quot;research&quot;, &quot;forceFocus&quot;: &quot;research&quot;, &quot;items&quot;: [{&quot;id&quot;: &quot;overview&quot;, &quot;label&quot;: &quot;Overview&quot;}, {&quot;id&quot;: &quot;research&quot;, &quot;label&quot;: &quot;Research&quot;}, {&quot;id&quot;: &quot;process&quot;, &quot;label&quot;: &quot;Process&quot;}]}}" style="display:contents"></span></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); if (v.$html) return h('div', { style: { height: '100%' }, dangerouslySetInnerHTML: { __html: v.$html } }); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>

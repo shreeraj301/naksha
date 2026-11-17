@@ -4,7 +4,65 @@
 
 A sheet in the set: media, sheet code, title, one line, one link.
 
-## Use
-- The whole card is one link with one tab stop. Media is 16:10, flush to the edges, with a hairline under it. Body padding 20, gaps 8; footer 12 / 20 with a hairline above.
-- Sheet code in `mono-label`, `fg-subtle`; title `title-s`; text `body-m` in `fg-muted`; at most one Tag.
-- Hover darkens the edge to ink, the media settles to 1.02 over 450ms (`ease-settle`) and the arrow moves 3px. Cards never lift or cast shadows.
+## Usage
+
+```jsx
+import { Card, Tag } from "naksha";
+
+<Card href="/read/ledger" code="RD-02 · Fintech" tag={<Tag tone="inverse">Start here</Tag>} title="Ledger" media={<img src="/ledger.png" alt="" />} cta="Read the case study">
+  A plain-language bank statement that explains every charge before you have to ask.
+</Card>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `href` | where the whole card goes |  |
+| `title` | the name |  |
+| `children` | one or two sentences |  |
+| `code` | the mono reference: "RD-02 · Fintech" | none |
+| `tag` | one Tag on the right of the code | none |
+| `media` | the picture, 16:10 | none |
+| `cta` | the footer's words, with an arrow | none |
+
+## Best practices
+
+- The whole card is one link with one tab stop: no buttons or other links inside it.
+- At most one Tag.
+
+## Content
+
+The title is the project's name. The text says what it does for someone, not how it was made.
+
+## Anatomy and spacing
+
+Media is 16:10, flush to the edges, with a hairline under it. Body padding 20, gaps 8; footer 12 / 20 with a hairline above. Code in `mono-label`, `fg-subtle`; title `title-s`; text `body-m` in `fg-muted`.
+
+## States
+
+Hover darkens the edge to ink, the media settles to 1.02 over 450ms (`ease-settle`) and the arrow moves 3px. Cards never lift or cast shadows. Focus is the system outline, 3 off the edge.
+
+## Accessibility
+
+**What Naksha provides.** One link, named by everything inside it, with the title as a heading inside.
+
+**What the designer decides.** The picture, the words and where it leads.
+
+**What the developer must not break.** Do not put interactive elements inside; give the media empty alt text when the title says it all.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, focus (screenshots) | Tested |
+| One link with a heading (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component: one React Aria Link. |
+| 0.2.0 | CSS component, v2 audit. |

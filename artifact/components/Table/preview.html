@@ -7,7 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage"><table class="nk-table"><thead><tr><th scope="col">Merchant</th><th scope="col">Category</th><th scope="col">Next charge</th><th scope="col" class="num">Amount</th></tr></thead><tbody><tr><td>Cloud storage</td><td><span class="nk-tag nk-tag--outline">Storage</span></td><td class="muted num" style="text-align:left">18 DEC 2026</td><td class="num">₹130.00</td></tr><tr class="is-hover"><td>Music</td><td><span class="nk-tag nk-tag--outline">Media</span></td><td class="muted num" style="text-align:left">21 DEC 2026</td><td class="num">₹119.00</td></tr><tr aria-selected="true"><td>Design tool</td><td><span class="nk-tag nk-tag--outline">Work</span></td><td class="muted num" style="text-align:left">02 JAN 2027</td><td class="num">₹1,250.00</td></tr><tr><td>News</td><td><span class="nk-tag nk-tag--warning"><span class="nk-tag__dot"></span>Due</span></td><td class="muted num" style="text-align:left">19 DEC 2026</td><td class="num">₹249.00</td></tr></tbody><tfoot><tr><td colspan="3">Monthly total</td><td class="num">₹1,748.00</td></tr></tfoot></table></div>
-
+<div class="nk-stage"><span data-nk="{&quot;$c&quot;: &quot;Table&quot;, &quot;p&quot;: {&quot;label&quot;: &quot;Subscriptions&quot;, &quot;columns&quot;: [{&quot;id&quot;: &quot;merchant&quot;, &quot;label&quot;: &quot;Merchant&quot;}, {&quot;id&quot;: &quot;category&quot;, &quot;label&quot;: &quot;Category&quot;}, {&quot;id&quot;: &quot;next&quot;, &quot;label&quot;: &quot;Next charge&quot;, &quot;isMuted&quot;: true, &quot;isMono&quot;: true}, {&quot;id&quot;: &quot;amount&quot;, &quot;label&quot;: &quot;Amount&quot;, &quot;isNumeric&quot;: true}], &quot;rows&quot;: [{&quot;id&quot;: &quot;cloud&quot;, &quot;merchant&quot;: &quot;Cloud storage&quot;, &quot;category&quot;: {&quot;$c&quot;: &quot;Tag&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Storage&quot;, &quot;tone&quot;: &quot;outline&quot;}}, &quot;next&quot;: &quot;18 DEC 2026&quot;, &quot;amount&quot;: &quot;₹130.00&quot;}, {&quot;id&quot;: &quot;music&quot;, &quot;merchant&quot;: &quot;Music&quot;, &quot;category&quot;: {&quot;$c&quot;: &quot;Tag&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Media&quot;, &quot;tone&quot;: &quot;outline&quot;}}, &quot;next&quot;: &quot;21 DEC 2026&quot;, &quot;amount&quot;: &quot;₹119.00&quot;}, {&quot;id&quot;: &quot;design&quot;, &quot;merchant&quot;: &quot;Design tool&quot;, &quot;category&quot;: {&quot;$c&quot;: &quot;Tag&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Work&quot;, &quot;tone&quot;: &quot;outline&quot;}}, &quot;next&quot;: &quot;02 JAN 2027&quot;, &quot;amount&quot;: &quot;₹1,250.00&quot;}, {&quot;id&quot;: &quot;news&quot;, &quot;merchant&quot;: &quot;News&quot;, &quot;category&quot;: {&quot;$c&quot;: &quot;Tag&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Due&quot;, &quot;tone&quot;: &quot;warning&quot;, &quot;hasDot&quot;: true}}, &quot;next&quot;: &quot;19 DEC 2026&quot;, &quot;amount&quot;: &quot;₹249.00&quot;}], &quot;footer&quot;: [&quot;Monthly total&quot;, &quot;₹1,748.00&quot;], &quot;selectedId&quot;: &quot;design&quot;, &quot;forceHover&quot;: &quot;music&quot;}}" style="display:contents"></span></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); if (v.$html) return h('div', { style: { height: '100%' }, dangerouslySetInnerHTML: { __html: v.$html } }); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>

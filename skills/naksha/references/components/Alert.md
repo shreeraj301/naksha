@@ -2,12 +2,68 @@
 
 # Alert
 
-An inline message tied to a page or section. Icon plus words, never colour alone.
+A message on the page about the page: saved state, a renewal, a file that would not read. Icon plus words, never colour alone.
 
-## Use
-- Title in 15/600, one sentence of text in `body-m`, at most one action as a Link. Dismiss is a small ghost IconButton labelled "Dismiss".
-- Tint surface (`status-*-bg`), 1px tone edge (`status-*-border`), icon in `status-*-fg`. Text stays `fg-default` for full contrast on every tint.
-- `role="status"` for info and success; `role="alert"` only for errors that block the task.
+## Usage
 
-## Spacing
-Padding 12 / 12 / 12 / 16 (the icon side gets 4 more so the icon's box does not crowd the edge). Icon 20 to text 12. Title to text 2.
+```jsx
+import { Alert } from "naksha";
+
+<Alert tone="warning" title="Renews in 3 days" onDismiss={hide}>
+  Your cloud storage plan renews on 18 December for ₹130.
+</Alert>
+<Alert tone="danger" title="Could not read this file" action={{ label: "Paste text instead", onPress: paste }}>
+  Try a PDF under 10 MB, or paste the text instead.
+</Alert>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `tone` | `neutral`, `info`, `success`, `warning`, `danger` | `neutral` |
+| `title` | what happened, in a few words |  |
+| `children` | what it means or what to do |  |
+| `action` | `{ label, href }` or `{ label, onPress }`: one next step, as a link | none |
+| `onDismiss` | shows a Dismiss button |  |
+
+## Best practices
+
+- One alert per section, at the top of what it is about.
+- `danger` only for errors that block the task. A passing confirmation is a Toast.
+
+## Content
+
+Title in sentence case, no full stop. One or two sentences of text that say what to do.
+
+## Anatomy and spacing
+
+Padding 12 / 12 / 12 / 16 (the icon side gets 4 more so the icon's box does not crowd the edge). Icon 20 to text 12 · title to text 2 · action 6 below. Tint surface (`status-*-bg`), 1px tone edge, icon in `status-*-fg`; text stays `fg-default` for full contrast on every tint.
+
+## States
+
+Static. The Dismiss button is a small ghost IconButton.
+
+## Accessibility
+
+**What Naksha provides.** `role="alert"` for danger, which interrupts a screen reader; `role="status"` for the rest, which waits its turn. The icon is decorative; the title carries the meaning. Dismiss is named.
+
+**What the designer decides.** The tone, the words and the one action.
+
+**What the developer must not break.** Do not use `danger` for something that is only informative: it interrupts.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Every tone, with and without action (screenshots) | Tested |
+| Roles and dismiss (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component. |
+| 0.2.0 | CSS component, v2 audit. |

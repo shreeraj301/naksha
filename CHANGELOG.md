@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0 · Phase 1 done: every component is live
+
+Phase 1, step 5: the last sixteen components are React components, so all 34 previews in the artifact render from `bundle.js`. Their previews match the 0.2.5 screenshots within 4 pixels.
+
+### Added
+- `Accordion`, `Alert`, `Avatar`, `Breadcrumb`, `Card`, `Divider`, `EmptyState`, `Kbd`, `Link`, `ProgressBar`, `Skeleton`, `Table`, `Tabs`, `Tag` and `TagGroup`, and `TopNav`, in `naksha` and `window.Naksha`. React Aria underneath where a component has behaviour: DisclosureGroup, Breadcrumbs, Link, ProgressBar, Separator, Tabs and TagGroup.
+- Accordion titles are headings with buttons; a closed panel takes no space but stays findable with the browser's find.
+- Alert: `role="alert"` for danger only, `role="status"` for the rest.
+- Avatar with a name is a named image ("garu, AI" for agents); without one it is hidden.
+- Kbd is a real `<kbd>`, with drawn, named keys.
+- TagGroup: removable tags you move through with arrow keys; Delete removes the focused one.
+- Tests: 13 component tests for the sixteen.
+
+### Changed
+- Spinner `size` is `sm`, `md` and `lg` (16, 24, 32); `md` is the default. Before, `lg` drew 24.
+- TopNav's phone menu button is full ink, as the static preview had it.
+- The artifact bundle grows from about 394 KB to 460 KB minified.
+
 ## 0.2.5 · Phase 1, step 4: the AI set
 
 Thread, ChatMessage, ResponseStatus, SourceChip and SuggestionChip are live React components. ChatMessage and SourceChip match the 0.2.4 screenshots within 4 pixels; ResponseStatus is a new card.

@@ -4,7 +4,70 @@
 
 Dense, scannable rows (Found It subscriptions, Ledger statements).
 
-## Use
-- A real `<table>` with `<th scope="col">`. Header is `mono-label` in `fg-muted` on `bg-subtle` with a `border-strong` rule; rows are 48 with hairlines.
+## Usage
+
+```jsx
+import { Table, Tag } from "naksha";
+
+<Table
+  label="Subscriptions"
+  columns={[
+    { id: "merchant", label: "Merchant" },
+    { id: "next", label: "Next charge", isMuted: true, isMono: true },
+    { id: "amount", label: "Amount", isNumeric: true },
+  ]}
+  rows={[{ id: "cloud", merchant: "Cloud storage", next: "18 DEC 2026", amount: "₹130.00" }]}
+  footer={["Monthly total", "₹130.00"]}
+/>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `label` | names the table |  |
+| `columns` | `{ id, label, cell?, isNumeric?, isMuted?, isMono? }[]` |  |
+| `rows` | objects with an `id`; a cell shows `row[column.id]` unless `cell` is given |  |
+| `footer` | a totals row; the first entry spans the leading columns | none |
+| `selectedId` | the row marked as chosen | none |
+
+## Best practices
+
 - Numbers and dates in `mono-data` with tabular figures; amounts right-aligned so decimals line up.
-- Hover is `state-hover`; selected is `state-pressed` plus `aria-selected`. Totals sit in a `<tfoot>` under a strong rule.
+- For rows people select, sort or act on, a grid comes in Phase 2.
+
+## Content
+
+Column labels are one or two words. Dates as "18 DEC 2026".
+
+## Anatomy and spacing
+
+Header is `mono-label` in `fg-muted` on `bg-subtle` with a `border-strong` rule; rows are 48 with hairlines; cells 16 in. Totals sit in a `<tfoot>` under a strong rule.
+
+## States
+
+Hover is `state-hover`; the selected row is `state-pressed`.
+
+## Accessibility
+
+**What Naksha provides.** A real `<table>` named by its label, with `<th scope="col">` headers, so screen readers read the column with every cell.
+
+**What the designer decides.** Columns and their order.
+
+**What the developer must not break.** Keep it a table of facts: interactive rows need the grid.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, selected, footer (screenshots, forced colours) | Tested |
+| Headers and footer (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component: a semantic table. |
+| 0.2.0 | CSS component, v2 audit. |

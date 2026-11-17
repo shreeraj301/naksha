@@ -7,10 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage"><div class="nk-row"><span class="nk-kbd"><svg class="nk-i" role="img" aria-label="Command" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
-</svg></span><span class="nk-kbd">K</span><span class="nk-kbd">Esc</span><span class="nk-kbd"><svg class="nk-i" role="img" aria-label="Enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 4v7a4 4 0 0 1-4 4H4"/> <path d="m9 10-5 5 5 5"/>
-</svg></span><span class="body-s" style="color:var(--fg-muted)">Press <span class="nk-kbd"><svg class="nk-i" role="img" aria-label="Command" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
-</svg></span> <span class="nk-kbd">K</span> to ask garu</span></div></div>
-
+<div class="nk-stage"><div class="nk-row"><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;⌘&quot;}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;K&quot;}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Esc&quot;}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;↵&quot;}}" style="display:contents"></span><span class="body-s" style="color:var(--fg-muted)">Press <span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;⌘&quot;}}" style="display:contents"></span> <span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;K&quot;}}" style="display:contents"></span> to ask garu</span></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); if (v.$html) return h('div', { style: { height: '100%' }, dangerouslySetInnerHTML: { __html: v.$html } }); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>

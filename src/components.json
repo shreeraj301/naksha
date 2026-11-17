@@ -1,1 +1,1 @@
-["Button","IconButton","PromptInput","Input","Textarea","Select","Checkbox","Radio","Switch","SegmentedControl","DropdownMenu","Modal","Tooltip","Toast","ChatMessage","ResponseStatus","SourceChip","SuggestionChip"]
+["Button","IconButton","PromptInput","Input","Textarea","Select","Checkbox","Radio","Switch","SegmentedControl","DropdownMenu","Modal","Tooltip","Toast","ChatMessage","ResponseStatus","SourceChip","SuggestionChip","Accordion","Alert","Avatar","Breadcrumb","Card","Divider","EmptyState","Kbd","Link","ProgressBar","Skeleton","Spinner","Table","Tabs","Tag","TopNav"]

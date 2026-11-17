@@ -2,9 +2,69 @@
 
 # TopNav
 
-The site header from the portfolio: identity left, sectioned nav in the middle, Human / Agent mode right.
+The site header from the portfolio: identity left, sectioned nav in the middle, a control on the right.
 
-## Use
-- 64 tall (`layout-nav-height`), side padding `layout-gutter`, hairline under.
-- Each item is a 12px section swatch (`section-*`) over a two-line `mono-label`. The current page gets a 2px ink rule and `aria-current="page"`; hover draws the rule in `border-strong` from the left.
-- Slides up on scroll down and returns on scroll up. On mobile it collapses to identity plus a 44px menu button (`aria-expanded`) that opens a full-screen sheet.
+## Usage
+
+```jsx
+import { TopNav, SegmentedControl } from "naksha";
+
+<TopNav
+  name="Shreeraj Narwade"
+  role="Product Designer / Design Engineer"
+  items={[{ label: "Read", sub: "Work", href: "/read", section: "read", isCurrent: true }]}
+  trailing={<SegmentedControl label="View" variant="quiet" options={views} />}
+/>
+<TopNav name="Shreeraj Narwade" isCompact onMenu={openMenu} isMenuOpen={open} />
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `name`, `role`, `homeHref` | identity on the left |  |
+| `items` | `{ label, sub?, href, section, isCurrent? }[]`; `section` picks the colour square |  |
+| `trailing` | a control on the right | none |
+| `isCompact`, `onMenu`, `isMenuOpen` | the phone version: identity and a menu button |  |
+
+Not built yet: hiding on scroll down (and returning on scroll up), and the full-screen menu sheet the phone button opens. The product does these for now.
+
+## Best practices
+
+- Six sections at most, each a colour from the section palette.
+
+## Content
+
+Labels are one word in mono caps; the line under says what the section holds.
+
+## Anatomy and spacing
+
+64 tall (`layout-nav-height`), side padding `layout-gutter` (16 when compact), hairline under. Each item is a 12 section square over a two-line `mono-label`.
+
+## States
+
+The current page gets a 2px ink rule; hover draws the rule in `border-strong` from the left.
+
+## Accessibility
+
+**What Naksha provides.** A `<header>` with a named `nav` of real links; the current section has `aria-current="page"`. The phone menu button says whether the menu is open.
+
+**What the designer decides.** The sections and their colours.
+
+**What the developer must not break.** Set `isCurrent` on the section that holds the page.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, current, compact (screenshots, forced colours) | Tested |
+| Current page, menu state (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component. |
+| 0.2.0 | CSS component, v2 audit. |

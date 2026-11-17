@@ -1,11 +1,11 @@
 # Naksha roadmap
 
-Updated 18 Nov 2026, after Phase 1 step 4. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
+Updated 18 Nov 2026, at the end of Phase 1. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
 
 | Phase | What | Status |
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
-| 1 | React components on React Aria, running live in the artifact | Steps 0 to 4 done (0.2.5); step 5 next |
+| 1 | React components on React Aria, running live in the artifact | Done (0.3.0) |
 | 2 | Components still missing | Scope written when Phase 1 ends |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
@@ -93,6 +93,8 @@ Status: done in 0.2.5. Thread, ChatMessage (with Cite and Generated), ResponseSt
 
 Accordion (Disclosure), Alert, Avatar, Breadcrumb, Card, Divider (Separator), EmptyState, Kbd, Link, ProgressBar, Skeleton, Spinner, Table, Tabs, Tag (TagGroup), TopNav.
 
+Status: done in 0.3.0. All sixteen render live, and their previews match the 0.2.5 screenshots within 4 pixels. Table is a semantic `<table>` rather than React Aria's grid: a table you read needs no grid keys, and a grid for rows people select or sort belongs in Phase 2. Tag is plain; TagGroup (React Aria) is for tags people remove. Not yet: TopNav hiding on scroll and its phone menu sheet.
+
 ### Phase 1 is done when
 
 - All 34 previews (33, plus ResponseStatus from step 4) and the cover render from the bundle, in both themes.
@@ -100,6 +102,14 @@ Accordion (Disclosure), Alert, Avatar, Breadcrumb, Card, Divider (Separator), Em
 - axe: zero serious or critical issues across all previews.
 - Every component has typed props in `index.d.ts`, a README with usage rules, and tests for keyboard use and states.
 - CI is green and the artifact is republished. Version 0.3.0.
+
+Result, 0.3.0:
+
+- All 34 component previews render from the bundle in both themes. The cover stays a static composition: it is the brand page, not a component.
+- Every screenshot difference since 0.2.0 is listed and explained in the changelog.
+- axe reports zero serious or critical issues on every preview, in both themes.
+- Every component has typed props in `index.d.ts` and a README on the one template. Every component with keyboard behaviour or states has tests for them (71 component tests, 102 browser and screenshot tests).
+- Still open across Phase 1: a manual screen reader pass, and checks on real phones.
 
 ---
 

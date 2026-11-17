@@ -1,7 +1,57 @@
 # Kbd
 
-A keyboard key. Use `<kbd>`, one per key, in `mono-label` sizing without caps transform.
+A key on the keyboard. One per key.
 
-A 1px `border-strong` edge with a 2px bottom gives the key a little depth without a shadow.
+## Usage
 
-Modifier and editing keys (⌘ ↵ ⇧ ⌫) are drawn icons (`command`, `corner-down-left`, `arrow-big-up`, `delete`), not font characters: no Naksha font has them. Inside a key they are 1em with a 2 stroke, which draws a 1px line at 12px, the same weight the set has at 16px. Give each one a name for screen readers ("Command", "Enter", "Shift", "Delete").
+```jsx
+import { Kbd } from "naksha";
+
+<p>Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to ask garu</p>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `children` | one key: "K", "Esc", "⌘" |  |
+
+## Best practices
+
+- One `Kbd` per key; put a space between keys pressed together.
+- Write shortcuts for the platform the person is on.
+
+## Content
+
+Letters in capitals, named keys in title case ("Esc", "Tab").
+
+## Anatomy and spacing
+
+`mono-label` sizing without caps transform, a 1px `border-strong` edge with a 2px bottom, so the key has a little depth without a shadow. Modifier and editing keys (⌘ ↵ ⇧ ⌫) are drawn icons (`command`, `corner-down-left`, `arrow-big-up`, `delete`), not font characters: no Naksha font has them. Inside a key they are 1em with a 2 stroke, which draws a 1px line at 12px, the same weight the set has at 16px.
+
+## States
+
+Static.
+
+## Accessibility
+
+**What Naksha provides.** A real `<kbd>`. Drawn keys are images named for screen readers ("Command", "Enter", "Shift", "Delete").
+
+**What the designer decides.** Which shortcut to show.
+
+**What the developer must not break.** Do not show a shortcut that does not work on the platform.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Drawn keys are named (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component, a real `<kbd>`. |
+| 0.2.0 | CSS component, v2 audit. |

@@ -1,8 +1,67 @@
 # Accordion
 
-Progressive disclosure for FAQs and dense specs.
+Numbered sections that open in place: an FAQ, or the details under a summary.
 
-## Use
-- The header is a `<button aria-expanded>` inside a heading. A `mono-label` index (01, 02) keeps the sheet rhythm; drop it when order means nothing.
-- The plus turns 45° into an x when open (200ms, `ease-out`). Panel text is `body-m` in `fg-muted`, indented to the title.
-- Rows are 20 top and bottom, hairline between.
+## Usage
+
+```jsx
+import { Accordion } from "naksha";
+
+<Accordion
+  items={[
+    { id: "receipts", title: "What does Found It do with my receipts?", content: "It reads the merchant, the date and the amount, and keeps them on your phone." },
+    { id: "wrong", title: "Can garu be wrong?", content: "Yes. Every answer cites the clause or page it came from." },
+  ]}
+  defaultExpanded={["wrong"]}
+/>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `items` | `{ id, title, content }[]`, numbered 01, 02 in order |  |
+| `defaultExpanded` | ids open at first | none |
+| `allowsMultipleExpanded` | several open at once | `false` |
+| `headingLevel` | 2, 3 or 4, to fit the page outline | 3 |
+
+## Best practices
+
+- Use it when people scan the titles and open one or two. If most people need every section, show them open.
+- The mono index (01, 02) keeps the sheet rhythm; it is decoration, not a step order.
+
+## Content
+
+Titles are questions or nouns in sentence case. Answers start with the answer: "Yes." before the reason.
+
+## Anatomy and spacing
+
+Rows are 20 top and bottom with a hairline between. Index column 32 · title 17, semibold · the plus is 20, on the right. Panel text is `body-m` in `fg-muted`, indented to the title, 64ch at most.
+
+## States
+
+The plus turns 45° into an x when open (200ms, `ease-out`). Hover underlines the title. Focus is the system outline on the row.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's DisclosureGroup: each title is a heading holding a button with `aria-expanded` that controls its panel. Enter and Space open and close it. A closed panel takes no space but stays findable with the browser's find.
+
+**What the designer decides.** The questions, their order, and which one starts open.
+
+**What the developer must not break.** Keep the heading level in step with the page around it.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, open, focus (screenshots) | Tested |
+| Keyboard, one open at a time (component tests) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component on React Aria's DisclosureGroup. Titles are headings. |
+| 0.2.0 | CSS component, v2 audit. |

@@ -2,4 +2,59 @@
 
 A placeholder in the shape of the content that is loading, so nothing shifts when it arrives.
 
-`bg-band` blocks with a slow 1.5s opacity pulse, no shimmer sweep. Line heights 12, 8 apart. No motion under reduced motion. Set `aria-busy="true"` on the region.
+## Usage
+
+```jsx
+import { Skeleton } from "naksha";
+
+<div aria-busy="true" aria-label="Loading your subscriptions">
+  <Skeleton shape="circle" width={40} height={40} />
+  <Skeleton height={12} width="60%" />
+</div>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `width` | px as a number, or a CSS length | `100%` |
+| `height` | px as a number, or a CSS length | 12 |
+| `shape` | `rect`, `circle` | `rect` |
+
+## Best practices
+
+- Match the real layout, so nothing jumps when the content arrives.
+
+## Content
+
+None: it carries no words. Say what is loading on the region.
+
+## Anatomy and spacing
+
+`bg-band` blocks. Text lines are 12 tall, 8 apart.
+
+## States
+
+A slow 1.5s opacity pulse, no shimmer sweep. Under reduced motion it pulses once and stops.
+
+## Accessibility
+
+**What Naksha provides.** Hidden from screen readers.
+
+**What the designer decides.** The shapes.
+
+**What the developer must not break.** Put `aria-busy="true"` and a name on the region that is loading.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.0 | React component. |
+| 0.2.0 | CSS component, v2 audit. |
