@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-17T16:46:48Z",
+    "at": "2026-11-17T17:27:58Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.2.0 (ad06420): breakpoints and fluid grid measured from the portfolio, display-xl 100px, cover reads Naksha, roadmap added.",
+    "note": "Naksha 0.2.1 (7eb50ce): live component bundle and React 18.3.1, nk- prefix, cascade layers, rem, forced colours, new reduced-motion rule.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
