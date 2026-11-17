@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-17T19:48:28Z",
+    "at": "2026-11-17T20:06:31Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.2.5 (12dfd52): the AI set renders live from bundle.js; new ResponseStatus card.",
+    "note": "Naksha 0.3.0 (19b7fb2): Phase 1 done. All 34 components render live from bundle.js.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
