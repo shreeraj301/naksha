@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-17T17:27:58Z",
+    "at": "2026-11-17T18:16:52Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.2.1 (7eb50ce): live component bundle and React 18.3.1, nk- prefix, cascade layers, rem, forced colours, new reduced-motion rule.",
+    "note": "Naksha 0.2.2 (ce8ea8f): Button, IconButton and PromptInput previews now render the real React Aria components from bundle.js.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
