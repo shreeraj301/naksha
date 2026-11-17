@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-17T16:26:08Z",
+    "at": "2026-11-17T16:46:48Z",
     "by": "Shreeraj Narwade",
-    "note": "Renamed to Naksha. Published from GitHub shreeraj301/naksha 0.1.0 (5f678a9): tokens.json, tokens.css, bundle.css and CHANGELOG now come from the repo build; adds breakpoint tokens.",
+    "note": "Naksha 0.2.0 (ad06420): breakpoints and fluid grid measured from the portfolio, display-xl 100px, cover reads Naksha, roadmap added.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
