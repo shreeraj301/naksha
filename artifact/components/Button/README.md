@@ -11,17 +11,17 @@ Buttons start an action. One `primary` per region; everything else is `secondary
 ## Anatomy and spacing
 | Size | Height (touch) | Padding | Gap | Label | Icon |
 | --- | --- | --- | --- | --- | --- |
-| `sn-btn--sm` | 32 (36) | 12 | 6 | `label-s` | 16 |
+| `nk-btn--sm` | 32 (36) | 12 | 6 | `label-s` | 16 |
 | default | 40 (44) | 16 | 8 | `label-m` | 16 |
-| `sn-btn--lg` | 48 (52) | 20 | 8 | `label-m` | 20 |
+| `nk-btn--lg` | 48 (52) | 20 | 8 | `label-m` | 20 |
 
-Add `sn-btn--lead` / `sn-btn--trail` when an icon sits on that side: the padding drops 2px so the drawn glyph, not its 16px box, lines up with text above it.
+Add `nk-btn--lead` / `nk-btn--trail` when an icon sits on that side: the padding drops 2px so the drawn glyph, not its 16px box, lines up with text above it.
 
 ## States
 Hover darkens (`action-primary-hover`) or adds `state-hover`. Pressed scales to 0.97 in 140ms (`dur-press`, `ease-out`) so the button feels like it heard you. Focus is the system outline (2px `border-focus`, 2px off). Disabled uses `bg-disabled` and `fg-disabled`; prefer explaining why over disabling. Loading keeps the label, swaps the leading icon for a Spinner and sets `aria-busy="true"`, so the width never jumps.
 
 ## Accessibility
-Use `<button>` for actions and `<a class="sn-btn">` only for navigation. Hover styles live behind `(hover: hover) and (pointer: fine)`; touch heights grow to 44px.
+Use `<button>` for actions and `<a class="nk-btn">` only for navigation. Hover styles live behind `(hover: hover) and (pointer: fine)`; touch heights grow to 44px.
 
 ## Do / Don't
 | Do | Don't |

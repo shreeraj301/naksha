@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,9 +19,34 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm run typecheck
       - run: npm test
+      - run: npm run check:skill
       - uses: actions/upload-artifact@v4
         with:
           name: naksha-dist
           path: dist/
           retention-days: 30
+
+  visual:
+    # Screenshots of every artifact preview (light, dark, forced colours), axe on each,
+    # plus reduced-motion and cascade-layer checks. Baselines were made on Ubuntu 24.04
+    # with Playwright 1.63.0 and fonts-inter (it draws the ⌘ ↵ ⇧ ⌫ glyphs no Naksha font has).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: sudo apt-get update && sudo apt-get install -y fonts-inter
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test:visual
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: test-results/
+          retention-days: 14

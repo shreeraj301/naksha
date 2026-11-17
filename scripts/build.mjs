@@ -42,35 +42,57 @@ export function build(src = SRC, out = OUT) {
   for (const d of ["css", "js", "artifact", "fonts"]) mkdirSync(join(out, d), { recursive: true });
 
   // ---------- CSS ----------
-  const decl = (map, t, fluid = false) => `  --${t.name}: ${fluid && t.ext.fluid ? t.ext.fluid : cssDecl(map, t)};`;
+  // Products get rem (grows with the reader's browser font size, ADR 0010); the artifact keeps px.
+  const KEEP_PX = (t) => t.path[0] === "border" || t.path[0] === "bp" || t.name === "radius-round";
+  const toRem = (css) => css.replace(/(-?\d*\.?\d+)px\b/g, (m, n) => (Number(n) === 0 ? "0" : `${Number((Number(n) / 16).toFixed(4))}rem`));
+  const remOf = (t, css, rem) => (rem && t.type === "dimension" && !KEEP_PX(t) ? toRem(css) : css);
+  const decl = (map, t, { fluid = false, rem = false } = {}) => `  --${t.name}: ${fluid && t.ext.fluid ? t.ext.fluid : remOf(t, cssDecl(map, t), rem)};`;
   const themedFor = (theme) => [...maps[theme].values()].filter((t) => themed.has(t.path.join(".")));
   const order = ["space", "radius", "size", "layout", "bp", "border", "dur", "ease", "z"];
   const sharedVars = order.flatMap(byTop).filter((t) => t.type !== "color");
-  const typeClass = (t) => {
+  const typeClass = (t, { fluid = false, rem = false } = {}) => {
     const v = resolveToken(light, t);
     const fam = aliasPath(t.value.fontFamily).replace("font.", "");
-    return `.${t.path.at(-1)} { font-family: var(--font-${fam}); font-size: ${cssValue("dimension", v.fontSize)}; line-height: ${v.lineHeight}; font-weight: ${v.fontWeight}; letter-spacing: ${t.ext.letterSpacingEm}em; }`;
+    let size = cssValue("dimension", v.fontSize);
+    if (rem) size = toRem(size);
+    if (fluid && t.ext.fluid) size = t.ext.fluid;
+    return `.${t.path.at(-1)} { font-family: var(--font-${fam}); font-size: ${size}; line-height: ${v.lineHeight}; font-weight: ${v.fontWeight}; letter-spacing: ${t.ext.letterSpacingEm}em; }`;
   };
   const fontFace = (f, prefix) =>
     `@font-face { font-family: "${f.family}"; src: url("${prefix}${basename(f.file)}") format("woff2"); font-weight: ${f.weight}; font-style: ${f.style ?? "normal"}; font-display: swap; }`;
+  const LAYERS = "@layer naksha.tokens, naksha.base, naksha.components;";
+  const wrap = (layer, body, on) => (on ? `@layer ${layer} {\n${body}\n}` : body);
 
-  const cssBody = (fontPrefix, { mediaDark, fluid }) => {
+  // naksha.css (products): layered, rem, fluid, dark follows the OS when no data-theme is set.
+  // artifact tokens.css: the artifact's own format, unlayered, px, fixed sizes.
+  const cssBody = (fontPrefix, { product }) => {
     const L = [HEADER];
+    if (product) L.push(LAYERS);
     for (const f of fonts) L.push(fontFace(f, fontPrefix));
+    const T = [];
     const lightVars = [...shared.filter(isPrimColor), ...themedFor(source.defaultTheme)].map((t) => decl(light, t));
-    L.push(`:root, [data-theme="${source.defaultTheme}"] {\n${lightVars.join("\n")}\n}`);
+    T.push(`:root, [data-theme="${source.defaultTheme}"] {\n${lightVars.join("\n")}\n}`);
     for (const th of themes.filter((x) => x !== source.defaultTheme)) {
       const vars = themedFor(th).map((t) => decl(maps[th], t)).join("\n");
-      L.push(`[data-theme="${th}"] {\n${vars}\n}`);
-      if (mediaDark && th === "dark") L.push(`@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {\n${vars.replaceAll("\n", "\n  ").replace(/^/, "  ")}\n  }\n}`);
+      T.push(`[data-theme="${th}"] {\n${vars}\n}`);
+      if (product && th === "dark") T.push(`@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {\n${vars.replaceAll("\n", "\n  ").replace(/^/, "  ")}\n  }\n}`);
     }
-    const rest = [...sharedVars.map((t) => decl(light, t, fluid)), ...byTop("font").map((t) => decl(light, t)), ...byTop("weight").map((t) => decl(light, t))];
-    L.push(`:root {\n${rest.join("\n")}\n}`);
-    for (const t of typeStyles) L.push(typeClass(t));
+    const opt = { fluid: product, rem: product };
+    const rest = [...sharedVars.map((t) => decl(light, t, opt)), ...byTop("font").map((t) => decl(light, t)), ...byTop("weight").map((t) => decl(light, t))];
+    T.push(`:root {\n${rest.join("\n")}\n}`);
+    if (product) T.push(`@media (prefers-reduced-motion: reduce) {\n  :root {\n    --dur-press: 0ms;\n    --dur-overlay: 150ms;\n    --dur-page: 150ms;\n    --dur-hero: 150ms;\n  }\n}`);
+    L.push(wrap("naksha.tokens", T.join("\n"), product));
+    const B = typeStyles.map((t) => typeClass(t, opt));
+    if (product) {
+      const bp = resolveToken(light, light.get("bp.medium"));
+      const steps = typeStyles.filter((t) => t.ext.mobile).map((t) => `  .${t.path.at(-1)} { font-size: ${toRem(cssValue("dimension", t.ext.mobile))}; }`);
+      if (steps.length) B.push(`@media (max-width: ${bp.value - 0.02}px) {\n${steps.join("\n")}\n}`);
+    }
+    L.push(wrap("naksha.base", B.join("\n"), product));
     return L.join("\n") + "\n";
   };
 
-  writeFileSync(join(out, "css/naksha.css"), cssBody("../fonts/", { mediaDark: true, fluid: true }));
+  writeFileSync(join(out, "css/naksha.css"), cssBody("../fonts/", { product: true }));
   const cm = byTop("bp").map((t) => {
     const v = resolveToken(light, t);
     return `@custom-media --bp-${t.path[1]} (min-width: ${v.value}${v.unit});`;
@@ -131,7 +153,7 @@ export function build(src = SRC, out = OUT) {
 
   // ---------- Claude artifact ----------
   // The artifact type requires this exact first line, dash included.
-  writeFileSync(join(out, "artifact/tokens.css"), cssBody("fonts/", { mediaDark: false, fluid: false }).replace(HEADER, `/* ${NAME} — generated from tokens.json */`));
+  writeFileSync(join(out, "artifact/tokens.css"), cssBody("fonts/", { product: false }).replace(HEADER, `/* ${NAME} — generated from tokens.json */`));
   const desc = (top) => source.base.map((f) => f.tree[top]?.$description).find(Boolean);
   const aval = (map, t) => (isAlias(t.value) ? `{${aliasPath(t.value).replaceAll(".", "-")}}` : cssValue(t.type, resolveToken(map, t), t.ext));
   const list = (top) => byTop(top).filter((t) => t.type !== "color").map((t) => ({ name: t.name, value: aval(light, t), usage: t.description }));

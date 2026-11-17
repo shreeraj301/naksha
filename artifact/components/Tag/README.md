@@ -5,5 +5,5 @@ One to three words of status or category: "Start here", "Live", "Draft", "Due".
 ## Use
 - Mono caps (`mono-label`), 24px tall, 8 padding, square.
 - Status tones pair colour with a word, never colour alone. Add the 6px dot for live or time-based status.
-- `sn-tag--outline` for neutral categories. A removable filter chip puts a 20px `x` button inside with `aria-label="Remove <label>"`.
+- `nk-tag--outline` for neutral categories. A removable filter chip puts a 20px `x` button inside with `aria-label="Remove <label>"`.
 - Not for actions: use Button or SuggestionChip.

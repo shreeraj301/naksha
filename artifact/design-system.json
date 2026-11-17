@@ -310,8 +310,17 @@
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
-  "libraries": [],
-  "namespace": "SN",
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18.3.1"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.3.1"
+    }
+  ],
+  "namespace": "Naksha",
   "sections": {},
   "title": "Naksha",
   "v": 3

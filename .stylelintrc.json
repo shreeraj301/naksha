@@ -1,14 +1,55 @@
 {
   "rules": {
-    "color-no-hex": [true, { "message": "Use a colour token: var(--bg-canvas), var(--fg-default) and so on." }],
-    "color-named": ["never", { "message": "Use a colour token, not a named colour." }],
-    "function-disallowed-list": [["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch", "color"], { "message": "Use a colour token. Raw colour functions belong in tokens/ only." }],
+    "color-no-hex": [
+      true,
+      {
+        "message": "Use a colour token: var(--bg-canvas), var(--fg-default) and so on."
+      }
+    ],
+    "color-named": [
+      "never",
+      {
+        "message": "Use a colour token, not a named colour."
+      }
+    ],
+    "function-disallowed-list": [
+      [
+        "rgb",
+        "rgba",
+        "hsl",
+        "hsla",
+        "hwb",
+        "lab",
+        "lch",
+        "oklab",
+        "oklch",
+        "color"
+      ],
+      {
+        "message": "Use a colour token. Raw colour functions belong in tokens/ only."
+      }
+    ],
     "declaration-property-value-disallowed-list": [
-      { "/^(padding|margin|gap|row-gap|column-gap)(-.+)?$/": ["/(^|[^0-9.-])-?([3-9]|[1-9][0-9]+)px/"] },
-      { "message": "Use a space token (var(--space-*)). 1px and 2px are allowed for hairline alignment." }
+      {
+        "/.*/": [
+          "/(^|[^0-9.])([3-9]|[1-9][0-9]+)(\\.[0-9]+)?px/"
+        ]
+      },
+      {
+        "message": "Use rem (px / 16) or a token. px is only for 1px and 2px hairlines and optical nudges."
+      }
     ],
     "declaration-property-unit-allowed-list": [
-      { "/^transition(-duration)?$/": ["ms", "s"], "/^animation(-duration)?$/": ["ms", "s"] }
+      {
+        "/^transition(-duration)?$/": [
+          "ms",
+          "s"
+        ],
+        "/^animation(-duration)?$/": [
+          "ms",
+          "s"
+        ]
+      }
     ],
     "comment-no-empty": true
   }

@@ -10,6 +10,7 @@ The composer for talking to an AI like garu.
 
 ## Behaviour
 - Enter sends, Shift+Enter adds a line. Send is disabled until there is text.
+- Enter never sends while an input method is still composing a word (`isComposing`), so Hindi, Marathi or Japanese typing with an IME is not cut off mid-word.
 - While streaming, Send becomes Stop (`square`, `aria-label="Stop generating"`) so a person can always interrupt.
 - The reading level sits beside Send so people steer the answer before they ask, not after.
 - Attachments appear as file chips above the text with a remove button.

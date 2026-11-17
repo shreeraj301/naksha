@@ -5,7 +5,7 @@ Updated 17 Nov 2026, after the design-system research. Each phase ends with a do
 | Phase | What | Status |
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
-| 1 | React components on React Aria, running live in the artifact | Next |
+| 1 | React components on React Aria, running live in the artifact | Step 0 done (0.2.1); step 1 next |
 | 2 | Components still missing | Scope written when Phase 1 ends |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
@@ -46,6 +46,10 @@ Changed on 17 Nov 2026 by the research in [`research/design-systems-2026-11.md`]
 8. **Layout-only overrides.** Components accept a `styles` prop limited to margin, width, flex and grid placement, position and z-index. Nothing reaches colour or inner padding. Recorded as an ADR.
 9. **Reduced motion.** Replace "every transition at 1ms" with: no movement (slide, scale), short fades kept, durations capped.
 10. **The Naksha skill.** The build generates an Agent Skill (`skills/naksha/SKILL.md`) and a marked block for a product's `AGENTS.md` / `CLAUDE.md` from the tokens, brand book and component READMEs. No MCP server. Reviews follow one evidence rule: every finding cites a file, line or rendered state; missing evidence is "not inspected", never a pass.
+
+Status: done in 0.2.1, except that the real artifact load is confirmed on the next publish (the bundle already loads in a frame that copies the artifact's).
+
+Found on the way: the ⌘ ↵ ⇧ ⌫ glyphs in Kbd, DropdownMenu, IconButton, Tooltip and PromptInput are in none of Naksha's fonts, so every reader sees a system fallback. Step 2 draws them as icons.
 
 Done when: an empty bundle loads in the artifact with no errors; CI runs unit, accessibility and screenshot tests; previews look identical after the rem and layer changes; and an agent given only the Naksha skill can answer "which token is the page background in dark mode" and "what does PromptInput do on Enter while composing".
 

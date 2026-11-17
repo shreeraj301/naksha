@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.2.1 · Phase 1, step 0
+
+Groundwork for React components. Nothing in the artifact previews changes: all 68 (34 components, light and dark) match the 0.2.0 screenshots within 4 pixels.
+
+### Added
+- Tooling: TypeScript, esbuild, Vitest, Playwright screenshot tests with axe on every preview, all pinned to releases at least two weeks old.
+- Artifact plumbing: `components/bundle.js` (one classic script, `window.Naksha`), `components/index.d.ts`, React 18.3.1 in `components/lib`. Namespace `Naksha`.
+- `layoutStyle()` and the `LayoutStyles` type: components will accept layout overrides only (ADR 0009).
+- Windows High Contrast support. Radio dots, switch thumbs, selected segments, tab and nav underlines, progress bars, menu highlights and skeletons now show in forced colours. Fifteen components have forced-colour screenshots.
+- The Naksha Agent Skill (`skills/naksha`) and `naksha init-agents`, which writes a marked rules block into a product's AGENTS.md and CLAUDE.md.
+- ADRs 0009 (layout-only overrides) and 0010 (CSS architecture).
+
+### Changed
+- `naksha.css` and `components.css` sit in cascade layers (`naksha.tokens`, `naksha.base`, `naksha.components`).
+- Spacing, sizes and type are written in rem in `naksha.css`, and every length above 2px in `components.css` is rem. Token names are unchanged. The artifact keeps px.
+- Display styles and `title-m` are fluid in `naksha.css`, copied from the portfolio's clamps; `title-l` steps to 28px below 600px.
+- Reduced motion: nothing moves, but colour and opacity changes keep their timing (was: every transition at 1ms).
+- Class prefix `sn-` is now `nk-`.
+- PromptInput's README states that Enter never sends while an input method is composing.
+
 ## 0.2.0 · Decisions closed
 
 ### Changed

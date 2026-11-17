@@ -69,12 +69,17 @@
         },
         "lineHeight": 0.8
       },
-      "$description": "One per page: the name on the home sheet. Caps. Fluid in code: clamp(72px, …, 304px).",
+      "$description": "One per page: the name on the home sheet. Caps. Fluid 72px to 304px, the portfolio --t-mega clamp; 240px is the size shown in the artifact.",
       "$extensions": {
         "dev.naksha": {
           "group": "Display",
           "letterSpacingEm": -0.02,
-          "sample": "SHEET 00"
+          "sample": "SHEET 00",
+          "fluid": "clamp(4.5rem, 0.6rem + 17vw, 19rem)",
+          "min": {
+            "value": 72,
+            "unit": "px"
+          }
         }
       }
     },
@@ -92,12 +97,17 @@
         },
         "lineHeight": 0.85
       },
-      "$description": "Section openers. Caps. 100px at the largest, 40px on mobile: the portfolio --t-xl clamp (2.5rem to 6.25rem).",
+      "$description": "Section openers. Caps. Fluid 40px to 100px, the portfolio --t-xl clamp.",
       "$extensions": {
         "dev.naksha": {
           "group": "Display",
           "letterSpacingEm": -0.015,
-          "sample": "READ"
+          "sample": "READ",
+          "fluid": "clamp(2.5rem, 1.2rem + 5.4vw, 6.25rem)",
+          "min": {
+            "value": 40,
+            "unit": "px"
+          }
         }
       }
     },
@@ -115,12 +125,17 @@
         },
         "lineHeight": 0.9
       },
-      "$description": "Case-study titles, cover names. Caps. 28px on mobile.",
+      "$description": "Case-study titles, cover names. Caps. Fluid 28px to 52px, the portfolio --t-l clamp.",
       "$extensions": {
         "dev.naksha": {
           "group": "Display",
           "letterSpacingEm": -0.01,
-          "sample": "FOUND IT"
+          "sample": "FOUND IT",
+          "fluid": "clamp(1.75rem, 1.25rem + 2.1vw, 3.25rem)",
+          "min": {
+            "value": 28,
+            "unit": "px"
+          }
         }
       }
     },
@@ -138,12 +153,16 @@
         },
         "lineHeight": 1.1
       },
-      "$description": "Product page titles. 28px on mobile.",
+      "$description": "Product page titles. 40px, stepping to 28px below bp.medium (the portfolio has no clamp for this size).",
       "$extensions": {
         "dev.naksha": {
           "group": "Title",
           "letterSpacingEm": -0.02,
-          "sample": "Explain this paper"
+          "sample": "Explain this paper",
+          "mobile": {
+            "value": 28,
+            "unit": "px"
+          }
         }
       }
     },
@@ -161,12 +180,17 @@
         },
         "lineHeight": 1.15
       },
-      "$description": "Modal titles, panel titles. 22px on mobile.",
+      "$description": "Modal titles, panel titles. Fluid 20px to 28px, the portfolio --t-m clamp.",
       "$extensions": {
         "dev.naksha": {
           "group": "Title",
           "letterSpacingEm": -0.015,
-          "sample": "Agree to this change?"
+          "sample": "Agree to this change?",
+          "fluid": "clamp(1.25rem, 1.08rem + 0.7vw, 1.75rem)",
+          "min": {
+            "value": 20,
+            "unit": "px"
+          }
         }
       }
     },

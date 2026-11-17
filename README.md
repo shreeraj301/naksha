@@ -29,11 +29,24 @@ I trained as an architect before I designed software. A good plan reads at a gla
 import { color, space, dur, ease, cssVar } from "naksha/tokens";
 
 color.dark["bg-canvas"];   // "#151413"
-space["16"];               // 16
+space["16"];               // 16 (px at the default root; the CSS writes 1rem)
 cssVar("fg-muted");        // "var(--fg-muted)"
 ```
 
-## One source, three outputs
+Naksha's CSS sits in cascade layers, so your own CSS wins without `!important`. Sizes are in rem, so they grow with the reader's browser font size. It works in Windows High Contrast and respects reduced motion.
+
+## Use it with AI agents
+
+Naksha ships an Agent Skill, generated from the same sources as the CSS.
+
+```sh
+npx skills add shreeraj301/naksha --skill naksha          # install the skill for your agent
+npx github:shreeraj301/naksha init-agents . --agent claude   # add the Naksha rules block to AGENTS.md and CLAUDE.md
+```
+
+The block sits between `NAKSHA:START` and `NAKSHA:END`; running the command again refreshes it and never touches anything else in the file.
+
+## One source, four outputs
 
 ```
 tokens/                     W3C DTCG 2025.10, the only place values are edited
@@ -45,8 +58,9 @@ artifact/                   hand-made artifact files: component previews, brand 
 css/components.css          the component stylesheet
 
 npm run build  ->  dist/css        CSS variables, themes, fonts, type classes, @custom-media
-                   dist/js         ES module + TypeScript types
-                   dist/artifact   the whole Claude artifact: artifact/ + generated tokens, CSS, fonts
+                   dist/js         ES module + TypeScript types (tokens, and the React layer)
+                   dist/artifact   the whole Claude artifact: artifact/ + generated tokens, CSS, fonts, bundle.js, React 18.3.1
+                   skills/naksha   the Agent Skill (committed, so it can be installed from GitHub)
 ```
 
 ## Work on it
@@ -54,8 +68,10 @@ npm run build  ->  dist/css        CSS variables, themes, fonts, type classes, @
 ```sh
 npm install
 npm run build    # write dist/
-npm test         # build, then check aliases, DTCG shapes, contrast in both themes, and that one change reaches every output
-npm run lint     # no raw colours or stray pixel spacing in css/
+npm test             # build, then token checks (aliases, DTCG, contrast in both themes, propagation), skill checks, unit tests
+npm run test:visual  # every preview in light, dark and forced colours against saved screenshots, axe on each
+npm run lint         # no raw colours, no px above 2 in css/
+npm run check        # all of the above plus the type check
 ```
 
 ## Decisions
@@ -64,7 +80,7 @@ Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the t
 
 ## Roadmap
 
-Phase 0 (repo, tokens, build, tests, decisions) is done. Phase 1 puts every component on React Aria and runs the real components inside the artifact. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+Phase 0 is done, and Phase 1, step 0 (tooling, CSS architecture, artifact plumbing, the agent skill) is in. Next: Button and PromptInput on React Aria, running live in the artifact. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licence
 
