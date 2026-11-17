@@ -7,7 +7,7 @@ description: Build or review UI with Naksha, Shreeraj Narwade's design system (t
 
 # Naksha
 
-Version 0.2.3.
+Version 0.2.4.
 
 A design system drawn like a set of architectural sheets: paper and ink, square edges, hairline rules, mono sheet labels, and seven section hues that mark where you are. It comes straight from the live portfolio CSS, and it is built for product work: AI tools, fintech, legal and other information-heavy screens.
 
@@ -144,7 +144,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [ChatMessage](references/components/ChatMessage.md) | One turn in a conversation with an AI. |
 | [Checkbox](references/components/Checkbox.md) | An on or off choice that takes effect when the form is sent, or "select all" with the indeterminate state. If the change applies at once, use Switch. |
 | [Divider](references/components/Divider.md) | Hairline rules between content, like the lines between sheets on the portfolio. |
-| [DropdownMenu](references/components/DropdownMenu.md) | A floating list of actions from a trigger (a ghost IconButton with `ellipsis`, or a Select). |
+| [DropdownMenu](references/components/DropdownMenu.md) | A list of actions, or a choice, that opens from a trigger: usually a ghost IconButton with `ellipsis`. |
 | [EmptyState](references/components/EmptyState.md) | What a view shows before it has data: what will appear here, and one way to start. |
 | [IconButton](references/components/IconButton.md) | A square button that holds one icon, for frequent actions in toolbars, cards and composers. |
 | [Input](references/components/Input.md) | A single-line text field with a visible label above it and help or an error below. |
@@ -165,7 +165,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [Tabs](references/components/Tabs.md) | Switch between sibling views of the same thing (Overview / Research / Process). |
 | [Tag](references/components/Tag.md) | One to three words of status or category: "Start here", "Live", "Draft", "Due". |
 | [Textarea](references/components/Textarea.md) | Several lines of text that grow as people write, with a label, help, an error and an optional character count. For talking to an AI, use PromptInput. |
-| [Toast](references/components/Toast.md) | A short confirmation after an action: "Copied", "Saved", "Subscription cancelled". |
+| [Toast](references/components/Toast.md) | A short message after an action: "Copied", "Saved", "Subscription cancelled". It comes and goes without taking focus. |
 | [Tooltip](references/components/Tooltip.md) | Names an icon-only control or shows its shortcut. Never holds anything a person needs to finish a task. |
 | [TopNav](references/components/TopNav.md) | The site header from the portfolio: identity left, sectioned nav in the middle, Human / Agent mode right. |
 

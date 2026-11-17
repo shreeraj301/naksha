@@ -292,7 +292,32 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-toast .nk-iconbtn:hover, .nk-toast .nk-iconbtn.is-hover { background: transparent; color: var(--fg-on-inverse); }
 .nk-toast--success > svg { color: var(--status-success-border); }
 .nk-toast--danger > svg { color: var(--status-danger-border); }
-@keyframes nk-toast-in { from { opacity: 0; transform: translateY(100%); } }
+
+/* Toaster: bottom left, 16 from the edges. Toasts stack on the front one: each one behind peeks 8 above it and is 5% smaller.
+   Hover or focus spreads them 8 apart. Everything moves with transitions, which retarget when a new toast arrives mid-flight. */
+.nk-toaster-host { display: contents; }
+.nk-toaster { position: fixed; left: var(--space-16); bottom: var(--space-16); z-index: 200; width: min(26.25rem, calc(100vw - var(--space-32))); outline: none; }
+.nk-toaster .nk-toast { position: absolute; left: 0; bottom: 0; display: flex; width: 100%; max-width: none; z-index: var(--z);
+  transform-origin: top center; touch-action: none; user-select: none;
+  --y: calc(-1 * var(--index) * var(--gap)); --scale: calc(1 - var(--index) * 0.05);
+  transform: translateY(calc(var(--y) + var(--swipe, 0px))) scale(var(--scale));
+  transition: transform var(--dur-overlay) var(--ease-out), opacity var(--dur-overlay) var(--ease-out), height var(--dur-overlay) var(--ease-out); }
+.nk-toaster .nk-toast:not([data-mounted]) { opacity: 0; transform: translateY(100%); }
+.nk-toaster .nk-toast[data-expanded] { --y: calc(-1 * var(--offset)); --scale: 1; }
+/* Collapsed, a toast behind takes the front one's height and hides its own text, so different heights never stick out. */
+.nk-toaster .nk-toast:not([data-front]):not([data-expanded]) { height: var(--front-height); overflow: hidden; }
+.nk-toaster .nk-toast:not([data-front]):not([data-expanded]) > * { opacity: 0; }
+.nk-toaster .nk-toast > * { transition: opacity var(--dur-ui) ease; }
+/* Fill the gap under each spread toast, so moving between them does not collapse the stack. */
+.nk-toaster .nk-toast[data-expanded]::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: var(--gap); }
+.nk-toaster .nk-toast[data-removed] { opacity: 0; transform: translateY(calc(var(--y) + var(--swipe, 0px) + 50%)) scale(var(--scale)); transition-duration: var(--dur-ui); }
+.nk-toaster .nk-toast[data-swiping] { transition: none; cursor: grabbing; }
+.nk-toaster .nk-toast:focus-visible { outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
+/* Previews: the same toasts at rest, in the flow. */
+.nk-toaster--stack { position: relative; left: auto; bottom: auto; z-index: auto; height: 4.5rem; }
+.nk-toaster--list { position: static; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); width: auto; }
+.nk-toaster--list .nk-toast { position: static; display: inline-flex; width: auto; max-width: 26.25rem; transform: none; opacity: 1; }
+.nk-toaster--list .nk-toast::after { content: none; }
 
 /* ---------- Progress, Spinner, Skeleton ---------- */
 .nk-progress { display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 22.5rem; }
@@ -421,6 +446,31 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-modal__foot { display: flex; justify-content: flex-end; gap: var(--space-8); padding: var(--space-16) var(--space-24); background: var(--bg-subtle); border-top: var(--border-hairline) solid var(--border-default); }
 .nk-scrim { background: var(--overlay-scrim); }
 
+/* ---------- Overlays: popover, tooltip, modal ----------
+   React Aria marks each overlay with data-entering and data-exiting and waits for these animations before removing it. */
+@keyframes nk-fade { from { opacity: 0; } }
+@keyframes nk-scale-in { from { opacity: 0; transform: scale(0.97); } }
+.nk-popover { outline: none; transform-origin: var(--trigger-anchor-point, top left); }
+.nk-popover[data-entering] { animation: nk-scale-in var(--dur-ui) var(--ease-out); }
+.nk-popover[data-exiting] { animation: nk-fade var(--dur-ui) ease reverse; }
+.nk-tooltip[data-placement="top"] { --origin: bottom center; } .nk-tooltip[data-placement="bottom"] { --origin: top center; }
+.nk-tooltip[data-placement="left"] { --origin: center right; } .nk-tooltip[data-placement="right"] { --origin: center left; }
+.nk-tooltip[data-entering] { animation: nk-scale-in var(--dur-hover) var(--ease-out); }
+.nk-tooltip[data-exiting] { animation: nk-fade var(--dur-hover) ease reverse; }
+.nk-overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: var(--space-16); background: var(--overlay-scrim); }
+.nk-overlay[data-entering] { animation: nk-fade var(--dur-overlay) var(--ease-out); }
+.nk-overlay[data-exiting] { animation: nk-fade var(--dur-ui) ease reverse; }
+.nk-overlay[data-entering] .nk-modal { animation: nk-scale-in var(--dur-overlay) var(--ease-out); }
+.nk-overlay[data-exiting] .nk-modal { animation: nk-scale-in var(--dur-ui) ease reverse; }
+.nk-modal-frame { width: 100%; max-width: 30rem; outline: none; }
+.nk-modal { outline: none; }
+/* Below the medium breakpoint (600) the modal is a full-width sheet on the bottom edge, where a thumb can reach its buttons. */
+@media (width < 37.5rem) {
+  .nk-overlay { align-items: flex-end; padding: 0; }
+  .nk-modal-frame { max-width: none; }
+  .nk-overlay .nk-modal { max-width: none; border-width: var(--border-hairline) 0 0; }
+}
+
 /* ---------- Table ---------- */
 .nk-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
 .nk-table th { height: 2.25rem; padding: 0 var(--space-16); text-align: left; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted);
@@ -512,6 +562,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
   [class*="nk-"], [class*="nk-"]::before, [class*="nk-"]::after {
     transition-property: color, background-color, border-color, outline-color, opacity, box-shadow, text-decoration-color !important; }
   .nk-btn, .nk-iconbtn, .nk-chip { transform: none !important; }
+  .nk-popover[data-entering], .nk-tooltip[data-entering], .nk-overlay[data-entering] .nk-modal { animation-name: nk-fade !important; }
   [class*="nk-"] { animation-iteration-count: 1 !important; }
   .nk-spin { animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
   .nk-progress--indeterminate .nk-progress__bar { width: 100%; animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }

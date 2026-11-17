@@ -79,9 +79,10 @@ describe("PromptInput", () => {
   });
 
   it("puts the steering control beside send", () => {
-    render(<PromptInput {...base} level={<PromptLevel>Everyday</PromptLevel>} />);
-    const level = screen.getByRole("button", { name: "Everyday" });
-    expect(level.getAttribute("aria-haspopup")).toBe("menu");
+    const options = [{ id: "simple", label: "Simple" }, { id: "everyday", label: "Everyday" }];
+    render(<PromptInput {...base} level={<PromptLevel options={options} defaultValue="everyday" />} />);
+    const level = screen.getByRole("button", { name: "Reading level: Everyday" });
+    expect(level.getAttribute("aria-haspopup")).toBe("true");
     expect(level.nextElementSibling?.getAttribute("aria-label")).toBe("Send");
   });
 });

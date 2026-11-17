@@ -1,11 +1,11 @@
 # Naksha roadmap
 
-Updated 18 Nov 2026, after Phase 1 step 2. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
+Updated 18 Nov 2026, after Phase 1 step 3. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
 
 | Phase | What | Status |
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
-| 1 | React components on React Aria, running live in the artifact | Steps 0 to 2 done (0.2.3); step 3 next |
+| 1 | React components on React Aria, running live in the artifact | Steps 0 to 3 done (0.2.4); step 4 next |
 | 2 | Components still missing | Scope written when Phase 1 ends |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
@@ -74,6 +74,8 @@ Status: done in 0.2.3. The seven controls render live from the bundle, and the â
 ### Step 3. Overlays
 
 DropdownMenu, Modal, Tooltip, Toast. Focus moves in on open and back on close, Escape closes, the page behind cannot be tabbed into. Because Toast is unstable upstream, it sits behind our own small API so an upstream change touches one file.
+
+Status: done in 0.2.4. The four overlays render live, and PromptLevel opens its menu. Toast follows Emil Kowalski's write-up of Sonner (stack, spread on hover, transitions, swipe, pausing timers) on React Aria's toast region. Not yet: a manual screen reader pass, and the bottom sheet and swipe on real phones.
 
 ### Step 4. AI set
 

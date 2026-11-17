@@ -7,8 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage"><div class="nk-row" style="gap:48px;align-items:flex-start"><div class="nk-cell"><span class="nk-cap">Label</span><span class="nk-tooltip">Copy link</span></div><div class="nk-cell"><span class="nk-cap">With shortcut</span><span class="nk-tooltip">Search <span class="nk-kbd"><svg class="nk-i" role="img" aria-label="Command" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
-</svg>K</span></span></div><div class="nk-cell"><span class="nk-cap">In place</span><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span class="nk-tooltip">Attach a file</span><button class="nk-iconbtn nk-iconbtn--ghost is-hover" aria-label="Attach a file"><svg class="nk-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg></button></div></div></div></div>
-
+<div class="nk-stage"><div class="nk-row" style="gap:48px;align-items:flex-start"><div class="nk-cell"><span class="nk-cap">Label</span><span data-nk="{&quot;$c&quot;: &quot;Tooltip&quot;, &quot;p&quot;: {&quot;content&quot;: &quot;Copy link&quot;, &quot;isInline&quot;: true}}" style="display:contents"></span></div><div class="nk-cell"><span class="nk-cap">With shortcut</span><span data-nk="{&quot;$c&quot;: &quot;Tooltip&quot;, &quot;p&quot;: {&quot;content&quot;: &quot;Search&quot;, &quot;shortcut&quot;: &quot;⌘K&quot;, &quot;isInline&quot;: true}}" style="display:contents"></span></div><div class="nk-cell"><span class="nk-cap">In place</span><div style="padding-top:36px"><span data-nk="{&quot;$c&quot;: &quot;Tooltip&quot;, &quot;p&quot;: {&quot;content&quot;: &quot;Attach a file&quot;, &quot;isOpen&quot;: true, &quot;placement&quot;: &quot;top&quot;, &quot;children&quot;: {&quot;$c&quot;: &quot;IconButton&quot;, &quot;p&quot;: {&quot;label&quot;: &quot;Attach a file&quot;, &quot;icon&quot;: &quot;paperclip&quot;, &quot;variant&quot;: &quot;ghost&quot;, &quot;forceState&quot;: &quot;hover&quot;}}}}" style="display:contents"></span></div></div></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>

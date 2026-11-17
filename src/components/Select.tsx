@@ -81,7 +81,7 @@ export function Select({
         </span>
       </AriaButton>
       <FieldHelp description={description} errorMessage={errorMessage} isInvalid={isInvalid} />
-      {forcedOpen ? list : <Popover offset={4} placement="bottom start">{list}</Popover>}
+      {forcedOpen ? list : <Popover offset={4} placement="bottom start" className="nk-popover">{list}</Popover>}
     </AriaSelect>
   );
 }

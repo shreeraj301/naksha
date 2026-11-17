@@ -1,6 +1,6 @@
 {
   "name": "naksha",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Naksha, the design system of Shreeraj Narwade. Tokens, components and patterns drawn like a set of architectural sheets.",
   "private": true,
   "type": "module",

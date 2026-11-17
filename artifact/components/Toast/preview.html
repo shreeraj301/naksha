@@ -1,4 +1,4 @@
-<!-- @dsCard group="Feedback" height=240 -->
+<!-- @dsCard group="Feedback" height=360 -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage" style="gap:12px;align-items:flex-start"><div class="nk-toast nk-toast--neutral" role="status"><span class="nk-toast__msg">Link copied</span><button class="nk-iconbtn" aria-label="Dismiss"><svg class="nk-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 6 6 18"/> <path d="m6 6 12 12"/></svg></button></div><div class="nk-toast nk-toast--success" role="status"><svg class="nk-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/> <path d="m16 9-5.5 5.5L8 12"/></svg><span class="nk-toast__msg">Subscription cancelled</span><button class="nk-toast__action">Undo</button><button class="nk-iconbtn" aria-label="Dismiss"><svg class="nk-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 6 6 18"/> <path d="m6 6 12 12"/></svg></button></div><div class="nk-toast nk-toast--danger" role="status"><svg class="nk-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/> <line x1="12" x2="12" y1="8" y2="12"/> <line x1="12" x2="12.01" y1="16" y2="16"/></svg><span class="nk-toast__msg">Could not send. Check your connection.</span><button class="nk-toast__action">Retry</button><button class="nk-iconbtn" aria-label="Dismiss"><svg class="nk-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 6 6 18"/> <path d="m6 6 12 12"/></svg></button></div></div>
-
+<div class="nk-stage" style="gap:12px;align-items:flex-start"><span data-nk="{&quot;$c&quot;: &quot;Toaster&quot;, &quot;p&quot;: {&quot;preview&quot;: {&quot;layout&quot;: &quot;list&quot;, &quot;toasts&quot;: [{&quot;message&quot;: &quot;Link copied&quot;}, {&quot;message&quot;: &quot;Subscription cancelled&quot;, &quot;tone&quot;: &quot;success&quot;, &quot;action&quot;: {&quot;label&quot;: &quot;Undo&quot;, &quot;onPress&quot;: &quot;$noop&quot;}}, {&quot;message&quot;: &quot;Could not send. Check your connection.&quot;, &quot;tone&quot;: &quot;danger&quot;, &quot;action&quot;: {&quot;label&quot;: &quot;Retry&quot;, &quot;onPress&quot;: &quot;$noop&quot;}}]}}}" style="display:contents"></span><div style="margin-top:12px;width:100%"><span class="nk-cap">Stacked, newest in front · hover spreads them 8 apart</span><span data-nk="{&quot;$c&quot;: &quot;Toaster&quot;, &quot;p&quot;: {&quot;preview&quot;: {&quot;layout&quot;: &quot;stack&quot;, &quot;toasts&quot;: [{&quot;message&quot;: &quot;Saved to your notes&quot;}, {&quot;message&quot;: &quot;Link copied&quot;}, {&quot;message&quot;: &quot;Subscription cancelled&quot;, &quot;tone&quot;: &quot;success&quot;, &quot;action&quot;: {&quot;label&quot;: &quot;Undo&quot;, &quot;onPress&quot;: &quot;$noop&quot;}}]}}}" style="display:contents"></span></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>

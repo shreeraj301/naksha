@@ -117,8 +117,9 @@ test("live Select: the list opens under the trigger, as wide as it, and closes o
   await page.goto(framed("Select", "light"));
   const trigger = page.locator(".nk-control--select").first();
   await trigger.click();
-  const list = page.locator(".react-aria-Popover .nk-menu--select");
+  const list = page.locator(".nk-popover .nk-menu--select");
   await expect(list).toBeVisible();
+  await page.waitForTimeout(300); // let the pop-in finish before measuring
   const [t, l] = [(await trigger.boundingBox())!, (await list.boundingBox())!];
   expect(await trigger.evaluate((el) => getComputedStyle(el).boxShadow), "the trigger keeps its focus edge while open").not.toBe("none");
   expect(Math.round(l.width)).toBe(Math.round(t.width));
@@ -150,4 +151,137 @@ test("live Textarea: grows with the text to sixteen lines, then scrolls", async 
   expect(many.h).toBeCloseTo(many.max, 0);
   expect(many.scrolls).toBe(true);
   expect(back, "shrinks back when the text is cleared").toBeCloseTo(start, 0);
+});
+
+test("live DropdownMenu: opens from the keyboard into the list, Escape returns focus", async ({ page }) => {
+  await page.goto(framed("PromptInput", "light"));
+  const trigger = page.locator(".nk-prompt__level").first();
+  await trigger.focus();
+  await page.keyboard.press("Enter");
+  const menu = page.locator(".nk-popover .nk-menu");
+  await expect(menu).toBeVisible();
+  // A choice menu opens on the current choice.
+  await expect(page.locator(".nk-popover [aria-checked=true]")).toBeFocused();
+  expect(await page.locator(".nk-popover [aria-checked=true]").textContent()).toContain("Everyday");
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
+test("live Modal: focus moves in and stays, the page behind is hidden, Escape returns focus", async ({ page }) => {
+  await page.goto(framed("Button", "light"));
+  await page.evaluate(() => {
+    const N = (window as any).Naksha, R = (window as any).React, D = (window as any).ReactDOM;
+    const host = document.createElement("div");
+    host.id = "modal-host";
+    document.body.append(host);
+    const h = R.createElement;
+    D.createRoot(host).render(
+      h(N.ModalTrigger, null,
+        h(N.Button, { variant: "primary" }, "Review change"),
+        h(N.Modal, { title: "Agree to this change?", footer: (close: () => void) => h(N.Button, { onPress: close }, "Not now") }, "The rent moves up by 5% from 1 January.")),
+    );
+  });
+  const trigger = page.getByRole("button", { name: "Review change" });
+  await trigger.click();
+  const dialog = page.getByRole("dialog", { name: "Agree to this change?" });
+  await expect(dialog).toBeVisible();
+  for (let i = 0; i < 4; i++) {
+    await page.keyboard.press("Tab");
+    expect(await dialog.evaluate((d) => d.contains(document.activeElement))).toBe(true);
+  }
+  expect(await page.evaluate(() => document.querySelector(".nk-stage")!.closest("[aria-hidden=true], [inert]") !== null), "the page behind is hidden").toBe(true);
+  await page.keyboard.press("Escape");
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
+test("live Tooltip: keyboard focus shows it at once, 6 above its trigger", async ({ page }) => {
+  await page.goto(framed("IconButton", "light"));
+  await page.evaluate(() => {
+    const N = (window as any).Naksha, R = (window as any).React, D = (window as any).ReactDOM;
+    const host = document.createElement("div");
+    host.id = "tip-host";
+    host.style.cssText = "position:fixed;left:200px;top:200px";
+    document.body.prepend(host);
+    D.createRoot(host).render(R.createElement(N.Tooltip, { content: "Copy link", shortcut: "⌘C" }, R.createElement(N.IconButton, { label: "Copy link", icon: "link", variant: "ghost" })));
+  });
+  const btn = page.locator("#tip-host .nk-iconbtn");
+  await page.keyboard.press("Tab");
+  await expect(btn).toBeFocused();
+  const tip = page.getByRole("tooltip");
+  await expect(tip).toBeVisible();
+  await page.waitForTimeout(300);
+  const [b, t] = [(await btn.boundingBox())!, (await tip.boundingBox())!];
+  expect(Math.round(b.y - (t.y + t.height))).toBe(6);
+  await page.keyboard.press("Escape");
+  await expect(tip).toHaveCount(0);
+});
+
+async function mountToaster(page: import("@playwright/test").Page) {
+  await page.goto(framed("Button", "light"));
+  await page.evaluate(() => {
+    const N = (window as any).Naksha, R = (window as any).React, D = (window as any).ReactDOM;
+    const host = document.createElement("div");
+    document.body.append(host);
+    D.createRoot(host).render(R.createElement(N.Toaster));
+  });
+}
+
+test("live Toast: stacks 8 apart and 5% smaller, spreads on hover, pauses while hovered", async ({ page }) => {
+  await mountToaster(page);
+  await page.evaluate(() => {
+    const t = (window as any).Naksha.toast;
+    t("First", { duration: 1500 });
+    t("Second", { duration: 1500 });
+    t("Third", { duration: 1500 });
+  });
+  const toasts = page.locator(".nk-toaster .nk-toast");
+  await expect(toasts).toHaveCount(3);
+  await page.waitForTimeout(500);
+  const rest = await toasts.evaluateAll((els) => els.map((e) => ({ text: e.textContent, front: e.hasAttribute("data-front"), y: e.getBoundingClientRect().top, w: e.getBoundingClientRect().width })));
+  expect(rest[0]!.text).toContain("Third");
+  expect(rest[0]!.front).toBe(true);
+  expect(Math.round(rest[0]!.y - rest[1]!.y)).toBe(8);
+  expect(rest[1]!.w / rest[0]!.w).toBeCloseTo(0.95, 2);
+  const front = toasts.first();
+  await front.hover();
+  await page.waitForTimeout(500);
+  const spread = await toasts.evaluateAll((els) => els.map((e) => e.getBoundingClientRect()));
+  expect(Math.round(spread[0]!.top - spread[1]!.bottom)).toBe(8);
+  expect(Math.round(spread[1]!.width)).toBe(Math.round(spread[0]!.width));
+  await page.waitForTimeout(1500);
+  await expect(toasts, "timers wait while the stack is hovered").toHaveCount(3);
+  await page.mouse.move(900, 50);
+  await expect(toasts).toHaveCount(0, { timeout: 4000 });
+});
+
+test("live Toast: swipe down dismisses; a short drag springs back", async ({ page }) => {
+  await mountToaster(page);
+  await page.evaluate(() => (window as any).Naksha.toast("Link copied", { duration: Infinity }));
+  const t = page.locator(".nk-toaster .nk-toast").first();
+  await page.waitForTimeout(400);
+  const b = (await t.boundingBox())!;
+  await page.mouse.move(b.x + 40, b.y + b.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(b.x + 40, b.y + b.height / 2 + 4, { steps: 2 });
+  await page.waitForTimeout(200);
+  await page.mouse.up();
+  await page.waitForTimeout(400);
+  await expect(t).toHaveCount(1);
+  await page.mouse.move(b.x + 40, b.y + b.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(b.x + 40, b.y + b.height / 2 + 60, { steps: 6 });
+  await page.mouse.up();
+  await expect(page.locator(".nk-toaster .nk-toast")).toHaveCount(0, { timeout: 2000 });
+});
+
+test("live Toast under reduced motion: it fades in place, nothing slides", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await mountToaster(page);
+  await page.evaluate(() => (window as any).Naksha.toast("Link copied"));
+  const t = page.locator(".nk-toaster .nk-toast").first();
+  const props = await t.evaluate((el) => getComputedStyle(el).transitionProperty);
+  expect(props).not.toContain("transform");
+  expect(props).toContain("opacity");
 });

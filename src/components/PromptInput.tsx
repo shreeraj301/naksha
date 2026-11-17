@@ -4,6 +4,7 @@ import { cx } from "../cx";
 import { layoutStyle, type LayoutStyles } from "../styles";
 import { Icon, type IconName } from "./Icon";
 import { IconButton } from "./IconButton";
+import { DropdownMenu } from "./DropdownMenu";
 
 export interface PromptAttachment {
   id: string;
@@ -177,18 +178,50 @@ function KeyCap({ name, label }: { name: IconName; label: string }) {
   );
 }
 
+export interface PromptLevelOption {
+  id: string;
+  label: string;
+}
+
 export interface PromptLevelProps {
-  children: ReactNode;
+  /** The choices, for example Simple, Everyday, Informed. Opens a menu with a check on the current one. */
+  options?: PromptLevelOption[];
+  value?: string;
+  defaultValue?: string;
+  onChange?: (id: string) => void;
+  /** Names the menu and heads the list: "Reading level". */
+  label?: string;
+  /** Without `options`: the trigger's text, for a control that opens something else. */
+  children?: ReactNode;
   onPress?: () => void;
   /** Preview only. */
   forceState?: "hover";
 }
 
-/** The quiet steering trigger beside send ("Everyday ⌄"). In step 3 it opens a menu. */
-export function PromptLevel({ children, onPress, forceState }: PromptLevelProps) {
-  return (
-    <AriaButton className={cx("nk-prompt__level", forceState === "hover" && "is-hover")} aria-haspopup="menu" onPress={onPress}>
-      {children} <Icon name="chevron-down" />
+/** The quiet steering control beside send ("Everyday ⌄"). With `options` it opens a menu of choices, so people steer before they ask. */
+export function PromptLevel({ options, value, defaultValue, onChange, label = "Reading level", children, onPress, forceState }: PromptLevelProps) {
+  const [inner, setInner] = useState(defaultValue ?? options?.[0]?.id);
+  const current = value ?? inner;
+  const text = children ?? options?.find((o) => o.id === current)?.label;
+  const trigger = (
+    <AriaButton className={cx("nk-prompt__level", forceState === "hover" && "is-hover")} aria-label={options ? `${label}: ${text}` : undefined} onPress={options ? undefined : onPress}>
+      {text} <Icon name="chevron-down" />
     </AriaButton>
+  );
+  if (!options) return trigger;
+  return (
+    <DropdownMenu
+      label={label}
+      title={label}
+      trigger={trigger}
+      placement="top end"
+      selectionMode="single"
+      selectedKey={current}
+      onSelectionChange={(id) => {
+        if (value === undefined) setInner(id);
+        onChange?.(id);
+      }}
+      items={options}
+    />
   );
 }

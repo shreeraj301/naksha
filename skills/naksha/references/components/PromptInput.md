@@ -19,7 +19,7 @@ import { PromptInput, PromptLevel } from "naksha";
   onAddFiles={addFiles}
   onRemoveAttachment={removeFile}
   onDictate={dictate}
-  level={<PromptLevel onPress={openLevels}>Everyday</PromptLevel>}
+  level={<PromptLevel options={levels} value={level} onChange={setLevel} />}
   note="garu can be wrong. Check the sources."
 />
 ```
@@ -33,7 +33,7 @@ import { PromptInput, PromptLevel } from "naksha";
 | `attachments`, `onRemoveAttachment` | file chips above the text |
 | `onAddFiles(files)`, `acceptedFileTypes` | turns on Attach and dropping files on the box |
 | `onDictate` | turns on Dictate |
-| `level` | the steering control beside Send, usually `<PromptLevel>` |
+| `level` | the steering control beside Send, usually `<PromptLevel options value onChange>`, which opens a menu of choices |
 | `note` | the trust line under the box |
 | `showKeyHint` | the Enter / Shift Enter hint under the box; on by default |
 | `styles` | layout only (ADR 0009) |
@@ -86,5 +86,6 @@ Beta. Stable at Naksha 1.0.
 
 | Version | Change |
 | --- | --- |
+| 0.2.4 | PromptLevel opens its menu of choices. |
 | 0.2.2 | React component: autosize, IME-safe Enter, Stop, attach by picker or drop. |
 | 0.2.0 | CSS component, v2 audit. |

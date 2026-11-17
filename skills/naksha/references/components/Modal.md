@@ -4,9 +4,75 @@
 
 Blocks the page for one decision that needs full attention.
 
-## Use
+## Usage
+
+```jsx
+import { Button, Modal, ModalTrigger } from "naksha";
+
+<ModalTrigger>
+  <Button variant="danger">Cancel subscription</Button>
+  <Modal
+    title="Cancel this subscription?"
+    footer={(close) => (
+      <>
+        <Button onPress={close}>Keep it</Button>
+        <Button variant="danger" onPress={() => { cancel(); close(); }}>Cancel subscription</Button>
+      </>
+    )}
+  >
+    You keep access until 18 December. After that your playlists stay, but downloads are removed.
+  </Modal>
+</ModalTrigger>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `title` | the question the modal asks | |
+| `children` | the facts needed to decide; a string becomes one paragraph | |
+| `footer` | the answers, or a function that gets `close` | none |
+| `isOpen`, `defaultOpen`, `onOpenChange` | without a `ModalTrigger` | |
+| `isDismissable` | a click outside closes it | `false` |
+
+## Best practices
+
 - The title asks the question; the buttons answer it with verbs ("Keep it" / "Cancel subscription"), never "OK" / "Cancel". Secondary first, primary or danger last.
-- `bg-raised`, hairline edge, `shadow-overlay`, on `overlay-scrim`. Max width 480; a full-width bottom sheet on mobile.
-- Header 24 / 16 / 0 / 24 with a small ghost close button; body 12 / 24 / 24; footer 16 / 24 on `bg-subtle` with a hairline above.
-- `role="dialog"` `aria-modal="true"`, focus trapped, Escape closes, focus returns to the trigger.
-- Enters with opacity and scale from 0.97 over 280ms, centred (modals do not grow from their trigger); exits in 200ms.
+- For a reversible action, skip the modal and offer Undo in a Toast.
+- One decision per modal. No forms longer than a field or two.
+
+## Content
+
+Title in sentence case, ending with a question mark when it asks. Body: what happens next, in plain words, with dates and amounts.
+
+## Anatomy and spacing
+
+`bg-raised`, hairline edge, `shadow-overlay`, on `overlay-scrim`. Max width 480. Header 24 / 16 / 0 / 24 with a small ghost close button; body 12 / 24 / 24; footer 16 / 24 on `bg-subtle` with a hairline above. Below 600 wide it becomes a full-width sheet on the bottom edge, where a thumb reaches the buttons.
+
+## States
+
+Enters with opacity and scale from 0.97 over 280ms (`dur-overlay`, `ease-out`), centred: modals do not grow from their trigger. Exits in 200ms. Under reduced motion it only fades.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's ModalOverlay, Modal and Dialog: a `dialog` named by its title, focus moves in on open and cannot Tab out, the page behind is hidden from screen readers and cannot scroll, Escape closes, and focus returns to the trigger.
+
+**What the designer decides.** Whether the decision deserves a modal at all, the question and the two answers.
+
+**What the developer must not break.** Keep a visible close and Escape working. Do not open a modal from a modal.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Focus in, Tab stays inside, page behind hidden, Escape, focus return (live browser) | Tested |
+| Phones (bottom sheet) | Not tested yet |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.4 | Built on React Aria's ModalOverlay and Dialog. Sheet on narrow screens. Animates in and out. |
+| 0.2.0 | CSS component, v2 audit. |

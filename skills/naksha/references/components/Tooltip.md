@@ -4,7 +4,62 @@
 
 Names an icon-only control or shows its shortcut. Never holds anything a person needs to finish a task.
 
-## Behaviour
-- Appears on hover after 400ms and immediately on keyboard focus; hides on Escape and blur.
-- Once one tooltip is open, neighbours open instantly with no animation, so a toolbar reads fast.
-- Enter: opacity and scale from 0.97 over 125ms, `ease-out`, from the side nearest the trigger. 6px from the trigger. Max width 240.
+## Usage
+
+```jsx
+import { IconButton, Tooltip } from "naksha";
+
+<Tooltip content="Copy link" shortcut="⌘C">
+  <IconButton label="Copy link" icon="link" />
+</Tooltip>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `content` | a few words | |
+| `shortcut` | shown as a key; ⌘ ↵ ⇧ ⌫ are drawn icons | none |
+| `children` | the control it describes: a Naksha Button or IconButton | |
+| `placement` | `top`, `bottom`, `left`, `right` | `top` |
+| `delay` | hover delay in ms | `400` |
+
+## Best practices
+
+- Every icon-only button gets one. Buttons with text do not need one.
+- Never put links, buttons or the only copy of an instruction in a tooltip: touch screens cannot hover.
+
+## Content
+
+A noun or a short verb phrase in sentence case, no full stop: "Copy link", "Attach a file".
+
+## Anatomy and spacing
+
+`bg-inverse`, `fg-on-inverse`, padding 6 / 8, `body-s`, 6 from the trigger, max width 240. A shortcut key sits 8 after the text.
+
+## States
+
+Appears on hover after 400ms and at once on keyboard focus; hides on Escape and blur. Once one tooltip is open, neighbours open with no delay, so a toolbar reads fast. Enters with opacity and scale from 0.97 over 150ms (`dur-hover`, `ease-out`) from the side nearest the trigger.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's TooltipTrigger: the tooltip is a `tooltip` that describes its trigger with `aria-describedby`, keyboard focus shows it, Escape hides it.
+
+**What the designer decides.** The words, and whether a control needs a visible label instead.
+
+**What the developer must not break.** The trigger must be focusable (a Naksha Button or IconButton), and keep its own `label`.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Keyboard focus shows it, 6 above, Escape hides it (live browser) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.4 | Built on React Aria's TooltipTrigger. Shortcut keys are drawn icons. Enter takes 150ms (`dur-hover`) instead of 125, so it uses a token. |
+| 0.2.0 | CSS component, v2 audit. |

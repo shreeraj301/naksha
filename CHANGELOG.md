@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.4 · Phase 1, step 3: overlays
+
+DropdownMenu, Modal, Tooltip and Toast are live React components. Their previews render from `bundle.js`; DropdownMenu, Modal and PromptInput match the 0.2.3 screenshots within 4 pixels, and the two differences are listed under Changed.
+
+### Added
+- `DropdownMenu`, `Modal` with `ModalTrigger`, `Tooltip`, and `toast()` with `<Toaster />` (also exported as `Toast`), built on React Aria Components 1.22.1.
+- Focus for every overlay: it moves in on open, Escape closes, and it returns to the trigger. A modal keeps Tab inside and hides the page behind from screen readers.
+- Toast follows Emil Kowalski's write-up of Sonner: a stack where each toast behind peeks 8 above and is 5% smaller, spread 8 apart on hover or focus, transitions that retarget mid-flight, swipe down to dismiss (40, or a flick faster than 0.11 px per ms), and timers that wait while the stack is hovered or focused and while the tab is hidden. It sits on React Aria's toast region behind Naksha's own small API, because React Aria still marks that region unstable.
+- Popover, tooltip and modal motion: scale from 0.97 with opacity in, fade out; only a fade under reduced motion. Below 600 wide a modal is a bottom sheet.
+- Tests: 11 component tests (menu keyboard and focus return, PromptLevel, modal focus and Escape, tooltip, toast timers, actions and dismiss) and 6 live browser tests (menu, modal, tooltip position, toast stack with spread and timers, swipe, reduced motion).
+
+### Changed
+- PromptLevel takes `options`, `value` and `onChange` and opens a menu of choices. Its accessible name says the current choice ("Reading level: Everyday"). `children` with `onPress` still works for a plain trigger.
+- Select's list uses the same pop-in as the other popovers.
+- The Tooltip preview's "In place" cell shows a real tooltip over its button, so the button sits at the left of its cell instead of centred under the bubble.
+- The Toast preview adds the collapsed stack under the list.
+- Tooltip enters over 150ms (`dur-hover`) instead of 125, so it uses a token.
+- The artifact bundle grows from 336 KB to about 385 KB minified.
+
 ## 0.2.3 · Phase 1, step 2: form controls
 
 The seven form controls are live React components. In the artifact, the Input, Textarea, Select, Checkbox, Radio, Switch and SegmentedControl previews render them from `bundle.js`. Checkbox, Switch and SegmentedControl match the 0.2.2 screenshots within 4 pixels; every other difference is listed under Changed and was reviewed.
