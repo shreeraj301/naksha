@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../dist/css/naksha.css">
+<link rel="stylesheet" href="../../dist/css/components.css">
+<script src="../../dist/artifact/components/lib/react.production.min.js"></script>
+<script src="../../dist/artifact/components/lib/react-dom.production.min.js"></script>
+<script src="../../dist/artifact/components/bundle.js"></script>
+<title>Naksha</title>
+<style>
+
+html { scroll-padding-top: 5rem; }
+body { margin: 0; background: var(--bg-canvas); color: var(--fg-default); font-family: var(--font-sans); }
+a { color: inherit; }
+.skip { position: absolute; left: var(--space-16); top: -4rem; z-index: 50; padding: var(--space-8) var(--space-12); background: var(--bg-inverse); color: var(--fg-on-inverse); }
+.skip:focus { top: var(--space-16); }
+.bar { position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 3.5rem; padding: 0 var(--space-32); background: var(--bg-canvas); border-bottom: 1px solid var(--border-default); }
+.bar .mark { font-family: var(--font-display); font-weight: 800; font-size: 1.375rem; letter-spacing: 0.01em; text-transform: uppercase; text-decoration: none; justify-self: start; }
+.bar nav { display: flex; gap: var(--space-24); font-size: 0.875rem; }
+.bar nav a { text-decoration: none; color: var(--fg-muted); padding: var(--space-8) 0; }
+.bar nav a[aria-current] { color: var(--fg-default); font-weight: 600; box-shadow: inset 0 -2px 0 var(--fg-default); }
+.goto { justify-self: end; display: flex; align-items: center; gap: var(--space-8); height: 2rem; padding: 0 var(--space-8) 0 var(--space-12); border: 1px solid var(--border-control); background: var(--bg-raised); color: var(--fg-muted); font-size: 0.8125rem; min-width: 13rem; }
+.goto span:last-child { margin-left: auto; display: flex; gap: 2px; }
+pre.code { margin: 0; padding: var(--space-16) var(--space-20); background: var(--bg-inverse); color: var(--fg-on-inverse); font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.65; overflow-x: auto; }
+pre.code .k { color: var(--fg-on-inverse-muted); } pre.code .s { color: var(--action-highlight); }
+table.props { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+table.props th { text-align: left; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; color: var(--fg-muted); padding: var(--space-8) var(--space-12) var(--space-8) 0; border-bottom: 1px solid var(--border-strong); }
+table.props td { padding: var(--space-12) var(--space-12) var(--space-12) 0; border-bottom: 1px solid var(--border-default); vertical-align: top; line-height: 1.45; }
+table.props .pn { font-family: var(--font-mono); font-size: 0.8125rem; white-space: nowrap; }
+table.props .pd { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--fg-muted); white-space: nowrap; }
+.row { display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; }
+h2.sec { margin: var(--space-64) 0 var(--space-16); font-size: 1.5rem; letter-spacing: -0.01em; }
+.lede { font-size: 1.1875rem; line-height: 1.5; color: var(--fg-muted); max-width: 56ch; margin: 0; }
+@media (max-width: 760px) {
+  table.props .pn, table.props .pd { white-space: normal; }
+  .bar { grid-template-columns: 1fr auto; padding: 0 var(--space-16); }
+  .bar nav { display: none; } .goto { min-width: 0; } .goto .wide { display: none; }
+}
+
+.spec { position: relative; }
+.spec .spec-stage { display: flex; justify-content: center; align-items: center; }
+.spec svg.dims { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.dim-l, .dim-e, .dim-k { stroke: var(--fg-default); fill: none; }
+.dim-l { stroke-width: 1; } .dim-k { stroke-width: 1.5; } .dim-e { stroke-width: 0.75; stroke: var(--fg-muted); }
+.dim-dot { fill: var(--fg-default); }
+  .dim-t, .dim-s { paint-order: stroke; stroke: var(--bg-raised); stroke-width: 4px; stroke-linejoin: round; }
+.dim-t { font-family: var(--font-mono); font-size: 13px; fill: var(--fg-default); font-variant-numeric: tabular-nums; }
+.dim-s { font-family: var(--font-mono); font-size: 11px; fill: var(--fg-muted); }
+.hero { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--space-24); padding: var(--space-64) var(--space-32) var(--space-48); min-height: calc(100vh - 3.5rem - 8rem); align-content: center; }
+.hero .words { grid-column: 1 / span 5; align-self: end; }
+.hero h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(3.25rem, 1rem + 5.4vw, 6.5rem); line-height: 0.88; letter-spacing: -0.02em; }
+.hero .lede { margin-top: var(--space-24); }
+.hero .row { margin-top: var(--space-32); }
+.board { grid-column: 6 / -1; position: relative; border: 1px solid var(--border-strong); background-color: var(--bg-raised);
+  background-image: linear-gradient(var(--border-default) 1px, transparent 1px), linear-gradient(90deg, var(--border-default) 1px, transparent 1px); background-size: 2rem 2rem; background-position: -1px -1px; }
+.board .spec { height: 30rem; }
+.board .spec-stage { position: absolute; inset: 0; }
+.board .spec-stage .nk-btn { zoom: 3; }
+.board footer { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: center; padding: var(--space-8) var(--space-12); border-top: 1px solid var(--border-default); background: var(--bg-raised); font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-muted); }
+.steps { display: flex; gap: var(--space-4); }
+.steps span { padding: 2px var(--space-8); border: 1px solid transparent; }
+.steps span[data-on] { border-color: var(--fg-default); color: var(--fg-default); }
+.index { padding: 0 var(--space-32) var(--space-96); }
+.index h2 { margin: 0 0 var(--space-16); font-size: 1.5rem; }
+.index ol { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fg-default); }
+.index li a { display: grid; grid-template-columns: 4fr 3fr 3fr 2fr; align-items: center; height: 3.5rem; border-bottom: 1px solid var(--border-default); text-decoration: none; font-size: 1.125rem; }
+.index li a span { font-size: 0.875rem; color: var(--fg-muted); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.index li a.is-hover { background: var(--bg-raised); box-shadow: inset 3px 0 0 var(--fg-default); padding-left: var(--space-12); }
+/* component page */
+.doc { display: grid; grid-template-columns: 13rem minmax(0, 1fr) 11rem; gap: var(--space-48); max-width: 84rem; margin: 0 auto; padding: var(--space-40) var(--space-32) var(--space-96); }
+.side { position: sticky; top: 5rem; align-self: start; font-size: 0.875rem; display: grid; gap: var(--space-20); }
+.side h3 { margin: 0 0 var(--space-6); font-size: 0.8125rem; color: var(--fg-muted); font-weight: 500; }
+.side ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.side a { display: block; text-decoration: none; color: var(--fg-muted); padding: 2px 0 2px var(--space-12); border-left: 1px solid var(--border-default); }
+.side a[aria-current] { color: var(--fg-default); font-weight: 600; border-left: 2px solid var(--fg-default); padding-left: calc(var(--space-12) - 1px); }
+.doc h1 { margin: var(--space-12) 0 var(--space-16); font-family: var(--font-display); font-weight: 800; font-size: 4.5rem; line-height: 0.9; letter-spacing: -0.02em; }
+.drawing { margin-top: var(--space-32); border: 1px solid var(--border-strong); background-color: var(--bg-raised);
+  background-image: linear-gradient(var(--border-default) 1px, transparent 1px), linear-gradient(90deg, var(--border-default) 1px, transparent 1px); background-size: 1rem 1rem; background-position: -1px -1px; }
+.drawing .controls { display: flex; flex-wrap: wrap; gap: var(--space-16); padding: var(--space-12); border-bottom: 1px solid var(--border-default); background: var(--bg-raised); }
+.drawing .spec { height: 22rem; }
+.drawing .spec-stage { position: absolute; inset: 0; }
+.drawing .spec-stage .nk-btn { zoom: 2; }
+.drawing footer { display: flex; justify-content: space-between; padding: var(--space-8) var(--space-12); border-top: 1px solid var(--border-default); background: var(--bg-raised); font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-muted); }
+.sim-touch .nk-btn { --h: var(--size-control-touch-md); } .sim-touch .nk-btn--sm { --h: var(--size-control-touch-sm); } .sim-touch .nk-btn--lg { --h: var(--size-control-touch-lg); }
+.toc { position: sticky; top: 5rem; align-self: start; font-size: 0.8125rem; display: grid; gap: var(--space-6); }
+.toc h3 { margin: 0 0 var(--space-4); font-size: 0.8125rem; color: var(--fg-muted); font-weight: 500; }
+.toc a { text-decoration: none; color: var(--fg-muted); } .toc a:first-of-type { color: var(--fg-default); }
+@media (max-width: 1100px) { .doc { grid-template-columns: 12rem minmax(0,1fr); } .toc { display: none; } }
+@media (max-width: 760px) {
+  .hero { padding: var(--space-32) var(--space-16) var(--space-32); min-height: 0; gap: var(--space-32); }
+  .hero .words, .board { grid-column: 1 / -1; }
+  .board .spec { height: 16.5rem; } .board .spec-stage { justify-content: flex-start; padding-left: var(--space-24); } .board .spec-stage .nk-btn { zoom: 1.25; }
+  .board footer > span:first-child, .drawing footer > span:first-child { display: none; } .board footer, .drawing footer { justify-content: flex-end; }
+  .index { padding: 0 var(--space-16) var(--space-64); }
+  .index li a { grid-template-columns: 1fr auto; } .index li a span:nth-child(2), .index li a span:nth-child(3) { display: none; }
+  .doc { grid-template-columns: minmax(0, 1fr); padding: var(--space-24) var(--space-16) var(--space-64); } .side { display: none; }
+  .doc h1 { font-size: 3.25rem; }
+  .drawing .spec { height: 15rem; } .drawing .spec-stage { justify-content: flex-start; padding-left: var(--space-24); } .drawing .spec-stage .nk-btn { zoom: 1.25; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar"><a class="mark" href="#">Naksha</a><nav aria-label="Main"><a href="#">Get started</a><a href="#">Foundations</a><a href="#">Components</a><a href="#">Brand book</a><a href="#">Changelog</a></nav><button class="goto" type="button" aria-label="Go to a page"><span data-nk="{&quot;$c&quot;: &quot;Icon&quot;, &quot;p&quot;: {&quot;name&quot;: &quot;search&quot;}}" style="display:contents"></span><span class="wide">Go to</span><span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;⌘&quot;}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;K&quot;}}" style="display:contents"></span></span></button></header><main id="main"><section class="hero"><div class="words"><h1>A design system for my products.</h1>
+<p class="lede">Tokens, 34 React components on React Aria, and the rules for using them. Every number on this site is measured from the live component, so the docs can't drift from the code.</p>
+<div class="row"><span data-nk="{&quot;$c&quot;: &quot;Button&quot;, &quot;p&quot;: {&quot;variant&quot;: &quot;primary&quot;, &quot;iconEnd&quot;: &quot;arrow-right&quot;, &quot;children&quot;: &quot;Get started&quot;}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Button&quot;, &quot;p&quot;: {&quot;variant&quot;: &quot;secondary&quot;, &quot;children&quot;: &quot;Browse components&quot;}}" style="display:contents"></span></div></div>
+<figure class="board" style="margin:0"><div class="spec" data-spec="{&quot;$c&quot;: &quot;Button&quot;, &quot;p&quot;: {&quot;variant&quot;: &quot;primary&quot;, &quot;children&quot;: &quot;Save changes&quot;}}" data-measure=".nk-btn" data-cycle><div class="spec-stage"></div></div>
+<footer><span>Button, primary, drawn at 3 : 1</span><span class="steps" aria-hidden="true"><span data-step="null">Rest</span><span data-step="hover">Hover</span><span data-step="active">Pressed</span><span data-step="focus">Focus</span></span></footer></figure></section>
+<section class="index" aria-labelledby="ix"><h2 id="ix">Components</h2><ol><li><a href="#" class="is-hover">Button<span>Actions</span><span>5 variants</span><span>40 tall</span></a></li><li><a href="#">IconButton<span>Actions</span><span>3 variants</span><span>40 square</span></a></li><li><a href="#">Link<span>Actions</span><span>underlined at rest</span><span>inline</span></a></li><li><a href="#">Input<span>Forms</span><span>label above</span><span>40 tall</span></a></li><li><a href="#">Textarea<span>Forms</span><span>grows as you type</span><span>120 to 360</span></a></li><li><a href="#">Select<span>Forms</span><span>menu matches width</span><span>40 tall</span></a></li><li><a href="#">Checkbox<span>Forms</span><span>indeterminate</span><span>16 box</span></a></li><li><a href="#">Radio<span>Forms</span><span>arrow keys move</span><span>16 circle</span></a></li><li><a href="#">Switch<span>Forms</span><span>on and off</span><span>36 by 20</span></a></li></ol></section></main>
+<script src="mount.js"></script>
+<script src="measure.js"></script>
+</body>
+</html>

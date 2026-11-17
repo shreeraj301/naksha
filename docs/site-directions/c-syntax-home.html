@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../dist/css/naksha.css">
+<link rel="stylesheet" href="../../dist/css/components.css">
+<script src="../../dist/artifact/components/lib/react.production.min.js"></script>
+<script src="../../dist/artifact/components/lib/react-dom.production.min.js"></script>
+<script src="../../dist/artifact/components/bundle.js"></script>
+<title>Naksha</title>
+<style>
+
+html { scroll-padding-top: 5rem; }
+body { margin: 0; background: var(--bg-canvas); color: var(--fg-default); font-family: var(--font-sans); }
+a { color: inherit; }
+.skip { position: absolute; left: var(--space-16); top: -4rem; z-index: 50; padding: var(--space-8) var(--space-12); background: var(--bg-inverse); color: var(--fg-on-inverse); }
+.skip:focus { top: var(--space-16); }
+.bar { position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 3.5rem; padding: 0 var(--space-32); background: var(--bg-canvas); border-bottom: 1px solid var(--border-default); }
+.bar .mark { font-family: var(--font-display); font-weight: 800; font-size: 1.375rem; letter-spacing: 0.01em; text-transform: uppercase; text-decoration: none; justify-self: start; }
+.bar nav { display: flex; gap: var(--space-24); font-size: 0.875rem; }
+.bar nav a { text-decoration: none; color: var(--fg-muted); padding: var(--space-8) 0; }
+.bar nav a[aria-current] { color: var(--fg-default); font-weight: 600; box-shadow: inset 0 -2px 0 var(--fg-default); }
+.goto { justify-self: end; display: flex; align-items: center; gap: var(--space-8); height: 2rem; padding: 0 var(--space-8) 0 var(--space-12); border: 1px solid var(--border-control); background: var(--bg-raised); color: var(--fg-muted); font-size: 0.8125rem; min-width: 13rem; }
+.goto span:last-child { margin-left: auto; display: flex; gap: 2px; }
+pre.code { margin: 0; padding: var(--space-16) var(--space-20); background: var(--bg-inverse); color: var(--fg-on-inverse); font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.65; overflow-x: auto; }
+pre.code .k { color: var(--fg-on-inverse-muted); } pre.code .s { color: var(--action-highlight); }
+table.props { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+table.props th { text-align: left; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; color: var(--fg-muted); padding: var(--space-8) var(--space-12) var(--space-8) 0; border-bottom: 1px solid var(--border-strong); }
+table.props td { padding: var(--space-12) var(--space-12) var(--space-12) 0; border-bottom: 1px solid var(--border-default); vertical-align: top; line-height: 1.45; }
+table.props .pn { font-family: var(--font-mono); font-size: 0.8125rem; white-space: nowrap; }
+table.props .pd { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--fg-muted); white-space: nowrap; }
+.row { display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; }
+h2.sec { margin: var(--space-64) 0 var(--space-16); font-size: 1.5rem; letter-spacing: -0.01em; }
+.lede { font-size: 1.1875rem; line-height: 1.5; color: var(--fg-muted); max-width: 56ch; margin: 0; }
+@media (max-width: 760px) {
+  table.props .pn, table.props .pd { white-space: normal; }
+  .bar { grid-template-columns: 1fr auto; padding: 0 var(--space-16); }
+  .bar nav { display: none; } .goto { min-width: 0; } .goto .wide { display: none; }
+}
+
+.hero { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: var(--space-24); padding: var(--space-64) var(--space-32) var(--space-48); }
+.hero h1 { grid-column: 1 / span 6; margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(3.25rem, 1rem + 5.4vw, 6.5rem); line-height: 0.88; letter-spacing: -0.02em; }
+.hero .side { grid-column: 8 / span 5; align-self: end; }
+.hero .side p { margin: 0 0 var(--space-24); }
+.press { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; display: flex; align-items: center; gap: var(--space-8); }
+.score { margin: 0 var(--space-32) var(--space-96); border-top: 2px solid var(--fg-default); }
+.score .live { display: grid; grid-template-columns: 10rem minmax(0, 1fr); border-bottom: 1px solid var(--border-strong); }
+.score .live > div:last-child { display: flex; gap: var(--space-24); align-items: flex-end; padding: var(--space-32) var(--space-24); }
+.staff { display: grid; grid-template-columns: 10rem repeat(8, minmax(0, 1fr)); position: relative; }
+.staff > * { border-bottom: 1px solid var(--border-default); height: 3rem; display: flex; align-items: center; }
+.staff .who { font-size: 0.875rem; font-weight: 600; padding-right: var(--space-12); }
+.staff .ev { font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-muted); border-bottom: 2px solid var(--fg-default); }
+.staff .cell { position: relative; border-left: 1px solid var(--border-default); }
+.staff .cell b { position: absolute; left: var(--space-8); right: var(--space-8); height: 0.75rem; background: var(--hue); outline: 1px solid var(--fg-default); }
+.staff .cell b.dot { right: auto; width: 0.75rem; border-radius: 50%; }
+.staff .cell em { position: absolute; left: var(--space-8); top: calc(50% + 0.625rem); font-style: normal; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--fg-muted); white-space: nowrap; }
+.playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--fg-default); pointer-events: none; }
+.playhead::before { content: ""; position: absolute; top: -0.375rem; left: -0.3125rem; border: 0.375rem solid transparent; border-top-color: var(--fg-default); }
+.lab { grid-column: 1 / -1; display: flex; justify-content: space-between; padding: var(--space-8) 0; font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-muted); border: 0 !important; height: auto !important; }
+/* component page */
+.doc { max-width: 72rem; margin: 0 auto; padding: var(--space-40) var(--space-32) var(--space-96); }
+.doc h1 { margin: var(--space-12) 0 var(--space-16); font-family: var(--font-display); font-weight: 800; font-size: 4.5rem; line-height: 0.9; letter-spacing: -0.02em; }
+.matrix { width: 100%; border-collapse: collapse; margin-top: var(--space-32); font-size: 0.875rem; }
+.matrix th, .matrix td { border: 1px solid var(--border-default); padding: var(--space-12); text-align: left; vertical-align: top; line-height: 1.45; }
+.matrix thead th { font-family: var(--font-mono); font-weight: 400; font-size: 0.75rem; color: var(--fg-muted); border-bottom: 2px solid var(--fg-default); }
+.matrix tbody th { width: 11rem; font-weight: 400; }
+.matrix tbody th .nk-btn { pointer-events: none; }
+.matrix tr.now { background: var(--bg-raised); box-shadow: inset 3px 0 0 var(--fg-default); }
+@media (max-width: 760px) {
+  .hero { padding: var(--space-32) var(--space-16); }
+  .hero h1, .hero .side { grid-column: 1 / -1; }
+  .score { margin: 0 var(--space-16) var(--space-64); }
+  .score .live { grid-template-columns: minmax(0, 1fr); } .score .live > div:first-child { display: none; }
+  .score .live > div:last-child { flex-wrap: wrap; padding: var(--space-24) 0; }
+  .staffwrap { overflow-x: auto; } .staff { min-width: 40rem; }
+  .doc { padding: var(--space-24) var(--space-16) var(--space-64); } .doc h1 { font-size: 3.25rem; }
+  .mwrap { overflow-x: auto; } .matrix { min-width: 40rem; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar"><a class="mark" href="#">Naksha</a><nav aria-label="Main"><a href="#">Get started</a><a href="#">Foundations</a><a href="#">Components</a><a href="#">Brand book</a><a href="#">Changelog</a></nav><button class="goto" type="button" aria-label="Go to a page"><span data-nk="{&quot;$c&quot;: &quot;Icon&quot;, &quot;p&quot;: {&quot;name&quot;: &quot;search&quot;}}" style="display:contents"></span><span class="wide">Go to</span><span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;⌘&quot;}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;K&quot;}}" style="display:contents"></span></span></button></header><main id="main"><section class="hero"><h1>A design system for my products.</h1>
+<div class="side"><p class="lede">A component is a behaviour before it is a shape. Naksha writes each one as a sequence: what you do, and what it does back. Built on React Aria, read with the keyboard.</p>
+<p class="press">Press <span data-nk="{&quot;$c&quot;: &quot;Kbd&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Tab&quot;}}" style="display:contents"></span> to start the score</p></div></section>
+<section class="score" aria-label="A short form, played as a score"><div class="live"><div></div><div>
+<div style="width:16rem"><span data-nk="{&quot;$c&quot;: &quot;Input&quot;, &quot;p&quot;: {&quot;label&quot;: &quot;Email&quot;, &quot;size&quot;: &quot;sm&quot;, &quot;defaultValue&quot;: &quot;name@company.com&quot;}}" style="display:contents"></span></div>
+<span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;defaultSelected&quot;: true}}" style="display:contents"></span><span data-nk="{&quot;$c&quot;: &quot;Button&quot;, &quot;p&quot;: {&quot;variant&quot;: &quot;primary&quot;, &quot;forceState&quot;: [&quot;focus&quot;, &quot;active&quot;], &quot;children&quot;: &quot;Ask&quot;}}" style="display:contents"></span></div></div><div class="staffwrap"><div class="staff" aria-hidden="true"><span class="ev"></span><span class="ev">Tab</span><span class="ev">type</span><span class="ev">Tab</span><span class="ev">Space</span><span class="ev">Tab</span><span class="ev">Enter</span><span class="ev">wait</span><span class="ev">done</span><span class="who">Email</span><span class="cell"><b class="" style="--hue:var(--section-pause)"></b><em>focus</em></span><span class="cell"><b class="" style="--hue:var(--section-pause)"></b><em>value</em></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="who">Agent view</span><span class="cell"></span><span class="cell"></span><span class="cell"><b class="" style="--hue:var(--section-plug)"></b><em>focus</em></span><span class="cell"><b class="dot" style="--hue:var(--section-plug)"></b><em>on</em></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="who">Ask</span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"><b class="" style="--hue:var(--section-build)"></b><em>focus</em></span><span class="cell"><b class="dot" style="--hue:var(--section-build)"></b><em>pressed</em></span><span class="cell"><b class="" style="--hue:var(--section-build)"></b><em>pending</em></span><span class="cell"></span><span class="who">Toast</span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"><b class="dot" style="--hue:var(--section-play)"></b><em>announced</em></span><span class="playhead" style="left:calc(10rem + (100% - 10rem) * 5.5 / 8)"></span><span class="lab"><span>Read left to right. Each column is one thing you do.</span><span>Step 6 of 8</span></span></div></div></section></main>
+<script src="mount.js"></script>
+</body>
+</html>
