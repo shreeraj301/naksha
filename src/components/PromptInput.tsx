@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useLayoutEffect, useRef, useState, type Keyboa
 import { Button as AriaButton, DropZone, FileTrigger } from "react-aria-components";
 import { cx } from "../cx";
 import { layoutStyle, type LayoutStyles } from "../styles";
-import { Icon } from "./Icon";
+import { Icon, type IconName } from "./Icon";
 import { IconButton } from "./IconButton";
 
 export interface PromptAttachment {
@@ -159,7 +159,7 @@ export const PromptInput = forwardRef<HTMLTextAreaElement, PromptInputProps>(fun
           <span>{note}</span>
           {showKeyHint && (
             <span>
-              <span className="nk-kbd">↵</span> send · <span className="nk-kbd">⇧</span> <span className="nk-kbd">↵</span> new line
+              <KeyCap name="corner-down-left" label="Enter" /> send · <KeyCap name="arrow-big-up" label="Shift" /> <KeyCap name="corner-down-left" label="Enter" /> new line
             </span>
           )}
         </div>
@@ -167,6 +167,15 @@ export const PromptInput = forwardRef<HTMLTextAreaElement, PromptInputProps>(fun
     </div>
   );
 });
+
+/** One key in a shortcut hint. The glyph is a drawn icon (no Naksha font has ⌘ ↵ ⇧ ⌫), named for screen readers. */
+function KeyCap({ name, label }: { name: IconName; label: string }) {
+  return (
+    <span className="nk-kbd">
+      <Icon name={name} label={label} />
+    </span>
+  );
+}
 
 export interface PromptLevelProps {
   children: ReactNode;

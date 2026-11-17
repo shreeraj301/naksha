@@ -1,7 +1,69 @@
 # Select
 
-Pick one option from five or more. For two to four options use SegmentedControl or Radio so every choice stays visible.
+Pick one option from a list of five or more. For two to four options use SegmentedControl or RadioGroup, so every choice stays visible.
 
-## Use
-- The trigger is an Input with a `chevron-down` that turns 180° when open (200ms, `ease-out`). The list is a Menu 4px below, as wide as the trigger, with a check on the current option.
-- Prefer a native `<select>` on mobile.
+## Usage
+
+```jsx
+import { Select } from "naksha";
+
+<Select
+  label="Reading level"
+  options={[{ id: "simple", label: "Simple" }, { id: "everyday", label: "Everyday" }, { id: "informed", label: "Informed" }]}
+  defaultValue="everyday"
+  onChange={setLevel}
+/>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `label` | visible label, required | |
+| `options` | `{ id, label }[]` | |
+| `value`, `defaultValue`, `onChange` | option `id`s | none chosen |
+| `placeholder` | shown until something is chosen, in the placeholder colour | React Aria's "Select an item" |
+| `description`, `isInvalid`, `errorMessage`, `isOptional`, `isDisabled`, `isRequired`, `name` | as Input | |
+| `styles` | layout only (ADR 0009) | |
+
+## Best practices
+
+- Keep lists short enough to scan. A long list wants search (a combobox, not built yet).
+- Order options by meaning (Simple, Everyday, Informed), not alphabetically, unless the list is a list of names.
+
+## Content
+
+Option labels are one or two words in sentence case. The placeholder asks for the choice ("Choose a level").
+
+## Anatomy and spacing
+
+The trigger is a field: 40 tall (44 touch), padding 12, `chevron-down` on the right that turns 180° while open (200ms, `ease-out`). The list is a Menu 4 below the trigger and as wide as it, with a check on the current option.
+
+## States
+
+As Input, plus open. The placeholder uses `fg-subtle`, so it never reads as a chosen value. While open, the trigger keeps its focus edge.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's Select: the trigger is a button that names the label and the current value, the list is a `listbox`, arrow keys open it and move through options, Enter chooses, Escape closes and returns focus to the trigger, and typing a letter jumps to a matching option. A hidden native `<select>` keeps form submission and browser autofill working.
+
+**What the designer decides.** The options, their order, and the placeholder.
+
+**What the developer must not break.** Do not replace the trigger with a link or a div. Keep option ids stable, because they are what the form submits.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, open, error, disabled (screenshots, forced colours) | Tested |
+| Keyboard: open, move, choose, Escape; list width and position | Tested |
+| Phones | Not tested yet |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.3 | Built on React Aria's Select. The placeholder reads as a placeholder. Focus shows in Windows High Contrast. |
+| 0.2.0 | CSS component, v2 audit. |

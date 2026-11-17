@@ -7,7 +7,20 @@
 
 </head>
 <body>
-<div class="nk-stage"><div class="nk-matrix" style="grid-template-columns:max-content repeat(4,max-content)"><span></span><span class="nk-cap">Default</span><span class="nk-cap">Hover</span><span class="nk-cap">Focus</span><span class="nk-cap">Disabled</span><span class="nk-matrix__row">Off</span><div><label class="nk-switch"><input type="checkbox" role="switch"><span>Agent view</span></label></div><div><label class="nk-switch is-hover"><input type="checkbox" role="switch"><span>Agent view</span></label></div><div><label class="nk-switch is-focus"><input type="checkbox" role="switch"><span>Agent view</span></label></div><div><label class="nk-switch"><input type="checkbox" role="switch" disabled><span>Agent view</span></label></div><span class="nk-matrix__row">On</span><div><label class="nk-switch"><input type="checkbox" role="switch" checked><span>Agent view</span></label></div><div><label class="nk-switch is-hover"><input type="checkbox" role="switch" checked><span>Agent view</span></label></div><div><label class="nk-switch is-focus"><input type="checkbox" role="switch" checked><span>Agent view</span></label></div><div><label class="nk-switch"><input type="checkbox" role="switch" checked disabled><span>Agent view</span></label></div></div></div>
-
+<div class="nk-stage"><div class="nk-matrix" style="grid-template-columns:max-content repeat(4,max-content)"><span></span><span class="nk-cap">Default</span><span class="nk-cap">Hover</span><span class="nk-cap">Focus</span><span class="nk-cap">Disabled</span><span class="nk-matrix__row">Off</span><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;forceState&quot;: &quot;hover&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;isDisabled&quot;: true}}" style="display:contents"></span></div><span class="nk-matrix__row">On</span><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;defaultSelected&quot;: true}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;defaultSelected&quot;: true, &quot;forceState&quot;: &quot;hover&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;defaultSelected&quot;: true, &quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;Switch&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Agent view&quot;, &quot;defaultSelected&quot;: true, &quot;isDisabled&quot;: true}}" style="display:contents"></span></div></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object' && v.$c) return el(v); return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
 </body>
 </html>

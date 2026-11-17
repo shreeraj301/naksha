@@ -1,8 +1,67 @@
 # Radio
 
-One choice from a short, visible list.
+One choice from a short list where every option stays visible. Use `RadioGroup` with a `Radio` per option.
 
-## Use
-- Group radios in a `<fieldset>` with a `<legend>`. Arrow keys move the choice.
-- The only round control in the system (`radius-round`): the circle carries the meaning "pick one".
-- Selected keeps the 16px ring in `fg-default` and grows a 6px dot over 140ms.
+## Usage
+
+```jsx
+import { RadioGroup, Radio } from "naksha";
+
+<RadioGroup label="Reading level" defaultValue="everyday" onChange={setLevel}>
+  <Radio value="simple" description="Short sentences, no jargon.">Simple</Radio>
+  <Radio value="everyday" description="How a friend would explain it.">Everyday</Radio>
+  <Radio value="informed" description="Keeps the legal terms, explains them.">Informed</Radio>
+</RadioGroup>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `RadioGroup` `label` | the question the options answer | |
+| `RadioGroup` `value`, `defaultValue`, `onChange` | a radio's `value` | none |
+| `RadioGroup` `description`, `isInvalid`, `errorMessage`, `isDisabled`, `isRequired`, `name` | as Input | |
+| `Radio` `value`, `children` | the option and its label | |
+| `Radio` `description` | a second, quieter line | none |
+| `Radio` `isDisabled` | one option unavailable | `false` |
+
+## Best practices
+
+- Two to five options. More than five wants a Select; two that switch a view want a SegmentedControl.
+- Choose a sensible default when one exists, so the group never starts empty for no reason.
+
+## Content
+
+The group label is a short noun phrase. Option labels are one to three words; put the explanation in the description.
+
+## Anatomy and spacing
+
+Ring 16 · label `body-m` · 8 between · options 8 apart · group label to first option 8. The only round control in the system (`radius-round`): the circle carries the meaning "pick one".
+
+## States
+
+Selected keeps the 16px ring in `fg-default` and grows a 6px dot over 140ms. Hover, focus, error and disabled follow Checkbox.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's RadioGroup: a `radiogroup` named by its label, real radio inputs, one Tab stop on the chosen option, and arrow keys that move the choice. A group-level error is joined to every option.
+
+**What the designer decides.** The question, the options, their order and the default.
+
+**What the developer must not break.** Keep every `Radio` inside its `RadioGroup`.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, focus, error, disabled (screenshots, forced colours) | Tested |
+| Keyboard (one Tab stop, arrow keys) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.3 | Built on React Aria's RadioGroup. Single radios in the preview matrix sit 2px tighter, because the group no longer adds a text line around them. |
+| 0.2.0 | CSS component, v2 audit. |

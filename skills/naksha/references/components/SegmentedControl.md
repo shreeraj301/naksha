@@ -2,9 +2,64 @@
 
 # SegmentedControl
 
-Switch between two to four views or modes with every option visible, like the portfolio's Human / Agent toggle.
+Switch between two to four views or modes with every option visible, like the portfolio's Human / Agent toggle. The choice applies at once.
 
-## Use
-- Mono caps labels (`mono-label`). The selected option fills with `action-primary`; the fill moves on `ease-in-out` over 200ms.
-- `role="radiogroup"`, arrow keys move the selection.
-- Inside a composer or toolbar use `nk-seg--quiet`, or a compact menu trigger: a full bordered control there competes with the main action.
+## Usage
+
+```jsx
+import { SegmentedControl } from "naksha";
+
+<SegmentedControl label="View" options={[{ id: "human", label: "Human" }, { id: "agent", label: "Agent" }]} value={view} onChange={setView} />
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `label` | names the group for screen readers, required | |
+| `options` | `{ id, label }[]`, two to four | |
+| `value`, `defaultValue`, `onChange` | option `id`s | the first option |
+| `variant` | `default`, `quiet` (no frame, for toolbars) | `default` |
+| `isDisabled` | | `false` |
+| `styles` | layout only (ADR 0009) | |
+
+## Best practices
+
+- For views and modes, not for answers in a form (use RadioGroup there).
+- Inside a composer or toolbar use `quiet`, or a compact menu trigger: a full bordered control there competes with the main action.
+
+## Content
+
+One word per option where possible. Labels are set in `mono-label` caps, so keep them short.
+
+## Anatomy and spacing
+
+Segments 26 tall, padding 12 · 2 inside the frame and 2 between segments · `mono-label` 12. The selected option fills with `action-primary`; the fill changes on `ease-in-out` over 200ms.
+
+## States
+
+Hover adds `state-hover`. Focus is the system outline on the segment. Selected uses `action-primary` and `action-on-primary`.
+
+## Accessibility
+
+**What Naksha provides.** Built on React Aria's RadioGroup, so it is a real radio group: one Tab stop on the chosen option, arrow keys move the choice, and there is always exactly one option on. In Windows High Contrast the selected segment uses Highlight.
+
+**What the designer decides.** The options and the group's name.
+
+**What the developer must not break.** Always pass `label`; the options alone do not say what they choose.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, quiet (screenshots, forced colours) | Tested |
+| Keyboard (one Tab stop, arrow keys move the choice) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.3 | Built on React Aria's RadioGroup, so arrow keys move the choice and the control is one Tab stop. |
+| 0.2.0 | CSS component, v2 audit. |

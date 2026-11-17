@@ -2,15 +2,76 @@
 
 # Input
 
-A single-line text field with a visible label above it and helper or error text below.
+A single-line text field with a visible label above it and help or an error below.
 
-## Use
-- Always a visible label (`label-s`, `fg-default`). Placeholders show the format, never the label.
-- Mark optional fields with "Optional" in `fg-muted`; do not star required ones.
-- Helper text (`body-s`, `fg-muted`) sits 6px under the field. In error it is replaced by a message that says how to fix the problem, with a `circle-alert` icon, in `status-danger-fg`, linked by `aria-describedby`.
+## Usage
+
+```jsx
+import { Input } from "naksha";
+
+<Input label="Email" type="email" description="We only use this to reply." />
+<Input label="Email" type="email" isInvalid errorMessage="Add the part after the dot, like example.com." />
+<Input label="Search papers" type="search" iconStart="search" placeholder="Search by title or clause" />
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `label` | visible label, required | |
+| `type` | `text`, `email`, `password`, `search`, `tel`, `url` | `text` |
+| `description` | help under the field, hidden while an error shows | none |
+| `isInvalid`, `errorMessage` | the error replaces the help, with the alert icon | `false` |
+| `isOptional` | writes "Optional" beside the label | `false` |
+| `isDisabled`, `isRequired` | | `false` |
+| `size` | `md` (40, 44 under touch), `sm` (32) | `md` |
+| `iconStart` | an icon name (`"search"`) or a node | none |
+| `value`, `defaultValue`, `onChange` | `onChange` gets the text | |
+| `styles` | layout only (ADR 0009) | |
+
+## Best practices
+
+- Always a visible label. A placeholder shows the format ("name@company.com"), never the label: it disappears as soon as someone types.
+- Mark the optional fields and leave required ones unmarked. Most fields in a good form are required, so mark the exception.
+- Validate when the person leaves the field or sends the form, not on every keystroke.
+
+| Do | Don't |
+| --- | --- |
+| "Add the part after the dot, like example.com." | "Invalid email" |
+| Explain a locked field in its help: "Ask an admin to change this." | Disable it with no reason |
+
+## Content
+
+Labels are nouns in sentence case ("Email", "Search papers"). Help is one short sentence. An error says how to fix the problem, in the person's words.
 
 ## Anatomy and spacing
-Label to field 8 · field 40 (44 touch) · field padding 12 · icon to text 8 · field to helper 6 · fields in a form 20 apart.
+
+Label to field 8 · field 40 (44 touch), 32 for `sm` · field padding 12 (8 for `sm`) · icon to text 8 · field to help 6 · fields in a form 20 apart.
 
 ## States
-Rest: `bg-raised` with a 1px `border-control` edge (3:1). Hover: edge `fg-muted`. Focus: the edge doubles to 2px ink (`border-focus`); a field is a box you type into, so it shows focus on its own edge rather than an offset ring. Error: `status-danger-fg` edge. Disabled: `bg-disabled`, `border-default`.
+
+Rest: `bg-raised` with a 1px `border-control` edge (3:1). Hover: edge `fg-muted`. Focus: the edge doubles to 2px ink (`border-focus`); a field is a box you type into, so it shows focus on its own edge rather than an offset ring. Error: `status-danger-fg` edge and help. Disabled: `bg-disabled`, `border-default`, label and text in `fg-disabled`. The help line stays `fg-muted` on a disabled field, because that is where the reason for the lock goes.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's TextField: the label is a real `<label for>`, the help and the error are joined to the field with `aria-describedby`, and an invalid field sets `aria-invalid`. Only one of help or error is read, never both. Windows High Contrast draws focus as a 2px Highlight edge, because forced colours remove the box-shadow the normal focus uses.
+
+**What the designer decides.** The label, the help, the error wording, and which fields are optional.
+
+**What the developer must not break.** Do not hide the label to save space. Set `type` and `autoComplete` so phones show the right keyboard and browsers can fill the field.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, focus, error, disabled (screenshots, forced colours) | Tested |
+| Label, help and error wiring, typing | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.3 | Built on React Aria's TextField. Help on a disabled field stays readable. Focus shows in Windows High Contrast. |
+| 0.2.0 | CSS component, v2 audit. |

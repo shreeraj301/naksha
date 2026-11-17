@@ -129,6 +129,7 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
   font-size: 0.8125rem; line-height: 1.45; color: var(--fg-muted); /* body-s */ }
 .nk-field__help svg { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; margin-top: 1px; }
 .nk-field__help .nk-count { margin-left: auto; font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--fg-subtle); white-space: nowrap; }
+.nk-field__help .nk-count--full { color: var(--status-danger-fg); }
 .nk-field--error .nk-field__help { color: var(--status-danger-fg); }
 .nk-control { position: relative; display: flex; align-items: center; gap: var(--space-8); height: var(--size-control-md); padding: 0 var(--space-12);
   background: var(--bg-raised); border: var(--border-hairline) solid var(--border-control); border-radius: var(--radius-control);
@@ -141,55 +142,66 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 .nk-control.is-hover { border-color: var(--fg-muted); }
 @media (hover: hover) and (pointer: fine) { .nk-control:hover { border-color: var(--fg-muted); } }
 /* fields show focus as a doubled ink edge, not an offset ring: the box itself is the target */
-.nk-control:focus-within, .nk-control.is-focus { border-color: var(--border-focus); box-shadow: inset 0 0 0 1px var(--border-focus); }
+.nk-control:focus-within, .nk-control.is-focus, .nk-control--select[aria-expanded="true"] { border-color: var(--border-focus); box-shadow: inset 0 0 0 1px var(--border-focus); }
 .nk-field--error .nk-control { border-color: var(--status-danger-fg); }
 .nk-field--error .nk-control:focus-within, .nk-field--error .nk-control.is-focus { box-shadow: inset 0 0 0 1px var(--status-danger-fg); }
 .nk-field--disabled .nk-field__label { color: var(--fg-disabled); }
 .nk-field--disabled .nk-control { background: var(--bg-disabled); border-color: var(--border-default); color: var(--fg-disabled); }
 .nk-field--disabled .nk-control input { color: var(--fg-disabled); }
-.nk-field--disabled .nk-field__help { color: var(--fg-disabled); }
+/* The help line stays readable on a disabled field: it is where the reason for the lock goes. */
 .nk-control--area { height: auto; align-items: stretch; padding: var(--space-12); }
-.nk-control--area textarea { min-height: 7.5rem; resize: vertical; white-space: pre-wrap; }
+/* Grows with its text from 120 (about five lines) to 360 (sixteen), then scrolls. It grows on its own, so there is no drag handle. */
+.nk-control--area textarea { min-height: 7.5rem; max-height: 22.5rem; overflow-y: auto; resize: none; white-space: pre-wrap; }
 .nk-control--select { cursor: pointer; }
 .nk-control--select .nk-chev { color: var(--fg-default); transition: transform var(--dur-ui) var(--ease-out); }
-.nk-control--select.is-open .nk-chev { transform: rotate(180deg); }
+.nk-control--select.is-open .nk-chev, .nk-control--select[aria-expanded="true"] .nk-chev { transform: rotate(180deg); }
+/* Select's trigger is a button: drop its own type and alignment so it reads like the other fields. */
+button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: left; }
+.nk-control__value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9375rem; line-height: 1.5; color: var(--fg-default); }
+.nk-control__value[data-placeholder] { color: var(--fg-subtle); }
+.nk-field--disabled .nk-control__value { color: var(--fg-disabled); }
+.nk-field--disabled .nk-control--select { cursor: not-allowed; }
 
-/* ---------- Checkbox, Radio, Switch ---------- */
+/* ---------- Checkbox, Radio, Switch ----------
+   React Aria keeps the real input inside the label, visually hidden; the drawn box (or track) is a span beside it.
+   State comes from React Aria's data attributes, plus .is-* classes so previews can show a state at rest.
+   Order matters: error, then selected, then disabled, so a disabled box always reads as disabled. */
 .nk-check, .nk-radio, .nk-switch { display: inline-flex; align-items: flex-start; gap: var(--space-8); min-height: 1.5rem; padding: var(--space-2) 0; cursor: pointer;
   font-size: 0.9375rem; line-height: 1.33; color: var(--fg-default); }
-.nk-check input, .nk-radio input { appearance: none; -webkit-appearance: none; margin: 1px 0 0; flex: none; width: var(--size-icon-sm); height: var(--size-icon-sm);
-  background: var(--bg-raised); border: var(--border-hairline) solid var(--border-control); display: grid; place-items: center; cursor: pointer;
+.nk-check__box, .nk-radio__box { margin: 1px 0 0; flex: none; width: var(--size-icon-sm); height: var(--size-icon-sm);
+  background: var(--bg-raised); border: var(--border-hairline) solid var(--border-control); display: grid; place-items: center;
   transition: background-color var(--dur-hover) ease, border-color var(--dur-hover) ease; }
-.nk-check input { border-radius: var(--radius-control); }
-.nk-check input::after { content: ""; width: 0.625rem; height: 0.375rem; border: 0 solid var(--action-on-primary); border-width: 0 0 1.5px 1.5px; transform: translateY(-1px) rotate(-45deg) scale(0.6); opacity: 0;
+.nk-check__box { border-radius: var(--radius-control); }
+.nk-check__box::after { content: ""; width: 0.625rem; height: 0.375rem; border: 0 solid var(--action-on-primary); border-width: 0 0 1.5px 1.5px; transform: translateY(-1px) rotate(-45deg) scale(0.6); opacity: 0;
   transition: opacity var(--dur-press) ease, transform var(--dur-press) var(--ease-out); }
-.nk-check input:checked, .nk-check input:indeterminate { background: var(--action-primary); border-color: var(--action-primary); }
-.nk-check input:checked::after { opacity: 1; transform: translateY(-1px) rotate(-45deg) scale(1); }
-.nk-check input:indeterminate::after { opacity: 1; width: 0.5rem; height: 0; border-width: 0 0 1.5px 0; transform: none; }
-.nk-radio input { border-radius: var(--radius-round); }
-.nk-radio input::after { content: ""; width: 0.375rem; height: 0.375rem; border-radius: var(--radius-round); background: var(--fg-default); transform: scale(0); transition: transform var(--dur-press) var(--ease-out); }
-.nk-radio input:checked { border-color: var(--fg-default); }
-.nk-radio input:checked::after { transform: scale(1); }
-.nk-check.is-hover input:not(:checked):not(:indeterminate), .nk-radio.is-hover input:not(:checked) { border-color: var(--fg-default); }
-@media (hover: hover) and (pointer: fine) { .nk-check:hover input:not(:checked):not(:indeterminate):not(:disabled), .nk-radio:hover input:not(:checked):not(:disabled) { border-color: var(--fg-default); } }
-.nk-check.is-focus input, .nk-radio.is-focus input, .nk-switch.is-focus input { outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
-.nk-check--error input { border-color: var(--status-danger-fg); }
-.nk-check input:disabled, .nk-radio input:disabled { background: var(--bg-disabled); border-color: var(--border-default); cursor: not-allowed; }
-.nk-check input:disabled:checked { background: var(--bg-disabled); }
-.nk-check input:disabled::after { border-color: var(--fg-disabled); }
-.nk-radio input:disabled::after { background: var(--fg-disabled); }
-.nk-check:has(input:disabled), .nk-radio:has(input:disabled), .nk-switch:has(input:disabled) { color: var(--fg-disabled); cursor: not-allowed; }
+.nk-radio__box { border-radius: var(--radius-round); }
+.nk-radio__box::after { content: ""; width: 0.375rem; height: 0.375rem; border-radius: var(--radius-round); background: var(--fg-default); transform: scale(0); transition: transform var(--dur-press) var(--ease-out); }
+.nk-check--error .nk-check__box, .nk-check--error .nk-radio__box, .nk-check[data-invalid] .nk-check__box, .nk-radio[data-invalid] .nk-radio__box { border-color: var(--status-danger-fg); }
+.nk-check[data-selected] .nk-check__box, .nk-check[data-indeterminate] .nk-check__box { background: var(--action-primary); border-color: var(--action-primary); }
+.nk-check[data-selected] .nk-check__box::after { opacity: 1; transform: translateY(-1px) rotate(-45deg) scale(1); }
+.nk-check[data-indeterminate] .nk-check__box::after { opacity: 1; width: 0.5rem; height: 0; border-width: 0 0 1.5px 0; transform: none; }
+.nk-radio[data-selected] .nk-radio__box { border-color: var(--fg-default); }
+.nk-radio[data-selected] .nk-radio__box::after { transform: scale(1); }
+.nk-check.is-hover:not([data-selected]):not([data-indeterminate]) .nk-check__box, .nk-radio.is-hover:not([data-selected]) .nk-radio__box { border-color: var(--fg-default); }
+@media (hover: hover) and (pointer: fine) {
+  .nk-check:hover:not([data-selected]):not([data-indeterminate]):not([data-disabled]) .nk-check__box,
+  .nk-radio:hover:not([data-selected]):not([data-disabled]) .nk-radio__box { border-color: var(--fg-default); } }
+.nk-check[data-disabled] .nk-check__box, .nk-radio[data-disabled] .nk-radio__box { background: var(--bg-disabled); border-color: var(--border-default); }
+.nk-check[data-disabled] .nk-check__box::after { border-color: var(--fg-disabled); }
+.nk-radio[data-disabled] .nk-radio__box::after { background: var(--fg-disabled); }
+.nk-check[data-disabled], .nk-radio[data-disabled], .nk-switch[data-disabled] { color: var(--fg-disabled); cursor: not-allowed; }
 .nk-check small, .nk-radio small, .nk-switch small { display: block; font-size: 0.8125rem; line-height: 1.45; color: var(--fg-muted); margin-top: var(--space-2); }
-.nk-switch input { appearance: none; -webkit-appearance: none; margin: 0; flex: none; position: relative; width: 2.25rem; height: 1.25rem; cursor: pointer;
+.nk-switch__track { flex: none; position: relative; width: 2.25rem; height: 1.25rem;
   background: var(--bg-raised); border: var(--border-hairline) solid var(--border-control); border-radius: var(--radius-control);
   transition: background-color var(--dur-ui) ease, border-color var(--dur-ui) ease; }
-.nk-switch input::after { content: ""; position: absolute; top: 0.1875rem; left: 0.1875rem; width: 0.75rem; height: 0.75rem; background: var(--border-control);
+.nk-switch__track::after { content: ""; position: absolute; top: 0.1875rem; left: 0.1875rem; width: 0.75rem; height: 0.75rem; background: var(--border-control);
   transition: transform var(--dur-ui) var(--ease-in-out), background-color var(--dur-ui) ease; }
-.nk-switch input:checked { background: var(--action-primary); border-color: var(--action-primary); }
-.nk-switch input:checked::after { transform: translateX(1rem); background: var(--action-on-primary); }
-.nk-switch.is-hover input:not(:checked) { border-color: var(--fg-default); }
-.nk-switch input:disabled { background: var(--bg-disabled); border-color: var(--border-default); cursor: not-allowed; }
-.nk-switch input:disabled::after { background: var(--fg-disabled); }
+.nk-switch[data-selected] .nk-switch__track { background: var(--action-primary); border-color: var(--action-primary); }
+.nk-switch[data-selected] .nk-switch__track::after { transform: translateX(1rem); background: var(--action-on-primary); }
+.nk-switch.is-hover:not([data-selected]) .nk-switch__track { border-color: var(--fg-default); }
+.nk-switch[data-disabled] .nk-switch__track { background: var(--bg-disabled); border-color: var(--border-default); }
+.nk-switch[data-disabled] .nk-switch__track::after { background: var(--fg-disabled); }
+.nk-radiogroup { display: flex; flex-direction: column; gap: var(--space-8); }
 
 /* ---------- Segmented control ---------- */
 .nk-seg { display: inline-flex; padding: var(--space-2); gap: var(--space-2); background: var(--bg-raised); border: var(--border-hairline) solid var(--border-control); border-radius: var(--radius-control); }
@@ -197,8 +209,9 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
   font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); border-radius: var(--radius-control);
   transition: background-color var(--dur-ui) var(--ease-in-out), color var(--dur-ui) ease; }
 .nk-seg__opt.is-hover { color: var(--fg-default); background: var(--state-hover); }
-@media (hover: hover) and (pointer: fine) { .nk-seg__opt:hover:not([aria-checked="true"]) { color: var(--fg-default); background: var(--state-hover); } }
-.nk-seg__opt[aria-checked="true"] { background: var(--action-primary); color: var(--action-on-primary); }
+@media (hover: hover) and (pointer: fine) { .nk-seg__opt:hover:not([aria-checked="true"]):not([data-selected]) { color: var(--fg-default); background: var(--state-hover); } }
+/* The live control is a React Aria RadioGroup (data-selected on each label); static markup can use buttons with aria-checked. */
+.nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected] { background: var(--action-primary); color: var(--action-on-primary); }
 .nk-seg--quiet { background: transparent; border-color: transparent; padding: 0; }
 
 /* ---------- Tag ---------- */
@@ -230,6 +243,14 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 .nk-kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 1.25rem; height: 1.25rem; padding: 0 var(--space-4);
   font-family: var(--font-mono); font-size: 0.75rem; line-height: 1; color: var(--fg-muted);
   background: var(--bg-raised); border: var(--border-hairline) solid var(--border-strong); border-bottom-width: 2px; border-radius: var(--radius-control); }
+/* Key glyphs (⌘ ↵ ⇧ ⌫) are drawn icons, not font characters: no Naksha font has them. At 1em the 1.5 pen would draw a 0.75px line,
+   so the stroke goes to 2 (1px at 12px), the same weight the set has at 16px. */
+.nk-kbd { gap: 0.0625rem; }
+.nk-kbd svg, .nk-menu__item kbd svg { width: 1em; height: 1em; stroke-width: 2; color: inherit; }
+.nk-menu__item kbd { display: inline-flex; align-items: center; gap: 0.0625rem; }
+/* An inline-flex box takes its baseline from its first item, and an icon has none, so a key that starts with an icon
+   would ride high in running text. A zero-width text item in front lends it the text baseline; its gap is taken back. */
+.nk-kbd:has(> svg:first-child)::before, .nk-menu__item kbd:has(> svg:first-child)::before { content: "\200b"; margin-inline-end: -0.0625rem; }
 
 /* ---------- Tooltip ---------- */
 .nk-tooltip { display: inline-flex; align-items: center; gap: var(--space-8); max-width: 15rem; padding: var(--space-6) var(--space-8);
@@ -319,8 +340,8 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 .nk-menu__item svg { width: var(--size-icon-sm); height: var(--size-icon-sm); color: var(--fg-muted); flex: none; }
 .nk-menu__item span { flex: 1; }
 .nk-menu__item kbd { font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-subtle); }
-.nk-menu__item.is-hover, .nk-menu__item:focus-visible { background: var(--state-hover); outline: none; }
-.nk-menu__item.is-hover svg { color: var(--fg-default); }
+.nk-menu__item.is-hover, .nk-menu__item:focus-visible, .nk-menu__item[data-focused] { background: var(--state-hover); outline: none; }
+.nk-menu__item.is-hover svg, .nk-menu__item[data-focused] svg { color: var(--fg-default); }
 @media (hover: hover) and (pointer: fine) { .nk-menu__item:hover { background: var(--state-hover); } .nk-menu__item:hover svg { color: var(--fg-default); } }
 .nk-menu__item--danger, .nk-menu__item--danger svg { color: var(--status-danger-fg); }
 .nk-menu__item--danger.is-hover { background: var(--status-danger-bg); }
@@ -328,6 +349,10 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 .nk-menu__sep { height: 0; border-top: var(--border-hairline) solid var(--border-default); margin: var(--space-4) calc(var(--space-4) * -1); }
 .nk-menu__group { padding: var(--space-8) var(--space-8) var(--space-4); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-subtle); }
 .nk-menu__check { width: var(--size-icon-sm); color: var(--fg-default) !important; }
+/* Select: the open list matches the trigger's width (React Aria sets --trigger-width on the popover). */
+.nk-menu--select { width: var(--trigger-width, 100%); }
+/* Preview only: the open list drawn in the flow, 4 below the trigger, without the pop-in. */
+.nk-menu--inline { margin-top: calc(var(--space-4) * -1); animation: none; }
 @keyframes nk-pop { from { opacity: 0; transform: scale(0.97) translateY(-2px); } }
 
 /* ---------- Accordion ---------- */
@@ -494,9 +519,11 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 
 /* ---------- focus: one method for everything you can tab to ----------
    A 2px ink outline, 2px off the edge. Last in the file so it wins over the `all: unset` resets above. */
-.nk-btn:focus-visible, .nk-iconbtn:focus-visible, .nk-link:focus-visible, .nk-tab:focus-visible, .nk-seg__opt:focus-visible, .nk-chip:focus-visible,
+.nk-btn:focus-visible, .nk-iconbtn:focus-visible, .nk-link:focus-visible, .nk-tab:focus-visible, .nk-seg__opt:focus-visible, .nk-seg__opt[data-focus-visible], .nk-chip:focus-visible,
 .nk-source:focus-visible, .nk-card:focus-visible, .nk-acc__head:focus-visible, .nk-navitem:focus-visible, .nk-crumb a:focus-visible,
-.nk-tag--remove button:focus-visible, .nk-check input:focus-visible, .nk-radio input:focus-visible, .nk-switch input:focus-visible, .nk-toast__action:focus-visible,
+.nk-tag--remove button:focus-visible, .nk-toast__action:focus-visible,
+.nk-check[data-focus-visible] .nk-check__box, .nk-radio[data-focus-visible] .nk-radio__box, .nk-switch[data-focus-visible] .nk-switch__track,
+.nk-check.is-focus .nk-check__box, .nk-radio.is-focus .nk-radio__box, .nk-switch.is-focus .nk-switch__track,
 .nk-btn.is-focus, .nk-iconbtn.is-focus, .nk-link.is-focus, .nk-tab.is-focus, .nk-seg__opt.is-focus, .nk-chip.is-focus,
 .nk-source.is-focus, .nk-card.is-focus, .nk-acc__head.is-focus, .nk-navitem.is-focus {
   outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
@@ -508,18 +535,18 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
    (radio dot, switch thumb, tab and nav underline, progress bar, selected segment, menu highlight) opt out and use system colours.
    Last in the file so nothing above overrides it. */
 @media (forced-colors: active) {
-  .nk-radio input::after, .nk-switch input, .nk-switch input::after, .nk-tab::after, .nk-navitem::after, .nk-navitem i,
-  .nk-progress__track, .nk-progress__bar, .nk-seg__opt[aria-checked="true"], .nk-skel,
+  .nk-radio__box::after, .nk-switch__track, .nk-switch__track::after, .nk-tab::after, .nk-navitem::after, .nk-navitem i,
+  .nk-progress__track, .nk-progress__bar, .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected], .nk-skel,
   .nk-menu__item.is-hover, .nk-menu__item:focus-visible { forced-color-adjust: none; }
-  .nk-radio input::after { background: CanvasText; }
-  .nk-radio input:disabled::after { background: GrayText; }
-  .nk-switch input { background: Canvas; border-color: CanvasText; }
-  .nk-switch input::after { background: CanvasText; }
-  .nk-switch input:checked { background: Highlight; border-color: Highlight; }
-  .nk-switch input:checked::after { background: HighlightText; }
-  .nk-switch input:disabled { border-color: GrayText; }
-  .nk-switch input:disabled::after { background: GrayText; }
-  .nk-seg__opt[aria-checked="true"] { background: Highlight; color: HighlightText; }
+  .nk-radio__box::after { background: CanvasText; }
+  .nk-radio[data-disabled] .nk-radio__box::after { background: GrayText; }
+  .nk-switch__track { background: Canvas; border-color: CanvasText; }
+  .nk-switch__track::after { background: CanvasText; }
+  .nk-switch[data-selected] .nk-switch__track { background: Highlight; border-color: Highlight; }
+  .nk-switch[data-selected] .nk-switch__track::after { background: HighlightText; }
+  .nk-switch[data-disabled] .nk-switch__track { border-color: GrayText; }
+  .nk-switch[data-disabled] .nk-switch__track::after { background: GrayText; }
+  .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected] { background: Highlight; color: HighlightText; }
   .nk-tab::after, .nk-navitem::after { background: CanvasText; }
   .nk-tab[aria-selected="true"]::after, .nk-navitem[aria-current="page"]::after { background: Highlight; }
   .nk-progress__track { background: Canvas; box-shadow: inset 0 0 0 1px CanvasText; }
@@ -528,6 +555,10 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
   .nk-menu__item.is-hover, .nk-menu__item:focus-visible { background: Highlight; color: HighlightText; }
   .nk-menu__item.is-hover svg, .nk-menu__item:focus-visible svg { color: HighlightText; }
   .nk-table tbody tr.is-hover { outline: 1px solid CanvasText; outline-offset: -1px; }
+  /* Fields show focus with a doubled edge drawn as a box-shadow, and forced colours drop box-shadows.
+     Draw the second line as an inset outline instead, in Highlight, so focus stays visible. */
+  .nk-control:focus-within, .nk-control.is-focus, .nk-control--select[aria-expanded="true"], .nk-prompt__box:focus-within, .nk-prompt__box.is-focus, .nk-prompt__drop[data-drop-target] .nk-prompt__box {
+    border-color: Highlight; outline: var(--border-hairline) solid Highlight; outline-offset: calc(var(--border-hairline) * -2); }
   .nk-table tbody tr[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
 }
 }

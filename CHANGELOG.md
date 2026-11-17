@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.2.3 · Phase 1, step 2: form controls
+
+The seven form controls are live React components. In the artifact, the Input, Textarea, Select, Checkbox, Radio, Switch and SegmentedControl previews render them from `bundle.js`. Checkbox, Switch and SegmentedControl match the 0.2.2 screenshots within 4 pixels; every other difference is listed under Changed and was reviewed.
+
+### Added
+- `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup` and `Radio`, `Switch` and `SegmentedControl` in `naksha` and `window.Naksha`, built on React Aria Components 1.22.1.
+- Shared field parts: one label, one help line, one error. While an error shows, the help hides, so a person reads one message at a time. Label to field 8, field to help 6, for every field.
+- Textarea grows with its text from 120 (about five lines) to 360 (sixteen), then scrolls. It has no drag handle any more.
+- Textarea: a character count ("0 / 6,000", `en-IN` grouping) joined to the field's description, and a live region that speaks twice at most: on entering the last 10% and at the limit.
+- Two icons, `arrow-big-up` (⇧) and `delete` (⌫), from Lucide 1.67.0 on the drafting pen. The set is 40.
+- Tests: 15 more component tests (labels and descriptions, errors, typing, Select keyboard and type-to-select, checkbox and switch keys, radio and segmented arrow keys), live browser tests for the Select popover, Textarea growth and the focus ring on drawn boxes, and a forced-colours screenshot for Textarea.
+
+### Changed
+- ⌘ ↵ ⇧ ⌫ are drawn icons, each named for screen readers, in Kbd, Tooltip, DropdownMenu, the IconButton preview and the PromptInput key hint. No Naksha font has these glyphs, so readers saw a system fallback before. Inside a key the icon is 1em with a 2 stroke (1px at 12px).
+- Checkbox, Radio and Switch draw their box or track as a span beside React Aria's hidden input, styled from React Aria's data attributes. They look the same.
+- SegmentedControl is a React Aria RadioGroup: one Tab stop on the chosen option, and arrow keys move the choice.
+- A Select placeholder ("Choose a level") is now in the placeholder colour. In 0.2.2 it looked like a chosen value.
+- The help line of a disabled field stays `fg-muted`, because it says why the field is locked. It used `fg-disabled` (2.0:1).
+- Windows High Contrast: a focused field, Select trigger or PromptInput box shows a 2px Highlight edge. Forced colours remove the box-shadow the normal focus edge uses, so focus was invisible there before. Disabled fields now show their text in GrayText.
+- Single radios in the Radio preview's matrix sit 2px tighter: the group no longer adds a line of text height around each one.
+- The Textarea preview count reads 123: the sample text has 123 characters, not the 124 the static preview showed.
+- The artifact bundle grows from about 184 KB to 336 KB minified (86 KB gzipped).
+
 ## 0.2.2 · Phase 1, step 1: Button and PromptInput
 
 The first live components. In the artifact, the Button, IconButton and PromptInput previews now render the real React components from `bundle.js`, and their screenshots match the static 0.2.1 previews within 4 pixels.

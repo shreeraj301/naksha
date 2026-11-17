@@ -22,7 +22,7 @@ for (const p of previews()) {
       await page.addScriptTag({ content: AXE });
       const serious = await page.evaluate(async () => {
         const r = await (window as any).axe.run(document, { runOnly: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"] });
-        return r.violations.filter((v: any) => v.impact === "serious" || v.impact === "critical").map((v: any) => `${v.id}: ${v.nodes.length}`);
+        return r.violations.filter((v: any) => v.impact === "serious" || v.impact === "critical").map((v: any) => `${v.id}: ${v.nodes.length} at ${v.nodes.slice(0, 3).map((n: any) => n.target.join(" ")).join(", ")}`);
       });
       expect(serious, "axe: no serious or critical issues").toEqual([]);
     });
@@ -30,7 +30,7 @@ for (const p of previews()) {
 }
 
 // Windows High Contrast: controls must keep visible edges, focus and selection.
-const FORCED = ["Button", "IconButton", "Input", "Checkbox", "Radio", "Switch", "SegmentedControl", "Tabs", "Select", "DropdownMenu", "Table", "TopNav", "Skeleton", "PromptInput", "ProgressBar"];
+const FORCED = ["Button", "IconButton", "Input", "Textarea", "Checkbox", "Radio", "Switch", "SegmentedControl", "Tabs", "Select", "DropdownMenu", "Table", "TopNav", "Skeleton", "PromptInput", "ProgressBar"];
 for (const name of FORCED) {
   test(`${name} forced colours`, async ({ page }) => {
     const p = previews().find((x) => x.name === name)!;
@@ -111,4 +111,43 @@ test("live PromptInput: Enter is held back while an IME is composing", async ({ 
     return { composing: ev.defaultPrevented, plain: ev2.defaultPrevented };
   });
   expect(prevented).toEqual({ composing: false, plain: true });
+});
+
+test("live Select: the list opens under the trigger, as wide as it, and closes on Escape", async ({ page }) => {
+  await page.goto(framed("Select", "light"));
+  const trigger = page.locator(".nk-control--select").first();
+  await trigger.click();
+  const list = page.locator(".react-aria-Popover .nk-menu--select");
+  await expect(list).toBeVisible();
+  const [t, l] = [(await trigger.boundingBox())!, (await list.boundingBox())!];
+  expect(await trigger.evaluate((el) => getComputedStyle(el).boxShadow), "the trigger keeps its focus edge while open").not.toBe("none");
+  expect(Math.round(l.width)).toBe(Math.round(t.width));
+  expect(Math.round(l.x)).toBe(Math.round(t.x));
+  expect(Math.round(l.y - (t.y + t.height))).toBe(4);
+  await page.keyboard.press("Escape");
+  await expect(list).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
+test("live form controls: keyboard focus shows the ring on the drawn box", async ({ page }) => {
+  await page.goto(framed("Checkbox", "light"));
+  await page.keyboard.press("Tab");
+  const ring = await page.evaluate(() => getComputedStyle(document.querySelector(".nk-check[data-focus-visible] .nk-check__box")!).outlineStyle);
+  expect(ring).toBe("solid");
+});
+
+test("live Textarea: grows with the text to sixteen lines, then scrolls", async ({ page }) => {
+  await page.goto(framed("Textarea", "light"));
+  const t = page.locator(".nk-control--area textarea").first();
+  const start = await t.evaluate((el) => el.getBoundingClientRect().height);
+  await t.fill(Array.from({ length: 8 }, (_, i) => `line ${i + 1}`).join("\n"));
+  const eight = await t.evaluate((el) => el.getBoundingClientRect().height);
+  await t.fill(Array.from({ length: 40 }, (_, i) => `line ${i + 1}`).join("\n"));
+  const many = await t.evaluate((el) => ({ h: el.getBoundingClientRect().height, max: parseFloat(getComputedStyle(el).maxHeight), scrolls: el.scrollHeight > el.clientHeight }));
+  await t.fill("");
+  const back = await t.evaluate((el) => el.getBoundingClientRect().height);
+  expect(eight).toBeGreaterThan(start);
+  expect(many.h).toBeCloseTo(many.max, 0);
+  expect(many.scrolls).toBe(true);
+  expect(back, "shrinks back when the text is cleared").toBeCloseTo(start, 0);
 });

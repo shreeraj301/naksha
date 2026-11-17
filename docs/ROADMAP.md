@@ -1,11 +1,11 @@
 # Naksha roadmap
 
-Updated 17 Nov 2026, after the design-system research. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
+Updated 18 Nov 2026, after Phase 1 step 2. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
 
 | Phase | What | Status |
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
-| 1 | React components on React Aria, running live in the artifact | Steps 0 and 1 done (0.2.2); step 2 next |
+| 1 | React components on React Aria, running live in the artifact | Steps 0 to 2 done (0.2.3); step 3 next |
 | 2 | Components still missing | Scope written when Phase 1 ends |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
@@ -67,7 +67,9 @@ Status: done in 0.2.2. The three previews render the live components and match t
 
 ### Step 2. Form controls
 
-Input, Textarea, Select, Checkbox, Radio, Switch, SegmentedControl (ToggleButtonGroup). Shared Field parts for label, helper, error and character count, so every control lays out label to field, field to helper the same way.
+Input, Textarea, Select, Checkbox, Radio, Switch, SegmentedControl. Shared Field parts for label, helper, error and character count, so every control lays out label to field, field to helper the same way.
+
+Status: done in 0.2.3. The seven controls render live from the bundle, and the ⌘ ↵ ⇧ ⌫ glyphs are drawn icons. Every screenshot difference from 0.2.2 was reviewed and is listed in the changelog. SegmentedControl is built on React Aria's RadioGroup rather than ToggleButtonGroup: the toggle group moved focus on arrow keys but not the choice, and made every option a Tab stop, which is not how a radio group behaves. Not yet: a manual screen reader pass, and Select on real phones.
 
 ### Step 3. Overlays
 
@@ -103,7 +105,7 @@ Each gets a plan like the one above when the phase before it ends, written from 
 
 - **2. Components still missing.** The gap list from our earlier review is re-derived against the Phase 1 inventory, then scoped. Entry rule: a component joins when two of your products need it, or when it replaces one with evidence that it is better.
 - **3. Charts.** Line, bar, area and the stat tile. Chart tokens: one colour per series (from the section colours), a neutral for labels and reference lines, and sequential ramps for ordered data. Contrast and colour-blind checks are part of the done-check.
-- **4. Icon library.** About 310 icons in tiers, drawn on the same pen as today's 38 (1.5px stroke, square caps, mitred joins, 24px grid).
+- **4. Icon library.** Custom icons drawn for Naksha, about 310 in three tiers: core UI (about 150), product domains (about 110: money, legal and documents, AI and agents, privacy, publishing) and ones that are yours alone (about 50: section marks, architecture, making and writing, life). Official logos (about 12) are used as they are, never redrawn. It starts with a spec sheet (grid and safe area, standard outline shapes, stroke and corner rules, naming) and a tracker with a status per icon, before anything is drawn. Lucide on the same pen stays as the fallback, so no screen waits for an icon. The 30 most used get hand-tuned 16px versions; filled versions only where a selected state needs one (about 40). Drawn in batches of 20 to 30 by family, each checked at 16, 20 and 24 on paper and ink, beside its Lucide version, with a 5-second recognition test. Today's 40 (Lucide paths on the drafting pen) are replaced as their custom versions land.
 - **5. Patterns.** Built only from the components, nothing new: forms, empty and error states, AI flows. Built outside-in (page frame and regions first) and shipped as copyable page templates. Content rules (word list, tone by situation) land in the brand book here at the latest.
 - **6. Access and language.** Ship Noto Sans Devanagari (ADR 0005) after a visual pass with real Hindi and Marathi copy, and the en-IN formatter with the three-letter month fix (ADR 0006).
 - **7. Brand assets.** To be scoped.

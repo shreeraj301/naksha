@@ -2,8 +2,62 @@
 
 # Switch
 
-Turns a setting on or off immediately, with no Save button.
+Turns a setting on or off the moment it flips, with no Save button. If the change waits for a form to be sent, use Checkbox.
 
-## Use
-- `role="switch"` with `aria-checked`. The label names the setting ("Agent view"), not the action.
-- Track 36 × 20, thumb 12, both square: the system has no rounded controls. The thumb slides 16px over 200ms on `ease-in-out` because it moves between two places.
+## Usage
+
+```jsx
+import { Switch } from "naksha";
+
+<Switch isSelected={agentView} onChange={setAgentView}>Agent view</Switch>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `children` | the setting's name | |
+| `isSelected`, `defaultSelected`, `onChange` | `onChange` gets `true` or `false` | `false` |
+| `isDisabled`, `name` | | |
+| `styles` | layout only (ADR 0009) | |
+
+## Best practices
+
+- The label names the setting ("Agent view"), not the action ("Turn on agent view").
+- The change must be visible at once. If it takes time, show progress near the switch.
+
+## Content
+
+One to three words, sentence case.
+
+## Anatomy and spacing
+
+Track 36 × 20, thumb 12, both square: the system has no rounded controls · label `body-m` · 8 between.
+
+## States
+
+On fills the track with `action-primary` and slides the thumb 16px over 200ms on `ease-in-out`, because it moves between two places. Hover darkens the edge. Focus is the system outline on the track. Disabled: `bg-disabled`.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's Switch: a real checkbox input with `role="switch"`, so screen readers say "on" and "off". Space flips it; so does a click anywhere on the row.
+
+**What the designer decides.** The name of the setting, and that it applies immediately.
+
+**What the developer must not break.** Apply the change in `onChange`, not later.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, focus, disabled (screenshots, forced colours) | Tested |
+| Keyboard (Space) | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.3 | Built on React Aria. The drawn track is a span beside the hidden input. |
+| 0.2.0 | CSS component, v2 audit. |

@@ -1,8 +1,65 @@
 # Checkbox
 
-An independent on or off choice, or "select all" with the indeterminate state.
+An on or off choice that takes effect when the form is sent, or "select all" with the indeterminate state. If the change applies at once, use Switch.
 
-## Use
-- The whole row (box plus label) is the target and stays at least 24px tall. Box 16, label `body-m`, 8 between.
-- Checked fills with `action-primary` and draws a 1.5px tick in `action-on-primary`; the tick scales in over 140ms.
-- If the change applies immediately, use Switch.
+## Usage
+
+```jsx
+import { Checkbox } from "naksha";
+
+<Checkbox defaultSelected>Weekly digest</Checkbox>
+<Checkbox description="A short note every Sunday. Unsubscribe in one tap.">Send me the weekly digest</Checkbox>
+<Checkbox isIndeterminate={some && !all} isSelected={all} onChange={setAll}>All papers</Checkbox>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `children` | the label | |
+| `description` | a second, quieter line under the label | none |
+| `isSelected`, `defaultSelected`, `onChange` | `onChange` gets `true` or `false` | `false` |
+| `isIndeterminate` | shows a dash; a press turns it on | `false` |
+| `isInvalid`, `isDisabled`, `isRequired`, `name`, `value` | | |
+| `styles` | layout only (ADR 0009) | |
+
+## Best practices
+
+- The label says what turns on, as a statement ("Weekly digest"), not a question.
+- A required checkbox (terms, consent) shows its error in the form's message, not with a red box alone.
+
+## Content
+
+Sentence case, no full stop on the label. The description can be a full sentence.
+
+## Anatomy and spacing
+
+Box 16 · label `body-m` · 8 between · the whole row is the target and stays at least 24 tall · description `body-s` in `fg-muted`, 2 under the label.
+
+## States
+
+Checked fills with `action-primary` and draws a 1.5px tick in `action-on-primary` that scales in over 140ms. Hover darkens the edge to `fg-default`. Focus is the system outline on the box. Error: `status-danger-fg` edge. Disabled: `bg-disabled`, label in `fg-disabled`.
+
+## Accessibility
+
+**What Naksha provides.** React Aria's Checkbox: a real `<input type="checkbox">` inside the label, visually hidden, with the drawn box beside it. Click anywhere on the row or press Space. Indeterminate is set on the input itself, so screen readers announce "mixed". The description sits inside the label and is read as part of the name.
+
+**What the designer decides.** The label, and whether a choice is a checkbox (applies on send) or a switch (applies now).
+
+**What the developer must not break.** Keep the label inside the component; do not add a second, separate label.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Hover, focus, error, disabled, indeterminate (screenshots, forced colours) | Tested |
+| Keyboard (Space), click, indeterminate | Tested |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.2.3 | Built on React Aria. The drawn box is a span beside the hidden input. |
+| 0.2.0 | CSS component, v2 audit. |

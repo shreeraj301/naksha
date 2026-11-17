@@ -3,3 +3,5 @@
 A keyboard key. Use `<kbd>`, one per key, in `mono-label` sizing without caps transform.
 
 A 1px `border-strong` edge with a 2px bottom gives the key a little depth without a shadow.
+
+Modifier and editing keys (⌘ ↵ ⇧ ⌫) are drawn icons (`command`, `corner-down-left`, `arrow-big-up`, `delete`), not font characters: no Naksha font has them. Inside a key they are 1em with a 2 stroke, which draws a 1px line at 12px, the same weight the set has at 16px. Give each one a name for screen readers ("Command", "Enter", "Shift", "Delete").
