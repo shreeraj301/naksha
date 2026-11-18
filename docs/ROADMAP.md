@@ -6,7 +6,7 @@ Updated 18 Nov 2026, after 0.3.1. Each phase ends with a done-check, and nothing
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
 | 1 | React components on React Aria, running live in the artifact | Done (0.3.0) |
-| 2 | Components still missing | Scope written when Phase 1 ends |
+| 2 | Components still missing | Scope written 18 Nov 2026, waiting for review |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
 | 5 | Patterns built from the components | |
@@ -113,11 +113,55 @@ Result, 0.3.0:
 
 ---
 
+## Phase 2: components still missing
+
+Scope written on 18 Nov 2026 from the code and case-study screens of the products themselves, not from other design systems. Samo is left out on purpose. The rule from the roadmap holds: a component joins when two products need it, or when it replaces one with evidence that it is better. Where a product builds the thing by hand today, that is the evidence.
+
+Products read: Ledger (`CASE STUDIES/LEDGER/ledger/src`), Otla Pages (`CASE STUDIES/OTLA PAGES/otla-pages`), the portfolio (`portfolio-v1/src` and the `m12-build-loop` branch, including the Found It and Plain Paper case-study screens), the link-in-bio page (`link in bio - my version/prototypes/link-page`) and this site.
+
+### In: built by hand in two products or more
+
+| Component | What it is | Where it is built by hand today |
+| --- | --- | --- |
+| CopyButton | Copies a value, says "Copied" for a moment, announces it, and shows the value in a field when the clipboard is refused | Ledger `CopyLink` (primitives.tsx); Plain Paper "Copy questions"; link-in-bio `.copy` buttons (core.js); the site's Copy as Markdown |
+| ToggleButton | One button that stays pressed (`aria-pressed`) | Otla Pages sound toggle (controls.js); the portfolio lab's Night toggle (LabPage.astro); Ledger's record filters (decisions.tsx) |
+| Slider | A range you drag or step with arrow keys, with a value people can hear | Otla Pages player seek (controls.js); the portfolio walkthrough seek, `input type="range"` (Walkthrough.astro) |
+| Drawer | A dialog that slides in from the side and holds a short task or a list of links | Ledger "New project" side sheet (shell.tsx); Otla Pages Index drawer (rooms.js) |
+| Image | A responsive picture with its aspect ratio held while it loads, a hairline, a caption, and an optional tap to zoom | Ledger `Photo` with srcset (primitives.tsx); the portfolio `Pic.astro` and book zoom (zoompan.ts); Otla Pages résumé tap to zoom (resume.js) |
+| ListItem | A row with something on the left (avatar, thumbnail), a title, a meta line, and status or actions on the right | Found It's "Worth a look" flags (initial, name, price a month, reason, Review cancel and Keep it); Ledger's decisions, changes and invoices (photo, status, date) |
+| SkipLink | The first stop on the page, visible only on focus, that moves focus to the main content | Ledger `SkipLink` (primitives.tsx); the portfolio (Base.astro); this site |
+| `announce()` | Says a short message to screen readers without moving focus | Ledger's copy and sent notes (`role="status"`); Otla Pages `liveSay` (core.js); the portfolio loader status |
+
+### Watch list: one product so far
+
+They join as soon as a second product needs them.
+
+- FileDrop (Found It's statement import)
+- Money and number field in en-IN, with the hint "a number, like 85000 or 1,85,000" (Ledger's fee)
+- An inline term explanation that opens in place (Plain Paper's jargon). Tooltip stays for naming icons only.
+- Timeline of what happened, with dates and status (Ledger)
+- Choice cards with a picture (Ledger's approval options)
+- Command palette (this site's search)
+- Status as a dot and a word, without a chip (Ledger's `StatusMark`). Probably a Tag variant, not a new component.
+
+### Belongs to a later phase
+
+- The one big number (Found It's monthly spend, Ledger's invoice amounts, the portfolio's counting numbers) is the stat tile in Phase 3.
+- Dates and rupees (`formatDay`, ₹1,80,000.00) are the en-IN formatter in Phase 6.
+
+### Not found
+
+Nothing in these products builds a date picker, a combobox, pagination or a sortable, selectable table. They stay out until one does.
+
+### Done when
+
+Each new component has typed props, a README on the template, a preview in both themes and forced colours, axe with no serious or critical issues, and tests for its keyboard use and states. Version 0.4.0.
+
 ## Phases 2 to 8
 
 Each gets a plan like the one above when the phase before it ends, written from what exists then, not from guesses now.
 
-- **2. Components still missing.** The gap list from our earlier review is re-derived against the Phase 1 inventory, then scoped. Entry rule: a component joins when two of your products need it, or when it replaces one with evidence that it is better.
+- **2. Components still missing.** Scoped above.
 - **3. Charts.** Line, bar, area and the stat tile. Chart tokens: one colour per series (from the section colours), a neutral for labels and reference lines, and sequential ramps for ordered data. Contrast and colour-blind checks are part of the done-check.
 - **4. Icon library.** Custom icons drawn for Naksha, about 310 in three tiers: core UI (about 150), product domains (about 110: money, legal and documents, AI and agents, privacy, publishing) and ones that are yours alone (about 50: section marks, architecture, making and writing, life). Official logos (about 12) are used as they are, never redrawn. It starts with a spec sheet (grid and safe area, standard outline shapes, stroke and corner rules, naming) and a tracker with a status per icon, before anything is drawn. Lucide on the same pen stays as the fallback, so no screen waits for an icon. The 30 most used get hand-tuned 16px versions; filled versions only where a selected state needs one (about 40). Drawn in batches of 20 to 30 by family, each checked at 16, 20 and 24 on paper and ink, beside its Lucide version, with a 5-second recognition test. Today's 40 (Lucide paths on the drafting pen) are replaced as their custom versions land.
 - **5. Patterns.** Built only from the components, nothing new: forms, empty and error states, AI flows. Built outside-in (page frame and regions first) and shipped as copyable page templates. Content rules (word list, tone by situation) land in the brand book here at the latest.
