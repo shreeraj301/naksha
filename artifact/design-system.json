@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-18T05:30:10Z",
+    "at": "2026-11-18T05:45:45Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.3.2 (aebdd8a): ToggleButton and CopyButton, the first Phase 2 pair.",
+    "note": "Naksha 0.3.3 (5410c2b): Slider and Drawer, the second Phase 2 pair.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
