@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-18T06:25:52Z",
+    "at": "2026-11-18T12:11:29Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.3.5 (0901c14): Image and ListItem, the third Phase 2 pair.",
+    "note": "Naksha 0.4.0 (5e410d6): Phase 2 done, with SkipLink and announce().",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
