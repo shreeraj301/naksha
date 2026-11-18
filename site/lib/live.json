@@ -1,0 +1,375 @@
+{
+ "Button": {
+  "$c": "Button",
+  "p": {
+   "variant": "primary",
+   "children": "Save changes"
+  }
+ },
+ "IconButton": {
+  "$c": "IconButton",
+  "p": {
+   "icon": "plus",
+   "label": "New note",
+   "variant": "secondary"
+  }
+ },
+ "Link": {
+  "$c": "Link",
+  "p": {
+   "href": "#",
+   "children": "Read the guide"
+  }
+ },
+ "Input": {
+  "$c": "Input",
+  "p": {
+   "label": "Email",
+   "placeholder": "name@company.com"
+  }
+ },
+ "Textarea": {
+  "$c": "Textarea",
+  "p": {
+   "label": "Note",
+   "placeholder": "What changed?"
+  }
+ },
+ "Select": {
+  "$c": "Select",
+  "p": {
+   "label": "Plan",
+   "options": [
+    {
+     "id": "a",
+     "label": "Monthly"
+    },
+    {
+     "id": "b",
+     "label": "Yearly"
+    }
+   ],
+   "defaultValue": "a"
+  }
+ },
+ "Checkbox": {
+  "$c": "Checkbox",
+  "p": {
+   "children": "Keep me signed in",
+   "defaultSelected": true
+  }
+ },
+ "Radio": {
+  "$c": "RadioGroup",
+  "p": {
+   "label": "Reading level",
+   "defaultValue": "e",
+   "children": [
+    {
+     "$c": "Radio",
+     "p": {
+      "value": "e",
+      "children": "Everyday"
+     }
+    },
+    {
+     "$c": "Radio",
+     "p": {
+      "value": "x",
+      "children": "Expert"
+     }
+    }
+   ]
+  }
+ },
+ "Switch": {
+  "$c": "Switch",
+  "p": {
+   "children": "Agent view",
+   "defaultSelected": true
+  }
+ },
+ "SegmentedControl": {
+  "$c": "SegmentedControl",
+  "p": {
+   "label": "Theme",
+   "options": [
+    {
+     "id": "l",
+     "label": "Light"
+    },
+    {
+     "id": "d",
+     "label": "Dark"
+    },
+    {
+     "id": "s",
+     "label": "System"
+    }
+   ],
+   "defaultValue": "d"
+  }
+ },
+ "DropdownMenu": {
+  "$c": "Button",
+  "p": {
+   "variant": "secondary",
+   "iconEnd": "chevron-down",
+   "children": "More actions"
+  }
+ },
+ "Modal": {
+  "$c": "Button",
+  "p": {
+   "variant": "secondary",
+   "children": "Open dialog"
+  }
+ },
+ "Tooltip": {
+  "$c": "Tooltip",
+  "p": {
+   "content": "Copy link",
+   "isOpen": true,
+   "isInline": true,
+   "children": {
+    "$c": "IconButton",
+    "p": {
+     "icon": "copy",
+     "label": "Copy link",
+     "variant": "secondary"
+    }
+   }
+  }
+ },
+ "Toast": {
+  "$c": "Button",
+  "p": {
+   "variant": "secondary",
+   "children": "Archive note"
+  }
+ },
+ "PromptInput": {
+  "$c": "PromptInput",
+  "p": {
+   "label": "Ask",
+   "placeholder": "Ask about this paper"
+  }
+ },
+ "ChatMessage": {
+  "$c": "ChatMessage",
+  "p": {
+   "from": "user",
+   "children": "Explain clause 4.2 like I have never signed a lease."
+  }
+ },
+ "ResponseStatus": {
+  "$c": "ResponseStatus",
+  "p": {
+   "steps": [
+    {
+     "label": "Reading the lease",
+     "status": "done",
+     "detail": "12 pages"
+    },
+    {
+     "label": "Finding the rent clause",
+     "status": "running"
+    }
+   ]
+  }
+ },
+ "SourceChip": {
+  "$c": "SourceChip",
+  "p": {
+   "n": 1,
+   "label": "Clause 4.2"
+  }
+ },
+ "SuggestionChip": {
+  "$c": "SuggestionChip",
+  "p": {
+   "children": "Summarise this"
+  }
+ },
+ "Alert": {
+  "$c": "Alert",
+  "p": {
+   "tone": "info",
+   "title": "Saved as a draft"
+  }
+ },
+ "ProgressBar": {
+  "$c": "ProgressBar",
+  "p": {
+   "label": "Reading",
+   "value": 42
+  }
+ },
+ "Skeleton": {
+  "$c": "Skeleton",
+  "p": {
+   "width": "14rem",
+   "height": 12
+  }
+ },
+ "Spinner": {
+  "$c": "Spinner",
+  "p": {
+   "size": "lg",
+   "label": "Loading"
+  }
+ },
+ "EmptyState": {
+  "$c": "EmptyState",
+  "p": {
+   "title": "No notes yet",
+   "icon": "file-text",
+   "children": "Notes you save show up here."
+  }
+ },
+ "TopNav": {
+  "$c": "TopNav",
+  "p": {
+   "name": "Naksha",
+   "homeHref": "#",
+   "items": [
+    {
+     "label": "Read",
+     "href": "#",
+     "section": "read",
+     "isCurrent": true
+    },
+    {
+     "label": "Build",
+     "href": "#",
+     "section": "build"
+    }
+   ]
+  }
+ },
+ "Tabs": {
+  "$c": "Tabs",
+  "p": {
+   "label": "Sections",
+   "defaultSelectedKey": "o",
+   "items": [
+    {
+     "id": "o",
+     "label": "Overview"
+    },
+    {
+     "id": "u",
+     "label": "Usage"
+    },
+    {
+     "id": "a",
+     "label": "Access"
+    }
+   ]
+  }
+ },
+ "Breadcrumb": {
+  "$c": "Breadcrumb",
+  "p": {
+   "items": [
+    {
+     "label": "Docs",
+     "href": "#"
+    },
+    {
+     "label": "Components",
+     "href": "#"
+    },
+    {
+     "label": "Tabs"
+    }
+   ]
+  }
+ },
+ "Accordion": {
+  "$c": "Accordion",
+  "p": {
+   "items": [
+    {
+     "id": "a",
+     "title": "What is Naksha?",
+     "content": "A design system for my products."
+    },
+    {
+     "id": "b",
+     "title": "Who is it for?",
+     "content": "Me, and the agents I build with."
+    }
+   ],
+   "defaultExpanded": [
+    "a"
+   ]
+  }
+ },
+ "Card": {
+  "$c": "Card",
+  "p": {
+   "href": "#",
+   "title": "Found It",
+   "children": "A privacy-first subscription tracker.",
+   "cta": "Read"
+  }
+ },
+ "Table": {
+  "$c": "Table",
+  "p": {
+   "label": "Releases",
+   "columns": [
+    {
+     "id": "v",
+     "label": "Release",
+     "isMono": true
+    },
+    {
+     "id": "n",
+     "label": "Components",
+     "isNumeric": true
+    }
+   ],
+   "rows": [
+    {
+     "id": "1",
+     "v": "0.3.0",
+     "n": 34
+    },
+    {
+     "id": "2",
+     "v": "0.2.5",
+     "n": 34
+    }
+   ]
+  }
+ },
+ "Avatar": {
+  "$c": "Avatar",
+  "p": {
+   "name": "Shreeraj Narwade",
+   "size": "lg"
+  }
+ },
+ "Tag": {
+  "$c": "Tag",
+  "p": {
+   "children": "Live",
+   "tone": "success",
+   "hasDot": true
+  }
+ },
+ "Kbd": {
+  "$c": "Kbd",
+  "p": {
+   "children": "⌘"
+  }
+ },
+ "Divider": {
+  "$c": "Divider",
+  "p": {
+   "label": "or"
+  }
+ }
+}
