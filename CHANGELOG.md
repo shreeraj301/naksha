@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.4.0 · Phase 2 done: SkipLink and announce()
+
+The last pair of Phase 2. All eight components the products built by hand now come from Naksha.
+
+### Added
+- `SkipLink`: the first stop on the page. It waits just above the screen until Tab reaches it, then drops into the start corner; Enter moves focus to `<main id="main">` (giving it `tabindex="-1"` if it needs one, without a ring round the whole page), so the next Tab lands inside the content. It is a real link, so it works before scripts run.
+- `announce(message, { interrupt })`: says a short message to screen readers without moving focus. One hidden pair of live regions per page, made on first use; each message is a new line, so repeats are read, and lines clear after 7 seconds. Polite unless `interrupt`.
+- Cards for both: SkipLink in Navigation, announce in Feedback (its buttons speak, and the card shows what a screen reader hears).
+- Drawer, announce and SkipLink join the forced-colours screenshot run.
+- Tests: 4 component tests (99 in all).
+
+### Changed
+- The site uses Naksha's SkipLink. Its own skip link jumped to `#main` without moving focus there.
+- The site's description counts its components from `components.json` instead of a number written by hand.
+- Roadmap: Phase 2 is done, with what was checked and what was not.
+
 ## 0.3.5 · Image and ListItem
 
 The third Phase 2 pair, each built by hand before in at least two of the products.

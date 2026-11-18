@@ -514,6 +514,16 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-sheet__tools, .nk-sheet__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-12); }
 .nk-sheet__foot { margin-top: auto; padding-top: var(--space-16); border-top: var(--border-hairline) solid var(--border-default); font-size: 0.875rem; }
 
+/* ---------- SkipLink ----------
+   Off the top of the screen until it has focus, then it drops into the start corner, 16 in, above the nav. */
+.nk-skip { position: fixed; top: var(--space-16); inset-inline-start: var(--space-16); z-index: var(--z-toast); display: inline-flex; align-items: center;
+  height: var(--size-control-lg); padding: 0 var(--space-16); background: var(--action-primary); color: var(--action-on-primary);
+  border: var(--border-hairline) solid var(--action-primary); font-size: 0.9375rem; font-weight: 500; line-height: 1.2; text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-24))); transition: transform var(--dur-ui) var(--ease-out); }
+.nk-skip:focus, .nk-skip.is-focus { transform: none; }
+/* The main content takes focus from the skip link only; the ring would outline the whole page. */
+[data-nk-skip-target]:focus { outline: none; }
+
 /* ---------- Card ---------- */
 .nk-card { all: unset; box-sizing: border-box; display: flex; flex-direction: column; width: 100%; max-width: 22.5rem; cursor: pointer; color: var(--fg-default);
   background: var(--bg-canvas); border: var(--border-hairline) solid var(--border-default); border-radius: var(--radius-surface); overflow: hidden;
@@ -780,7 +790,8 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
 .nk-btn.is-focus, .nk-iconbtn.is-focus, .nk-link.is-focus, .nk-tab.is-focus, .nk-seg__opt.is-focus, .nk-chip.is-focus,
 .nk-source.is-focus, .nk-card.is-focus, .nk-acc__head.is-focus, .nk-navitem.is-focus,
 .nk-slider__thumb[data-focus-visible]::after, .nk-slider.is-focus .nk-slider__thumb::after,
-.nk-image__zoom:focus-visible, .nk-image__zoom.is-focus, .nk-listitem__main--link:focus-visible, .nk-listitem__main--link.is-focus {
+.nk-image__zoom:focus-visible, .nk-image__zoom.is-focus, .nk-listitem__main--link:focus-visible, .nk-listitem__main--link.is-focus,
+.nk-skip:focus-visible, .nk-skip.is-focus {
   outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
 .nk-card:focus-visible, .nk-card.is-focus { outline-offset: 0.1875rem; }
 .nk-menu__item:focus-visible { outline: none; background: var(--state-hover); }

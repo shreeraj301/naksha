@@ -1,0 +1,27 @@
+<!-- @dsCard group="Navigation" height=176 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SkipLink · preview</title>
+
+</head>
+<body>
+<div style="position:relative;transform:translateZ(0);min-height:176px"><div style="height:80px;border-bottom:1px solid var(--border-default)"></div><span data-nk="{&quot;$c&quot;: &quot;SkipLink&quot;, &quot;p&quot;: {&quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span><p style="margin:0;padding:24px;font-size:0.8125rem;line-height:1.45;color:var(--fg-muted);max-width:40rem">Hidden above the screen until Tab reaches it. Enter moves focus to the page's <code>&lt;main id="main"&gt;</code>, past the navigation.</p></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   "$fn:name" the function window.NK_FN.name (a card defines its own in a <script data-nk-fn> above this one),
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (typeof v === 'string' && v.indexOf('$fn:') === 0) return (window.NK_FN || {})[v.slice(4)]; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); if (v.$html) return h('div', { style: { height: '100%' }, dangerouslySetInnerHTML: { __html: v.$html } }); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
+</body>
+</html>

@@ -11,8 +11,6 @@
 }
 ::selection { background: var(--action-highlight); color: var(--ink); }
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
-.skip { position: absolute; left: var(--space-16); top: -4rem; z-index: 99; padding: var(--space-8) var(--space-12); background: var(--fg-default); color: var(--bg-canvas); }
-.skip:focus { top: var(--space-16); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .row { display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; }
 .touch { display: none; } @media (hover: none) { .touch { display: inline; } .fine-pointer { display: none; } }

@@ -1,0 +1,31 @@
+<!-- @dsCard group="Feedback" height=176 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>announce · preview</title>
+
+</head>
+<body>
+<div class="nk-stage"><div class="nk-matrix" style="grid-template-columns:max-content max-content max-content"><span></span><span class="nk-cap">Press</span><span class="nk-cap">A screen reader hears, and focus stays on the button</span><span class="nk-matrix__row">Polite</span><div><span data-nk="{&quot;$c&quot;: &quot;Button&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Save draft&quot;, &quot;onPress&quot;: &quot;$fn:saved&quot;}}" style="display:contents"></span></div><div style="font-family:var(--font-mono);font-size:0.8125rem;line-height:1.45;color:var(--fg-default);padding:8px 12px;border:1px dashed var(--border-strong);min-width:24rem" data-heard="saved">Draft saved.</div><span class="nk-matrix__row">Interrupt</span><div><span data-nk="{&quot;$c&quot;: &quot;Button&quot;, &quot;p&quot;: {&quot;children&quot;: &quot;Send&quot;, &quot;variant&quot;: &quot;primary&quot;, &quot;onPress&quot;: &quot;$fn:failed&quot;}}" style="display:contents"></span></div><div style="font-family:var(--font-mono);font-size:0.8125rem;line-height:1.45;color:var(--fg-default);padding:8px 12px;border:1px dashed var(--border-strong);min-width:24rem" data-heard="failed">Could not send. Check your connection and try again.</div></div></div>
+<script data-nk-fn>window.NK_FN = (function () {
+  function say(key, text, interrupt) { return function () { Naksha.announce(text, { interrupt: interrupt }); var el = document.querySelector('[data-heard="' + key + '"]'); if (el) { el.textContent = ""; setTimeout(function () { el.textContent = text; }, 120); } }; }
+  return { saved: say("saved", "Draft saved.", false), failed: say("failed", "Could not send. Check your connection and try again.", true) };
+})();</script>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   "$fn:name" the function window.NK_FN.name (a card defines its own in a <script data-nk-fn> above this one),
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (typeof v === 'string' && v.indexOf('$fn:') === 0) return (window.NK_FN || {})[v.slice(4)]; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); if (v.$html) return h('div', { style: { height: '100%' }, dangerouslySetInnerHTML: { __html: v.$html } }); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
+</body>
+</html>

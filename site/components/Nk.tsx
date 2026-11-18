@@ -43,7 +43,8 @@ export function LivePreview({ html, className }: { html: string; className?: str
   useEffect(() => {
     const roots: Root[] = [];
     // Markup set with innerHTML does not run its scripts, so run the preview's own helpers (window.NK_FN) before mounting.
-    // They come from the repo's preview.html files, the same code the artifact runs.
+    // They come from the repo's preview.html files, the same code the artifact runs, where Naksha is a global: make it one here too.
+    (globalThis as { Naksha?: unknown }).Naksha ??= Naksha;
     ref.current?.querySelectorAll<HTMLScriptElement>("script[data-nk-fn]").forEach((s) => new Function(s.textContent ?? "")());
     ref.current?.querySelectorAll<HTMLElement>("[data-nk]").forEach((n) => {
       const r = createRoot(n);

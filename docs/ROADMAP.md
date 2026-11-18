@@ -1,12 +1,12 @@
 # Naksha roadmap
 
-Updated 18 Nov 2026, after 0.3.1. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
+Updated 18 Nov 2026, after 0.4.0. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
 
 | Phase | What | Status |
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
 | 1 | React components on React Aria, running live in the artifact | Done (0.3.0) |
-| 2 | Components still missing | In progress: 6 of 8 done (0.3.5) |
+| 2 | Components still missing | Done (0.4.0) |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
 | 5 | Patterns built from the components | |
@@ -132,7 +132,7 @@ Products read: Ledger (`CASE STUDIES/LEDGER/ledger/src`), Otla Pages (`CASE STUD
 | SkipLink | The first stop on the page, visible only on focus, that moves focus to the main content | Ledger `SkipLink` (primitives.tsx); the portfolio (Base.astro); this site |
 | `announce()` | Says a short message to screen readers without moving focus | Ledger's copy and sent notes (`role="status"`); Otla Pages `liveSay` (core.js); the portfolio loader status |
 
-Status: scope approved on 18 Nov 2026. Built in pairs: ToggleButton and CopyButton in 0.3.2, Slider and Drawer in 0.3.3. In 0.3.4 Slider moved to React Aria's hooks (ADR 0012) for clock-time values and a disabled label that fades. Image and ListItem in 0.3.5.
+Status: scope approved on 18 Nov 2026. Built in pairs: ToggleButton and CopyButton in 0.3.2, Slider and Drawer in 0.3.3. In 0.3.4 Slider moved to React Aria's hooks (ADR 0012) for clock-time values and a disabled label that fades. Image and ListItem in 0.3.5. SkipLink and `announce()` in 0.4.0, which closes the phase.
 
 ### Watch list: one product so far
 
@@ -159,13 +159,15 @@ Nothing in these products builds a date picker, a combobox, pagination or a sort
 
 Each new component has typed props, a README on the template, a preview in both themes and forced colours, axe with no serious or critical issues, and tests for its keyboard use and states. Version 0.4.0.
 
+Status: done in 0.4.0. All eight meet it, checked on 18 Nov 2026: each has typed props, a README on the template, previews in light, dark and forced colours with no serious or critical axe issues, and component tests for its keys and states (24 tests across the eight). Not yet, as for Phase 1: a manual screen reader pass, and touch on real phones. CopyButton keeps its own status region rather than calling `announce()`: it sits beside the button and clears with the label, which already does the job.
+
 ## Phases 2 to 8
 
 Each gets a plan like the one above when the phase before it ends, written from what exists then, not from guesses now.
 
 - **2. Components still missing.** Scoped above.
 - **3. Charts.** Line, bar, area and the stat tile. Chart tokens: one colour per series (from the section colours), a neutral for labels and reference lines, and sequential ramps for ordered data. Contrast and colour-blind checks are part of the done-check.
-- **4. Icon library.** Custom icons drawn for Naksha, about 310 in three tiers: core UI (about 150), product domains (about 110: money, legal and documents, AI and agents, privacy, publishing) and ones that are yours alone (about 50: section marks, architecture, making and writing, life). Official logos (about 12) are used as they are, never redrawn. It starts with a spec sheet (grid and safe area, standard outline shapes, stroke and corner rules, naming) and a tracker with a status per icon, before anything is drawn. Lucide on the same pen stays as the fallback, so no screen waits for an icon. The 30 most used get hand-tuned 16px versions; filled versions only where a selected state needs one (about 40). Drawn in batches of 20 to 30 by family, each checked at 16, 20 and 24 on paper and ink, beside its Lucide version, with a 5-second recognition test. Today's 40 (Lucide paths on the drafting pen) are replaced as their custom versions land.
+- **4. Icon library.** Custom icons drawn for Naksha, about 310 in three tiers: core UI (about 150), product domains (about 110: money, legal and documents, AI and agents, privacy, publishing) and ones that are yours alone (about 50: section marks, architecture, making and writing, life). Official logos (about 12) are used as they are, never redrawn. It starts with a spec sheet (grid and safe area, standard outline shapes, stroke and corner rules, naming) and a tracker with a status per icon, before anything is drawn. Lucide on the same pen stays as the fallback, so no screen waits for an icon. The 30 most used get hand-tuned 16px versions; filled versions only where a selected state needs one (about 40). Drawn in batches of 20 to 30 by family, each checked at 16, 20 and 24 on paper and ink, beside its Lucide version, with a 5-second recognition test. Today's 41 (Lucide paths on the drafting pen) are replaced as their custom versions land.
 - **5. Patterns.** Built only from the components, nothing new: forms, empty and error states, AI flows. Built outside-in (page frame and regions first) and shipped as copyable page templates. Content rules (word list, tone by situation) land in the brand book here at the latest.
 - **6. Access and language.** Ship Noto Sans Devanagari (ADR 0005) after a visual pass with real Hindi and Marathi copy, and the en-IN formatter with the three-letter month fix (ADR 0006).
 - **7. Brand assets.** To be scoped.
