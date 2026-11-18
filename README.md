@@ -71,13 +71,14 @@ npm install
 npm run build    # write dist/
 npm test             # build, then token checks (aliases, DTCG, contrast in both themes, propagation), skill checks, unit tests
 npm run test:visual  # every preview in light, dark and forced colours against saved screenshots, axe on each
+npm run test:site    # every site page (build it first: cd site && npm run build): screenshots, clipped text, errors, axe, 320px reflow
 npm run lint         # no raw colours, no px above 2 in css/
 npm run check        # all of the above plus the type check
 ```
 
 ## Decisions
 
-Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the token format, naming, breakpoints and the fluid grid, fluid type, Devanagari, Indian number grouping (₹1,25,000), why there is no Figma library, and the one contrast pair kept on purpose.
+Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the token format, naming, breakpoints and the fluid grid, fluid type, Devanagari, Indian number grouping (₹1,25,000), why there is no Figma library, the one contrast pair kept on purpose, and how the website is tested.
 
 ## Roadmap
 

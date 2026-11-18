@@ -41,6 +41,7 @@
     "prepare": "node scripts/build.mjs && node scripts/bundle.mjs && node scripts/skill.mjs",
     "test": "npm run build && node --test \"tests/*.test.mjs\" && vitest run",
     "test:visual": "playwright test",
+    "test:site": "playwright test -c playwright.site.config.ts",
     "typecheck": "tsc --noEmit",
     "lint": "stylelint \"css/**/*.css\"",
     "check": "npm run lint && npm run typecheck && npm test && npm run check:skill && npm run test:visual",

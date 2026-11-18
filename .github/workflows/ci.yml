@@ -55,3 +55,31 @@ jobs:
           name: visual-diffs
           path: test-results/
           retention-days: 14
+
+  site:
+    # The website gates (tests/site, ADR 0013): every page in light and dark with reduced motion on, against saved
+    # screenshots, plus clipped text, console errors, axe at every severity and reflow at 320px. Issues that exist
+    # today are listed in tests/site/known-issues.json; anything else fails, and so does a listed issue that is gone.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
+      - run: sudo apt-get update && sudo apt-get install -y fonts-inter
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm ci && npm run build
+        working-directory: site
+      - run: npm run test:site
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-diffs
+          path: test-results/
+          retention-days: 14
