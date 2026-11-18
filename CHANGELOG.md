@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.5 · Image and ListItem
+
+The third Phase 2 pair, each built by hand before in at least two of the products.
+
+### Added
+- `Image`: a picture in a frame that takes its `ratio` before the file arrives, so nothing below it moves. `bg-band` while it loads, a fade in when it arrives, and "Image did not load" if it fails. A hairline is drawn over the picture's edge. `srcSet` and `sizes` pick the right file for the screen; it loads when it nears the screen unless it has `priority`. An optional caption makes it a `<figure>`.
+- `isZoomable` on Image: the frame becomes a button with a corner square, and opens the picture full size on a plain sheet, as large as fits and never past its own size. Escape, Close or a tap closes it, and focus returns to the picture.
+- `List` and `ListItem`: rows between hairline rules, in Accordion's rhythm. A picture, a title, a line of facts, a sentence, something on the right, and actions. With `href` the content is one link and the actions stay outside it, so nothing interactive is nested.
+- A `zoom-in` icon (41 in the set).
+- Card previews can call a function the card defines for itself (`"$fn:name"` and a `<script data-nk-fn>`), in the artifact and on the site. Slider's card uses it to show a clock time, "1:23 of 3:40", in every state.
+- Tests: 5 component tests (95 in all).
+
 ## 0.3.4 · Slider says a clock time, and fades like a field
 
 Two gaps in 0.3.3's Slider, closed before the next pair.

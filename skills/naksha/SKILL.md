@@ -7,7 +7,7 @@ description: Build or review UI with Naksha, Shreeraj Narwade's design system (t
 
 # Naksha
 
-Version 0.3.4.
+Version 0.3.5.
 
 A design system drawn like a set of architectural sheets: paper and ink, square edges, hairline rules, mono sheet labels, and seven section hues that mark where you are. It comes straight from the live portfolio CSS, and it is built for product work: AI tools, fintech, legal and other information-heavy screens.
 
@@ -149,9 +149,11 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [DropdownMenu](references/components/DropdownMenu.md) | A list of actions, or a choice, that opens from a trigger: usually a ghost IconButton with `ellipsis`. |
 | [EmptyState](references/components/EmptyState.md) | What a view shows before it has data: what will appear here, and one way to start. |
 | [IconButton](references/components/IconButton.md) | A square button that holds one icon, for frequent actions in toolbars, cards and composers. |
+| [Image](references/components/Image.md) | A picture that holds its shape while it loads, with a hairline edge and an optional caption. It can open full size. |
 | [Input](references/components/Input.md) | A single-line text field with a visible label above it and help or an error below. |
 | [Kbd](references/components/Kbd.md) | A key on the keyboard. One per key. |
 | [Link](references/components/Link.md) | Text that takes you somewhere. Underlined at rest so links never rely on colour alone (WCAG 1.4.1). |
+| [ListItem](references/components/ListItem.md) | One row of a List: a small picture, a title with a line under it, a sentence, something on the right, and actions. |
 | [Modal](references/components/Modal.md) | Blocks the page for one decision that needs full attention. |
 | [ProgressBar](references/components/ProgressBar.md) | Progress for tasks longer than about two seconds. |
 | [PromptInput](references/components/PromptInput.md) | The composer for talking to an AI like garu. |

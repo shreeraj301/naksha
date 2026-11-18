@@ -60,7 +60,8 @@ export function components(): ComponentDoc[] {
     const group = (html.match(/@dsCard group="([^"]+)"/)?.[1] ?? "Identity") as Group;
     const body = readme.replace(/^# .*\n/, "");
     const { intro, sections } = splitSections(body);
-    const bodyStart = html.indexOf("<body>"), firstScript = html.indexOf("<script", bodyStart);
+    // The preview is the body up to the mount script. A card's own helpers (<script data-nk-fn>) stay in: LivePreview runs them.
+    const bodyStart = html.indexOf("<body>"), mount = html.slice(bodyStart).search(/<script(?! data-nk-fn)/), firstScript = mount >= 0 ? bodyStart + mount : -1;
     const preview = bodyStart >= 0 ? html.slice(bodyStart + 6, firstScript > 0 ? firstScript : undefined).trim() : "";
     const phase = plain(sections.find((s) => s.title === "Release phase")?.md ?? "");
     const log = sections.find((s) => s.title === "Change log")?.md ?? "";

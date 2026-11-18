@@ -6,7 +6,7 @@ Updated 18 Nov 2026, after 0.3.1. Each phase ends with a done-check, and nothing
 | --- | --- | --- |
 | 0 | Repo, token source and build, tests, lint, CI, decisions | Done (0.1.0, 0.2.0) |
 | 1 | React components on React Aria, running live in the artifact | Done (0.3.0) |
-| 2 | Components still missing | In progress: 4 of 8 done (0.3.3) |
+| 2 | Components still missing | In progress: 6 of 8 done (0.3.5) |
 | 3 | Charts | |
 | 4 | Icon library, about 310 icons in tiers | |
 | 5 | Patterns built from the components | |
@@ -132,7 +132,7 @@ Products read: Ledger (`CASE STUDIES/LEDGER/ledger/src`), Otla Pages (`CASE STUD
 | SkipLink | The first stop on the page, visible only on focus, that moves focus to the main content | Ledger `SkipLink` (primitives.tsx); the portfolio (Base.astro); this site |
 | `announce()` | Says a short message to screen readers without moving focus | Ledger's copy and sent notes (`role="status"`); Otla Pages `liveSay` (core.js); the portfolio loader status |
 
-Status: scope approved on 18 Nov 2026. Built in pairs: ToggleButton and CopyButton in 0.3.2, Slider and Drawer in 0.3.3. In 0.3.4 Slider moved to React Aria's hooks (ADR 0012) for clock-time values and a disabled label that fades.
+Status: scope approved on 18 Nov 2026. Built in pairs: ToggleButton and CopyButton in 0.3.2, Slider and Drawer in 0.3.3. In 0.3.4 Slider moved to React Aria's hooks (ADR 0012) for clock-time values and a disabled label that fades. Image and ListItem in 0.3.5.
 
 ### Watch list: one product so far
 

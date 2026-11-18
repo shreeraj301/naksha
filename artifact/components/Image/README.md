@@ -1,0 +1,90 @@
+# Image
+
+A picture that holds its shape while it loads, with a hairline edge and an optional caption. It can open full size.
+
+## Usage
+
+```jsx
+import { Image } from "naksha";
+
+<Image
+  src="/photos/kitchen-1200.jpg"
+  srcSet="/photos/kitchen-480.jpg 480w, /photos/kitchen-1200.jpg 1200w"
+  sizes="(min-width: 600px) 30rem, 100vw"
+  alt="The kitchen's north wall, with the grey tiles laid"
+  ratio="3/2"
+  caption="Kitchen, north wall · 12 Nov"
+  isZoomable
+/>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `src` | the file | |
+| `alt` | what the picture shows; `""` when it only decorates | |
+| `ratio` | width over height: `"3/2"`, `"4/3"`, `"1/1"`, `"16/10"` | |
+| `srcSet`, `sizes` | the same picture at several widths, and how wide it is drawn | none |
+| `fit` | `cover` crops to fill the frame; `contain` shows all of it | `cover` |
+| `caption` | a line under the picture | none |
+| `priority` | load at once instead of when it nears the screen | `false` |
+| `isZoomable` | a tap or click opens it full size | `false` |
+| `zoomSrc` | the file to show full size | `src` with `srcSet` |
+| `styles` | layout only: margin, width, placement (ADR 0009) | |
+
+## Best practices
+
+- Always give a `ratio`. It is what keeps the text under the picture from jumping when the file arrives.
+- Give `srcSet` and `sizes` whenever you have the file at more than one width, so a phone does not download the desktop file. Two widths (480 and 1200) cover most layouts.
+- Use `priority` only for the first picture a page shows. Every other picture loads when it nears the screen.
+- Make a picture zoomable when its detail matters: a drawing, a tile sample, a page of a book. Not for a decorative header.
+- In a ListItem, a thumbnail is decoration: give it `alt=""` and no zoom, because the row's title already names it.
+
+| Do | Don't |
+| --- | --- |
+| `alt="The kitchen's north wall, with the grey tiles laid"` | `alt="image"` or the file name |
+| `alt=""` on a thumbnail beside its own title | The title again as the alt text |
+
+## Content
+
+Alt text says what the picture shows that matters here, in a sentence, without "image of". The caption adds what the picture cannot: where, when, by whom. Do not repeat the alt text in the caption.
+
+## Anatomy and spacing
+
+The frame takes the `ratio` and the width it is given (100% by default), and shows `bg-band` until the file arrives. A hairline in `border-default` is drawn over the picture's edge, so a light photo still has an edge on paper. The caption sits 8 below, in `body-s`, muted. Corners 0.
+
+Zoomable adds a 32 square in the bottom end corner, 8 in from both edges: `bg-raised`, a hairline, the `zoom-in` icon at 16. It is there for touch screens, where there is no cursor to say the picture can open.
+
+Full size is a plain sheet in `bg-canvas` over the page. The picture is as large as fits inside 64 above and below and 24 at the sides, and never larger than its own file, so it stays sharp. It has the same hairline edge, the caption under it, and a ghost close button 16 from the top end corner.
+
+## States
+
+While the file loads the frame shows only its colour; the picture fades in over 200ms (`dur-ui`) when it arrives. A page rendered on the server shows the picture before scripts run. If the file fails, the frame says "Image did not load" with the alert icon, in `fg-default`.
+
+Zoomable, on hover: the edge turns ink, the picture grows to 1.02 over 450ms (`dur-page`, `ease-settle`) and the corner square fills with ink. Focus is the system outline, 2 off the frame. Full size enters with a fade and a scale from 0.97 over 280ms (`dur-overlay`, `ease-out`) and leaves in 200ms. Under reduced motion nothing scales; it only fades.
+
+## Accessibility
+
+**What Naksha provides.** A real `<img>` with your alt text, inside a `<figure>` with `<figcaption>` when there is a caption. Zoomable is a real button named "(alt text), view full size". Full size is React Aria's modal dialog, named by the alt text: focus moves in, the page behind is hidden from screen readers, Escape or Close closes it, and focus returns to the picture. A tap anywhere on the sheet also closes it.
+
+**What the designer decides.** The ratio, the crop, what the alt text says, and whether the picture is worth opening full size.
+
+**What the developer must not break.** Keep `alt` on every picture, `""` only for decoration. Keep the ratio, so the page does not jump.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Loaded, loading, did not load, contain, zoomable hover and focus (screenshots) | Tested |
+| Lazy and priority loading, ratio, figure and caption, failed file, open full size, Escape, focus return (component tests) | Tested |
+| Full size in light and dark, on a phone width, tap on the picture and on the sheet (live browser) | Tested |
+| Pinch zoom on a real phone | Not tested yet |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.5 | New. Built by hand before as Ledger's `Photo` (two widths, `sizes`, lazy unless eager, a hairline ring on the surface colour) and the portfolio's `Pic` (four widths, lazy or eager). Otla Pages and the portfolio's book reader zoom the picture in place; Naksha opens it full size instead, so the page around it never moves. |

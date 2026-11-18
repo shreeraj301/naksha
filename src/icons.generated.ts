@@ -40,7 +40,8 @@ export const ICONS = {
   "trash-2": "<path d=\"M10 11v6\"/> <path d=\"M14 11v6\"/> <path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6\"/> <path d=\"M3 6h18\"/> <path d=\"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/>",
   "triangle-alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"/> <path d=\"M12 9v4\"/> <path d=\"M12 17h.01\"/>",
   "user": "<path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/> <circle cx=\"12\" cy=\"7\" r=\"4\"/>",
-  "x": "<path d=\"M18 6 6 18\"/> <path d=\"m6 6 12 12\"/>"
+  "x": "<path d=\"M18 6 6 18\"/> <path d=\"m6 6 12 12\"/>",
+  "zoom-in": "<circle cx=\"11\" cy=\"11\" r=\"8\"/> <path d=\"m21 21-4.34-4.34\"/> <path d=\"M11 8v6\"/> <path d=\"M8 11h6\"/>"
 } as const;
 
 export type IconName = keyof typeof ICONS;

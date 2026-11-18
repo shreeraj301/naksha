@@ -4,13 +4,16 @@ import { createElement, useEffect, useRef, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 
 /* Naksha components described as data: {"$c": "Button", "p": {...}}. The README previews and the home page use the same shape.
-   "$noop" becomes an empty handler, "$html" a block of markup, a nested {"$c"} an element, "$name" a handler from `handlers`. */
+   "$noop" becomes an empty handler, "$html" a block of markup, a nested {"$c"} an element, "$name" a handler from `handlers`,
+   "$fn:name" a function a README preview defines for itself in its <script data-nk-fn> (see LivePreview). */
 export type Spec = { $c: string; p?: Record<string, unknown> };
 type Handlers = Record<string, (...a: any[]) => void>;
 const N = Naksha as unknown as Record<string, any>;
+const fns = (): Record<string, unknown> => ((globalThis as { NK_FN?: Record<string, unknown> }).NK_FN ?? {});
 
 function val(v: unknown, h: Handlers): unknown {
   if (v === "$noop") return () => {};
+  if (typeof v === "string" && v.startsWith("$fn:")) return fns()[v.slice(4)];
   if (typeof v === "string" && v[0] === "$" && h[v.slice(1)]) return h[v.slice(1)];
   if (Array.isArray(v)) return v.map((x, i) => (isSpec(x) ? el(x, h, i) : val(x, h)));
   if (v && typeof v === "object") {
@@ -39,6 +42,9 @@ export function LivePreview({ html, className }: { html: string; className?: str
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const roots: Root[] = [];
+    // Markup set with innerHTML does not run its scripts, so run the preview's own helpers (window.NK_FN) before mounting.
+    // They come from the repo's preview.html files, the same code the artifact runs.
+    ref.current?.querySelectorAll<HTMLScriptElement>("script[data-nk-fn]").forEach((s) => new Function(s.textContent ?? "")());
     ref.current?.querySelectorAll<HTMLElement>("[data-nk]").forEach((n) => {
       const r = createRoot(n);
       r.render(el(JSON.parse(n.getAttribute("data-nk")!)));

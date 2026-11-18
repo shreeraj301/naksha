@@ -15,7 +15,7 @@ I trained as an architect before I designed software. A good plan reads at a gla
 | **192 tokens** | Colour (paper and ink, seven section colours, four status sets), space, size, radius, stroke, layout, breakpoints, motion, z-index, type |
 | **Two themes** | Light (ink on paper) and dark (paper on ink). Every semantic colour exists in both, and every text pair is tested for WCAG 2.2 AA |
 | **15 type styles** | Archivo Condensed for display, Archivo for UI, Newsreader for reading, IBM Plex Mono for data |
-| **38 components** | In `css/components.css`: buttons, toggles, fields, sliders, menus, tables, modals, drawers, toasts, and the AI set (prompt input, messages, steps, sources) |
+| **40 components** | In `css/components.css`: buttons, toggles, fields, sliders, menus, tables, lists, images, modals, drawers, toasts, and the AI set (prompt input, messages, steps, sources) |
 
 ## Use it
 
