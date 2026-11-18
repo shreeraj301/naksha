@@ -16,7 +16,7 @@ import { Slider } from "naksha";
   step={1000}
   formatOptions={{ style: "currency", currency: "INR", maximumFractionDigits: 0 }}
 />
-<Slider label="Playback position" value={t} maxValue={220} onChangeEnd={seek} formatOptions={{ style: "unit", unit: "second", unitDisplay: "long" }} />
+<Slider label="Playback position" value={t} onChange={setT} onChangeEnd={seek} maxValue={220} formatValue={(s) => `${clock(s)} of 3:40`} />
 ```
 
 | Prop | Values | Default |
@@ -28,6 +28,7 @@ import { Slider } from "naksha";
 | `minValue`, `maxValue` | | `0`, `100` |
 | `step` | how far one arrow key moves | `1` |
 | `formatOptions` | `Intl.NumberFormatOptions`: how the value is written and read aloud | plain number |
+| `formatValue` | a function that writes the value yourself, shown and spoken: a clock time; wins over `formatOptions` | |
 | `showValue` | show the value beside the label | `true` |
 | `isDisabled` | | `false` |
 | `styles` | layout only: margin, width, placement (ADR 0009) | |
@@ -46,9 +47,9 @@ import { Slider } from "naksha";
 
 ## Content
 
-The label names the thing in sentence case, without the unit. The unit lives in `formatOptions`, so the written value and the spoken one always match: a person hears "40%" or "83 seconds", never "0.4" or "83".
+The label names the thing in sentence case, without the unit. The unit lives in `formatOptions`, so the written value and the spoken one always match: a person hears "40%", never "0.4".
 
-React Aria builds both from `Intl.NumberFormat`, so a clock time like "1:23" cannot be written yet. For a playback position, use seconds or minutes as a unit, or set `showValue={false}` and show the time nearby. The spoken value is still the number with its unit.
+When a number format cannot say it, write it with `formatValue`. A playback position reads "1:23 of 3:40", both beside the label and to a screen reader. Say the whole thing ("of 3:40"), because the spoken value is all a screen reader user gets.
 
 ## Anatomy and spacing
 
@@ -56,21 +57,22 @@ The label row is the field label (13, weight 500) on the left and the value in m
 
 ## States
 
-Hovering the track grows the thumb to 18; dragging grows it to 20, over 140ms (`dur-press`, `ease-out`). Under reduced motion the size changes without the transition. Focus is the system outline, 2 off the thumb. Disabled fades the line, the fill and the thumb; the label and value keep their colours, because React Aria's label is not tied to the disabled input and faded text there fails contrast checks. In a right-to-left locale (set with React Aria's `I18nProvider`) the fill and the thumb run from the right. In Windows High Contrast the line is `CanvasText`, the fill and thumb are `Highlight`, and disabled is `GrayText`.
+Hovering the track grows the thumb to 18; dragging grows it to 20, over 140ms (`dur-press`, `ease-out`). Under reduced motion the size changes without the transition. Focus is the system outline, 2 off the thumb. Disabled fades the label, the line, the fill and the thumb; the value stays muted and readable, like a field's help line. In a right-to-left locale (set with React Aria's `I18nProvider`) the fill and the thumb run from the right. In Windows High Contrast the line is `CanvasText`, the fill and thumb are `Highlight`, and disabled is `GrayText`.
 
 ## Accessibility
 
-**What Naksha provides.** React Aria's Slider: a real `<input type="range">` inside the thumb, named by the label, with `aria-valuetext` from `formatOptions`. Arrow keys move one step, Page Up and Page Down a tenth of the range, Home and End the ends. Dragging works with mouse, touch and pen, and clicking the track moves the thumb there.
+**What Naksha provides.** React Aria's slider hooks (ADR 0012): a real `<input type="range">` inside the thumb, named by a `<label>` that points at it, with `aria-valuetext` from `formatValue` or `formatOptions`. Arrow keys move one step, Page Up and Page Down a tenth of the range, Home and End the ends. Dragging works with mouse, touch and pen, and clicking the track moves the thumb there.
 
 **What the designer decides.** The range, the step and the unit, and whether the exact number deserves an Input instead.
 
-**What the developer must not break.** Keep the label visible. Put the unit in `formatOptions`, not in the label, so screen readers hear it.
+**What the developer must not break.** Keep the label visible. Put the unit in `formatOptions` or `formatValue`, not in the label, so screen readers hear it.
 
 | Test | Status |
 | --- | --- |
 | Default state (axe, screenshots in light and dark) | Tested |
 | At rest, hover, focus, dragging, disabled (screenshots, forced colours) | Tested |
-| Arrow keys, Home, End, `onChangeEnd`, spoken value, disabled (component tests) | Tested |
+| Arrow keys, Home, End, `onChangeEnd`, spoken value, clock time, label `for`, disabled (component tests) | Tested |
+| Track click, drag, label click, clock time (live browser) | Tested |
 | Touch on a real phone | Not tested yet |
 | Screen reader | Not tested yet |
 
@@ -82,4 +84,5 @@ Beta. Stable at Naksha 1.0.
 
 | Version | Change |
 | --- | --- |
+| 0.3.4 | `formatValue` for values a number format cannot say, such as a clock time. Built on React Aria's hooks, so the label points at the input and fades when disabled, like every other field. |
 | 0.3.3 | New. Built by hand before as the Otla Pages player seek and the portfolio walkthrough seek. |

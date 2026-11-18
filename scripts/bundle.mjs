@@ -1,5 +1,5 @@
 // Naksha component bundle. Two outputs from src/:
-//   dist/js/naksha.js (+ .d.ts)            ES module for products; react, react-dom and react-aria-components stay external
+//   dist/js/naksha.js (+ .d.ts)            ES module for products; react, react-dom and React Aria (components, hooks, state) stay external
 //   dist/artifact/components/bundle.js     one classic script for the Claude artifact: sets window.Naksha, reads window.React
 // Also copies React 18.3.1 into dist/artifact/components/lib so previews never depend on a CDN.
 import { build } from "esbuild";
@@ -16,7 +16,7 @@ const NAMESPACE = "Naksha";
 // 1. ES module
 await build({
   entryPoints: [join(ROOT, "src/index.ts")], bundle: true, format: "esm", platform: "browser", target: "es2022",
-  outfile: join(ROOT, "dist/js/naksha.js"), external: ["react", "react-dom", "react/jsx-runtime", "react-aria-components"],
+  outfile: join(ROOT, "dist/js/naksha.js"), external: ["react", "react-dom", "react/jsx-runtime", "react-aria-components", "react-aria", "react-stately"],
   define: { __NAKSHA_VERSION__: define.__NAKSHA_VERSION__ }, logLevel: "error",
 });
 

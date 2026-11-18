@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.4 · Slider says a clock time, and fades like a field
+
+Two gaps in 0.3.3's Slider, closed before the next pair.
+
+### Added
+- `formatValue` on Slider: a function that writes the value when a number format cannot, such as "1:23 of 3:40" for a seek bar. It is the text beside the label and what screen readers hear, and it wins over `formatOptions`.
+- ADR 0012: a component drops from React Aria Components to React Aria's hooks only when the component layer cannot express something a person needs. `react-aria` 3.53.1 and `react-stately` 3.51.0 are now direct dependencies, at the versions React Aria Components 1.22.1 pins, and stay external in the ES module build.
+
+### Changed
+- Slider is built on React Aria's slider hooks instead of its Slider component. It looks and behaves the same; the markup now carries its own state attributes.
+- A disabled Slider's label fades like every other disabled field. Its `<label>` now points at the input, so accessibility checks treat it as part of a disabled control. The value stays muted and readable.
+- The site resolves `react-aria` and `react-stately` from its own folder, like `react-aria-components`.
+- Tests: 2 component tests for the clock time and the label (90 in all).
+
 ## 0.3.3 · Slider and Drawer
 
 The second Phase 2 pair, each built by hand before in two of the products.

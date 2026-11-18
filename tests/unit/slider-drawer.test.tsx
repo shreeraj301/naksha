@@ -29,6 +29,28 @@ describe("Slider", () => {
     expect(document.querySelector(".nk-slider__value")?.textContent).toBe("40%");
   });
 
+  it("formatValue writes a clock time, shown and spoken, over formatOptions", async () => {
+    const clock = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")} of 3:40`;
+    render(<Slider label="Playback position" defaultValue={83} maxValue={220} formatValue={clock} formatOptions={{ style: "percent" }} />);
+    const input = screen.getByRole("slider", { name: "Playback position" });
+    expect(input.getAttribute("aria-valuetext")).toBe("1:23 of 3:40");
+    expect(document.querySelector(".nk-slider__value")?.textContent).toBe("1:23 of 3:40");
+    input.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    expect(input.getAttribute("aria-valuetext")).toBe("1:24 of 3:40");
+  });
+
+  it("the label points at the input, and onChange gets a number even with no value given", async () => {
+    const onChange = vi.fn();
+    render(<Slider label="Volume" onChange={onChange} />);
+    const input = screen.getByRole("slider", { name: "Volume" });
+    expect(document.querySelector("label")?.getAttribute("for")).toBe(input.id);
+    expect((input as HTMLInputElement).value).toBe("0");
+    input.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    expect(onChange).toHaveBeenLastCalledWith(1);
+  });
+
   it("showValue={false} hides the written value but not the spoken one; disabled does not move", async () => {
     render(<Slider label="Position" defaultValue={10} showValue={false} isDisabled />);
     expect(document.querySelector(".nk-slider__value")).toBeNull();

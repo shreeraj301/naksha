@@ -365,8 +365,8 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-slider.is-hover .nk-slider__thumb::after { transform: scale(1.125); }
 @media (hover: hover) and (pointer: fine) { .nk-slider__track[data-hovered] .nk-slider__thumb::after { transform: scale(1.125); } }
 .nk-slider.is-dragging .nk-slider__thumb::after, .nk-slider__thumb[data-dragging]::after { transform: scale(1.25); }
-/* Disabled fades the line and the thumb only. The label and value keep their colours: React Aria's slider label is not tied
-   to the disabled input, so faded text there is flagged by contrast checks. */
+/* Disabled fades the label like a disabled field (its `for` points at the disabled input). The value stays muted and readable, like a field's help line. */
+.nk-slider[data-disabled] .nk-field__label { color: var(--fg-disabled); }
 .nk-slider[data-disabled] .nk-slider__track { cursor: not-allowed; }
 .nk-slider[data-disabled] .nk-slider__track::before { background: var(--border-default); }
 .nk-slider[data-disabled] .nk-slider__fill, .nk-slider[data-disabled] .nk-slider__thumb::after { background: var(--fg-disabled); transform: none; }

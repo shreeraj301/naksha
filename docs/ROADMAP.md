@@ -132,7 +132,7 @@ Products read: Ledger (`CASE STUDIES/LEDGER/ledger/src`), Otla Pages (`CASE STUD
 | SkipLink | The first stop on the page, visible only on focus, that moves focus to the main content | Ledger `SkipLink` (primitives.tsx); the portfolio (Base.astro); this site |
 | `announce()` | Says a short message to screen readers without moving focus | Ledger's copy and sent notes (`role="status"`); Otla Pages `liveSay` (core.js); the portfolio loader status |
 
-Status: scope approved on 18 Nov 2026. Built in pairs: ToggleButton and CopyButton in 0.3.2, Slider and Drawer in 0.3.3.
+Status: scope approved on 18 Nov 2026. Built in pairs: ToggleButton and CopyButton in 0.3.2, Slider and Drawer in 0.3.3. In 0.3.4 Slider moved to React Aria's hooks (ADR 0012) for clock-time values and a disabled label that fades.
 
 ### Watch list: one product so far
 
@@ -173,4 +173,4 @@ Each gets a plan like the one above when the phase before it ends, written from 
 
 ## Decisions log
 
-All in [`docs/adr`](adr). Closed on 17 Nov 2026: 0002 to 0006 and 0008. Closed on 18 Nov 2026: 0011, fluid type (in effect since 0.2.1). None open.
+All in [`docs/adr`](adr). Closed on 17 Nov 2026: 0002 to 0006 and 0008. Closed on 18 Nov 2026: 0011, fluid type (in effect since 0.2.1), and 0012, React Aria's hooks where its components fall short (Slider, 0.3.4). None open.
