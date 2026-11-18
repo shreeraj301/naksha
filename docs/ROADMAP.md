@@ -1,6 +1,6 @@
 # Naksha roadmap
 
-Updated 18 Nov 2026, at the end of Phase 1. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
+Updated 18 Nov 2026, after 0.3.1. Each phase ends with a done-check, and nothing moves on until it passes. I review each phase before it is merged and published.
 
 | Phase | What | Status |
 | --- | --- | --- |
@@ -93,7 +93,7 @@ Status: done in 0.2.5. Thread, ChatMessage (with Cite and Generated), ResponseSt
 
 Accordion (Disclosure), Alert, Avatar, Breadcrumb, Card, Divider (Separator), EmptyState, Kbd, Link, ProgressBar, Skeleton, Spinner, Table, Tabs, Tag (TagGroup), TopNav.
 
-Status: done in 0.3.0. All sixteen render live, and their previews match the 0.2.5 screenshots within 4 pixels. Table is a semantic `<table>` rather than React Aria's grid: a table you read needs no grid keys, and a grid for rows people select or sort belongs in Phase 2. Tag is plain; TagGroup (React Aria) is for tags people remove. Not yet: TopNav hiding on scroll and its phone menu sheet.
+Status: done in 0.3.0. All sixteen render live, and their previews match the 0.2.5 screenshots within 4 pixels. Table is a semantic `<table>` rather than React Aria's grid: a table you read needs no grid keys, and a grid for rows people select or sort belongs in Phase 2. Tag is plain; TagGroup (React Aria) is for tags people remove. TopNav's phone menu sheet and hiding on scroll followed in 0.3.1.
 
 ### Phase 1 is done when
 
@@ -109,7 +109,7 @@ Result, 0.3.0:
 - Every screenshot difference since 0.2.0 is listed and explained in the changelog.
 - axe reports zero serious or critical issues on every preview, in both themes.
 - Every component has typed props in `index.d.ts` and a README on the one template. Every component with keyboard behaviour or states has tests for them (71 component tests, 102 browser and screenshot tests).
-- Still open across Phase 1: a manual screen reader pass, and checks on real phones.
+- Still open across Phase 1: a manual screen reader pass, and checks on real phones. (TopNav's menu sheet and hide on scroll were done in 0.3.1.)
 
 ---
 
@@ -127,4 +127,4 @@ Each gets a plan like the one above when the phase before it ends, written from 
 
 ## Decisions log
 
-All in [`docs/adr`](adr). Closed on 17 Nov 2026: 0002 to 0006 and 0008. Open: fluid type (Phase 1, step 0).
+All in [`docs/adr`](adr). Closed on 17 Nov 2026: 0002 to 0006 and 0008. Closed on 18 Nov 2026: 0011, fluid type (in effect since 0.2.1). None open.

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Accordion } from "../../src/components/Accordion";
 import { Alert } from "../../src/components/Alert";
@@ -118,6 +118,71 @@ describe("Breadcrumb, Link, Card, TopNav", () => {
     expect(screen.getByRole("link", { name: /Build/ }).getAttribute("aria-current")).toBeNull();
     rerender(<TopNav name="Shreeraj Narwade" isCompact isMenuOpen={false} onMenu={() => {}} />);
     expect(screen.getByRole("button", { name: "Open menu" }).getAttribute("aria-expanded")).toBe("false");
+  });
+});
+
+describe("TopNav menu sheet and hide on scroll", () => {
+  const items = [{ label: "Read", sub: "Work", href: "#read", section: "read" as const, isCurrent: true }, { label: "Build", href: "#build", section: "build" as const }];
+
+  it("the menu button opens a sheet of the same sections; Escape closes it and focus returns to the button", async () => {
+    render(<TopNav name="Shreeraj Narwade" isCompact items={items} menuFooter={<a href="#mail">Write to me</a>} />);
+    const button = screen.getByRole("button", { name: "Open menu" });
+    expect(button.getAttribute("aria-haspopup")).toBe("dialog");
+    await userEvent.click(button);
+    const sheet = await screen.findByRole("dialog", { name: "Menu" });
+    expect(within(sheet).getByRole("link", { name: /Read/ }).getAttribute("aria-current")).toBe("page");
+    expect(within(sheet).getByRole("link", { name: /Build/ }).getAttribute("aria-current")).toBeNull();
+    expect(within(sheet).getByRole("link", { name: "Write to me" })).toBeTruthy();
+    expect(within(sheet).getByRole("button", { name: "Close menu" })).toBeTruthy();
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    await waitFor(() => expect(document.activeElement).toBe(button));
+  });
+
+  it("choosing a section or Close shuts the sheet", async () => {
+    render(<TopNav name="Shreeraj Narwade" isCompact items={items} />);
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    await userEvent.click(within(await screen.findByRole("dialog")).getByRole("link", { name: /Build/ }));
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    await userEvent.click(within(await screen.findByRole("dialog")).getByRole("button", { name: "Close menu" }));
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("can be controlled with isMenuOpen and onMenuChange", async () => {
+    const onMenuChange = vi.fn();
+    const { rerender } = render(<TopNav name="Shreeraj Narwade" isCompact items={items} isMenuOpen={false} onMenuChange={onMenuChange} />);
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    expect(onMenuChange).toHaveBeenCalledWith(true);
+    expect(screen.queryByRole("dialog")).toBeNull();
+    rerender(<TopNav name="Shreeraj Narwade" isCompact items={items} isMenuOpen onMenuChange={onMenuChange} />);
+    expect(await screen.findByRole("dialog", { name: "Menu" })).toBeTruthy();
+  });
+
+  it("hideOnScroll steps aside going down, comes back going up, near the top and when focus moves in", () => {
+    const raf = vi.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => { cb(0); return 0; });
+    const scrollTo = (y: number) => act(() => { Object.defineProperty(window, "scrollY", { value: y, configurable: true }); fireEvent.scroll(window); });
+    const { container } = render(<TopNav name="Shreeraj Narwade" items={items} hideOnScroll />);
+    const bar = container.querySelector("header")!;
+    expect(bar.classList.contains("nk-nav--sticky")).toBe(true);
+    scrollTo(100);
+    expect(bar.hasAttribute("data-hidden")).toBe(false);
+    scrollTo(400);
+    expect(bar.hasAttribute("data-hidden")).toBe(true);
+    scrollTo(398);
+    expect(bar.hasAttribute("data-hidden")).toBe(true);
+    scrollTo(380);
+    expect(bar.hasAttribute("data-hidden")).toBe(false);
+    scrollTo(600);
+    expect(bar.hasAttribute("data-hidden")).toBe(true);
+    act(() => { within(bar).getByRole("link", { name: /Build/ }).focus(); });
+    expect(bar.hasAttribute("data-hidden")).toBe(false);
+    act(() => { (document.activeElement as HTMLElement).blur(); });
+    scrollTo(800);
+    expect(bar.hasAttribute("data-hidden")).toBe(true);
+    scrollTo(60);
+    expect(bar.hasAttribute("data-hidden")).toBe(false);
+    raf.mockRestore();
   });
 });
 

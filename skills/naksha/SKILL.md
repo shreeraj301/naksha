@@ -7,7 +7,7 @@ description: Build or review UI with Naksha, Shreeraj Narwade's design system (t
 
 # Naksha
 
-Version 0.3.0.
+Version 0.3.1.
 
 A design system drawn like a set of architectural sheets: paper and ink, square edges, hairline rules, mono sheet labels, and seven section hues that mark where you are. It comes straight from the live portfolio CSS, and it is built for product work: AI tools, fintech, legal and other information-heavy screens.
 

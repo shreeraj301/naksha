@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.1 · TopNav on phones, and fluid type written down
+
+### Added
+- TopNav's menu sheet. On a phone (`isCompact`) the menu button opens a full-screen sheet of the same sections, dropping from the top the way the portfolio menu does. It repeats the bar, so Close sits where the menu button was. Sections are large condensed labels with their colour squares; `trailing` and the new `menuFooter` follow. It is a React Aria modal dialog named "Menu": focus moves in and stays in, the page behind cannot be reached or scrolled, Escape or Close shuts it, focus returns to the button, and choosing a section closes it. With reduced motion it fades instead of sliding.
+- `hideOnScroll` on TopNav: the bar steps aside while reading down and returns on the way up, near the top of the page, whenever focus moves into it, and while the sheet is open. It makes the bar sticky.
+- `isMenuOpen` with `onMenuChange` to control the sheet; leave both out and TopNav manages it.
+- ADR 0011: display type is fluid, reading type is not. It records what 0.2.1 did and closes the last open decision.
+- Tests: 4 component tests for the sheet and hide on scroll (75 in all).
+
+### Changed
+- TopNav's preview card shows the phone bar closed and with the menu open, so it is taller (940).
+
+### Deprecated
+- TopNav `onMenu`. With it, Naksha draws no sheet and the product opens its own, as before. Use `onMenuChange`.
+
 ## 0.3.0 · Phase 1 done: every component is live
 
 Phase 1, step 5: the last sixteen components are React components, so all 34 previews in the artifact render from `bundle.js`. Their previews match the 0.2.5 screenshots within 4 pixels.

@@ -430,6 +430,32 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-navitem[aria-current="page"]::after { transform: scaleX(1); }
 .nk-navitem.is-hover::after { transform: scaleX(1); background: var(--border-strong); }
 @media (hover: hover) and (pointer: fine) { .nk-navitem:hover:not([aria-current])::after { transform: scaleX(1); background: var(--border-strong); } }
+/* Hides on the way down and returns on the way up (hideOnScroll). The bar stays sticky, so it never takes its height back from the page. */
+.nk-nav--sticky { position: sticky; top: 0; z-index: var(--z-nav); transition: transform var(--dur-overlay) var(--ease-out); }
+.nk-nav--sticky[data-hidden] { transform: translateY(-100%); }
+
+/* ---------- Top nav: the phone menu sheet ----------
+   It drops from the top over the page, the way the portfolio menu does, and repeats the bar so Close sits where Menu was. */
+.nk-sheet-overlay { position: fixed; inset: 0; z-index: var(--z-overlay); }
+.nk-sheet { height: 100%; overflow-y: auto; overscroll-behavior: contain; background: var(--bg-canvas); outline: none; }
+.nk-sheet__dialog { min-height: 100%; display: flex; flex-direction: column; outline: none; }
+.nk-sheet--inline { height: auto; overflow: visible; }
+.nk-sheet[data-entering] { animation: nk-sheet-in var(--dur-page) var(--ease-in-out); }
+.nk-sheet[data-exiting] { animation: nk-sheet-in var(--dur-overlay) var(--ease-in-out) reverse; }
+@keyframes nk-sheet-in { from { transform: translateY(-100%); } }
+.nk-sheet__nav { flex: 1; display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-8) var(--space-16) var(--space-32); }
+.nk-sheet__list { list-style: none; margin: 0; padding: 0; }
+.nk-sheet__list li { animation: nk-sheet-item var(--dur-overlay) var(--ease-out) both; animation-delay: calc(var(--dur-press) + var(--i, 0) * var(--dur-ui) / 5); } /* 140ms, then 40ms apart */
+@keyframes nk-sheet-item { from { opacity: 0; transform: translateY(-0.5rem); } }
+.nk-sheetitem { all: unset; position: relative; display: grid; grid-template-columns: 1rem 1fr; column-gap: var(--space-12); align-items: center; padding: var(--space-16) 0; border-bottom: var(--border-hairline) solid var(--border-default); cursor: pointer; }
+.nk-sheetitem i { width: 1rem; height: 1rem; background: var(--sw, var(--section-gather)); }
+.nk-sheetitem b { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 1.4rem + 3vw, 2.75rem); line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; color: var(--fg-default); transition: transform var(--dur-ui) var(--ease-out); }
+.nk-sheetitem small { grid-column: 2; margin-top: var(--space-4); font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }
+.nk-sheetitem::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--fg-default); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-ui) var(--ease-out); }
+.nk-sheetitem[aria-current="page"]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .nk-sheetitem:hover b { transform: translateX(var(--space-4)); } }
+.nk-sheet__tools, .nk-sheet__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-12); }
+.nk-sheet__foot { margin-top: auto; padding-top: var(--space-16); border-top: var(--border-hairline) solid var(--border-default); font-size: 0.875rem; }
 
 /* ---------- Card ---------- */
 .nk-card { all: unset; box-sizing: border-box; display: flex; flex-direction: column; width: 100%; max-width: 22.5rem; cursor: pointer; color: var(--fg-default);
@@ -611,6 +637,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
     transition-property: color, background-color, border-color, outline-color, opacity, box-shadow, text-decoration-color !important; }
   .nk-btn, .nk-iconbtn, .nk-chip { transform: none !important; }
   .nk-popover[data-entering], .nk-tooltip[data-entering], .nk-overlay[data-entering] .nk-modal { animation-name: nk-fade !important; }
+  .nk-sheet[data-entering], .nk-sheet[data-exiting], .nk-sheet__list li { animation-name: nk-fade !important; }
   [class*="nk-"] { animation-iteration-count: 1 !important; }
   .nk-spin { animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
   .nk-progress--indeterminate .nk-progress__bar { width: 100%; animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
@@ -619,7 +646,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
 /* ---------- focus: one method for everything you can tab to ----------
    A 2px ink outline, 2px off the edge. Last in the file so it wins over the `all: unset` resets above. */
 .nk-btn:focus-visible, .nk-iconbtn:focus-visible, .nk-link:focus-visible, .nk-tab:focus-visible, .nk-seg__opt:focus-visible, .nk-seg__opt[data-focus-visible], .nk-chip:focus-visible,
-.nk-source:focus-visible, .nk-card:focus-visible, .nk-acc__head:focus-visible, .nk-navitem:focus-visible, .nk-crumb a:focus-visible,
+.nk-source:focus-visible, .nk-card:focus-visible, .nk-acc__head:focus-visible, .nk-navitem:focus-visible, .nk-sheetitem:focus-visible, .nk-crumb a:focus-visible,
 .nk-tag--remove button:focus-visible, .nk-toast__action:focus-visible,
 .nk-check[data-focus-visible] .nk-check__box, .nk-radio[data-focus-visible] .nk-radio__box, .nk-switch[data-focus-visible] .nk-switch__track,
 .nk-check.is-focus .nk-check__box, .nk-radio.is-focus .nk-radio__box, .nk-switch.is-focus .nk-switch__track,
@@ -634,7 +661,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
    (radio dot, switch thumb, tab and nav underline, progress bar, selected segment, menu highlight) opt out and use system colours.
    Last in the file so nothing above overrides it. */
 @media (forced-colors: active) {
-  .nk-radio__box::after, .nk-switch__track, .nk-switch__track::after, .nk-tab::after, .nk-navitem::after, .nk-navitem i,
+  .nk-radio__box::after, .nk-switch__track, .nk-switch__track::after, .nk-tab::after, .nk-navitem::after, .nk-navitem i, .nk-sheetitem::after, .nk-sheetitem i,
   .nk-progress__track, .nk-progress__bar, .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected], .nk-skel,
   .nk-menu__item.is-hover, .nk-menu__item:focus-visible { forced-color-adjust: none; }
   .nk-radio__box::after { background: CanvasText; }
@@ -646,8 +673,8 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   .nk-switch[data-disabled] .nk-switch__track { border-color: GrayText; }
   .nk-switch[data-disabled] .nk-switch__track::after { background: GrayText; }
   .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected] { background: Highlight; color: HighlightText; }
-  .nk-tab::after, .nk-navitem::after { background: CanvasText; }
-  .nk-tab[aria-selected="true"]::after, .nk-navitem[aria-current="page"]::after { background: Highlight; }
+  .nk-tab::after, .nk-navitem::after, .nk-sheetitem::after { background: CanvasText; }
+  .nk-tab[aria-selected="true"]::after, .nk-navitem[aria-current="page"]::after, .nk-sheetitem[aria-current="page"]::after { background: Highlight; }
   .nk-progress__track { background: Canvas; box-shadow: inset 0 0 0 1px CanvasText; }
   .nk-progress__bar { background: Highlight; }
   .nk-skel { background: Canvas; box-shadow: inset 0 0 0 1px GrayText; }

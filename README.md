@@ -77,7 +77,7 @@ npm run check        # all of the above plus the type check
 
 ## Decisions
 
-Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the token format, naming, breakpoints and the fluid grid, Devanagari, Indian number grouping (₹1,25,000), why there is no Figma library, and the one contrast pair kept on purpose.
+Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the token format, naming, breakpoints and the fluid grid, fluid type, Devanagari, Indian number grouping (₹1,25,000), why there is no Figma library, and the one contrast pair kept on purpose.
 
 ## Roadmap
 
