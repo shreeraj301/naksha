@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "../cx";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface TableColumn<Row> {
   id: string;
@@ -23,18 +24,23 @@ export interface TableProps<Row extends { id: string }> {
   footer?: ReactNode[];
   /** The row to mark as chosen. */
   selectedId?: string;
-  /** Preview only: the row id to draw hovered. */
+  /** Preview only: the row id to draw in each state, e.g. `{ hover: … }`. */
+  forceState?: { hover?: string };
+  /** @deprecated Use `forceState={{ hover }}`. Removed in 0.6.0. */
   forceHover?: string;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /**
  * Rows of facts to read and compare. A real `<table>` with column headers, so screen readers announce the column
  * with every cell. For rows people select, sort or act on, a grid comes in Phase 2.
  */
-export function Table<Row extends { id: string }>({ label, columns, rows, footer, selectedId, forceHover }: TableProps<Row>) {
+export function Table<Row extends { id: string }>({ label, columns, rows, footer, selectedId, forceState, forceHover: legacyHover, styles }: TableProps<Row>) {
+  const forceHover = forceState?.hover ?? legacyHover;
   const cls = (c: TableColumn<Row>) => cx(c.isNumeric && "num", c.isMuted && "muted", c.isMono && "num") || undefined;
   return (
-    <table className="nk-table" aria-label={label}>
+    <table className="nk-table" aria-label={label} style={layoutStyle(styles)}>
       <thead>
         <tr>
           {columns.map((c) => (

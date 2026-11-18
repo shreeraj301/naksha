@@ -1,5 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 import { cx } from "../cx";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface SkipLinkProps {
   /** The id of the main content. The page's `<main>` should carry it. */
@@ -8,13 +9,15 @@ export interface SkipLinkProps {
   children?: ReactNode;
   /** Preview only: show it as it looks when focused. */
   forceState?: "focus";
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /**
  * The first stop on the page for keyboard users. Hidden until Tab reaches it; Enter moves focus past the
  * navigation to the main content. Put it first in `<body>`, before the TopNav.
  */
-export function SkipLink({ target = "main", children = "Skip to content", forceState }: SkipLinkProps) {
+export function SkipLink({ target = "main", children = "Skip to content", forceState, styles }: SkipLinkProps) {
   const skip = (event: MouseEvent<HTMLAnchorElement>) => {
     const el = document.getElementById(target);
     if (!el) return; // no target: the plain link still jumps to #target
@@ -25,7 +28,7 @@ export function SkipLink({ target = "main", children = "Skip to content", forceS
     el.focus();
   };
   return (
-    <a href={`#${target}`} onClick={skip} className={cx("nk-skip", forceState === "focus" && "is-focus")}>
+    <a href={`#${target}`} onClick={skip} style={layoutStyle(styles)} className={cx("nk-skip", forceState === "focus" && "is-focus")}>
       {children}
     </a>
   );

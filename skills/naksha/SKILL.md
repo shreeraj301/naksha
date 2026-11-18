@@ -52,6 +52,7 @@ Light and dark value, with the primitive each aliases. Primitives (`stone-*`, hu
 | `bg-band` | #bdb7ac (stone-400) | #34312e (stone-800) | Skeletons, progress tracks, media placeholders. |
 | `bg-inverse` | #151413 (stone-950) | #ece8e0 (stone-100) | Tooltips, toasts, the source number tile. |
 | `bg-disabled` | #ddd8ce (stone-300) | #24221f (stone-850) | Fill of a disabled control. |
+| `bg-code` | #151413 (stone-950) | #1c1b19 (stone-900) | Code blocks in docs: dark in both themes, a step off the canvas in dark. |
 | `state-hover` | #15141314 (ink-a08) | #ece8e014 (paper-a08) | Layer over a transparent control on hover. |
 | `state-pressed` | #15141329 (ink-a16) | #ece8e029 (paper-a16) | Layer on press, and for selected rows. |
 | `fg-default` | #151413 (stone-950) | #ece8e0 (stone-100) | Body text, titles and icons on bg-canvas, bg-subtle and bg-raised. 14.5:1 light, 15:1 dark. |
@@ -60,6 +61,8 @@ Light and dark value, with the primitive each aliases. Primitives (`stone-*`, hu
 | `fg-disabled` | #a7a196 (stone-500) | #57534d (stone-700) | Text and icons of disabled controls only (exempt from contrast). |
 | `fg-on-inverse` | #ece8e0 (stone-100) | #151413 (stone-950) | Text on bg-inverse and action-primary. |
 | `fg-on-inverse-muted` | #a7a196 (stone-500) | #57534d (stone-700) | Secondary text on bg-inverse. 7.2:1 light, 6.3:1 dark. |
+| `fg-code` | #ece8e0 (stone-100) | #ece8e0 (stone-100) | Text on bg-code. |
+| `fg-on-section` | #151413 (stone-950) | #151413 (stone-950) | Text and rules on a section colour, in both themes. |
 | `border-default` | #15141329 (ink-a16) | #ece8e029 (paper-a16) | Hairlines: dividers, card and table edges. Decorative, never the only edge of a control. |
 | `border-strong` | #15141366 (ink-a40) | #ece8e066 (paper-a40) | Emphasised rules, table header rule, composer edge at rest. |
 | `border-control` | #6a655d (stone-600) | #a7a196 (stone-500) | Edges of inputs, checkboxes, switches. 3:1 or better on every ground. |
@@ -123,10 +126,10 @@ Light and dark value, with the primitive each aliases. Primitives (`stone-*`, hu
 
 - Space: `space-0` 0px, `space-2` 2px, `space-4` 4px, `space-6` 6px, `space-8` 8px, `space-12` 12px, `space-16` 16px, `space-20` 20px, `space-24` 24px, `space-32` 32px, `space-40` 40px, `space-48` 48px, `space-64` 64px, `space-80` 80px, `space-96` 96px, `space-128` 128px
 - Size: `size-control-sm` 32px, `size-control-md` 40px, `size-control-lg` 48px, `size-control-touch-sm` 36px, `size-control-touch-md` 44px, `size-control-touch-lg` 52px, `size-icon-sm` 16px, `size-icon-md` 20px, `size-icon-lg` 24px, `size-measure` 64ch
-- Radius: `radius-2` 2px, `radius-4` 4px, `radius-8` 8px, `radius-control` 0px, `radius-surface` 0px, `radius-round` 9999px
+- Radius: `radius-control` 0px, `radius-surface` 0px, `radius-round` 9999px
 - Layout: `layout-columns` 12, `layout-gutter` 40px, `layout-unit` 16px, `layout-section` 128px, `layout-nav-height` 64px
 - Breakpoints (min-width): `bp-medium` 600px, `bp-expanded` 900px, `bp-large` 1200px, `bp-xlarge` 1440px
-- Duration: `dur-press` 140ms, `dur-hover` 150ms, `dur-ui` 200ms, `dur-overlay` 280ms, `dur-page` 450ms, `dur-hero` 900ms
+- Duration: `dur-press` 140ms, `dur-hover` 150ms, `dur-ui` 200ms, `dur-overlay` 280ms, `dur-page` 450ms, `dur-hero` 900ms, `dur-loop-pulse` 1500ms, `dur-loop-sweep` 1400ms, `dur-loop-blink` 1000ms, `dur-loop-calm` 2000ms
 - Easing: `ease-out` cubic-bezier(0.16, 1, 0.3, 1), `ease-settle` cubic-bezier(0.22, 1, 0.36, 1), `ease-in-out` cubic-bezier(0.77, 0, 0.175, 1)
 
 Every token, both themes: [references/tokens.md](references/tokens.md).

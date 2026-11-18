@@ -56,7 +56,7 @@ The title names what is inside in sentence case, with no question mark: a drawer
 
 ## Anatomy and spacing
 
-Modal's head and foot: header 24 / 16 / 0 / 24 with the title at 22, weight 600, and a small ghost close button; body 12 / 24 / 24, in the default text colour, and it scrolls on its own while the head and foot stay put; footer 16 / 24 on `bg-subtle` with a hairline above. The panel is 400 wide and the full height of the window, on `bg-raised` with `shadow-overlay`, a hairline on the edge that faces the page, and `overlay-scrim` over the rest. Below 600 wide it takes the whole width. Corners 0.
+Modal's head and foot: header 24 / 16 / 0 / 24 with the title at 20 (`title-s`), weight 600, and a small ghost close button; body 12 / 24 / 24, in the default text colour, and it scrolls on its own while the head and foot stay put; footer 16 / 24 on `bg-subtle` with a hairline above. The panel is 400 wide and the full height of the window, on `bg-raised` with `shadow-overlay`, a hairline on the edge that faces the page, and `overlay-scrim` over the rest. Below 600 wide it takes the whole width. Corners 0.
 
 ## States
 

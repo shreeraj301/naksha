@@ -74,4 +74,4 @@ for (const [mod, file] of [["react", "react.production.min.js"], ["react-dom", "
   if (v !== "18.3.1") throw new Error(`${mod} is ${v}; the artifact expects 18.3.1.`);
   copyFileSync(src, join(art, "lib", file));
 }
-console.log(`bundled ${components.length} components -> dist/js/naksha.js, dist/artifact/components/bundle.js (${(code.length / 1024).toFixed(1)} KB)`);
+console.log(`bundled ${components.filter((n) => /^[A-Z]/.test(n)).length} components and announce() -> dist/js/naksha.js, dist/artifact/components/bundle.js (${(code.length / 1024).toFixed(1)} KB)`);

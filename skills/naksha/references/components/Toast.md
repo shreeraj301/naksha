@@ -55,6 +55,14 @@ Past tense for done things ("Link copied"), a fix for failures ("Check your conn
 
 `bg-inverse`, `fg-on-inverse`, at least 48 tall, padding 8 / 8 / 8 / 16, 12 between parts · tone icon 20 · action underlined · a small ghost Dismiss button.
 
+## States
+
+- Neutral, success (a `circle-check` in the success border colour) and danger (a `circle-alert` in the danger border colour). The tone is in the icon and the words, never in the colour alone.
+- At rest the newest is in front and the others stack behind it; hover or keyboard focus spreads the stack (see Behaviour).
+- Keyboard focus on a toast is the system outline, 2px `border-focus` 2 off; the action and Dismiss take their own outlines.
+- Dismiss keeps its colour on hover, so the button never disappears into the dark toast.
+- Leaving: it fades and drops over 200ms (`dur-ui`); while swiped it follows the finger with no transition.
+
 ## Accessibility
 
 **What Naksha provides.** React Aria's toast region underneath, wrapped in Naksha's own small API because React Aria still marks it unstable: if it changes, only one file changes. The region is a landmark that names how many notifications it holds, and F6 moves focus to it. Each toast is announced once when it appears (`role="alert"`), is reachable by keyboard, and has a named Dismiss button. Timers pause while a person is reading or working in the stack.

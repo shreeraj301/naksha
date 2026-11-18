@@ -138,27 +138,6 @@
         "unit": "px"
       },
       "$description": "Only where a circle means something: radio, people avatars, status dots, spinner."
-    },
-    "2": {
-      "$value": {
-        "value": 2,
-        "unit": "px"
-      },
-      "$description": "Reserve."
-    },
-    "4": {
-      "$value": {
-        "value": 4,
-        "unit": "px"
-      },
-      "$description": "Reserve."
-    },
-    "8": {
-      "$value": {
-        "value": 8,
-        "unit": "px"
-      },
-      "$description": "Reserve."
     }
   },
   "size": {

@@ -3,6 +3,7 @@ import { Link as AriaLink, Button as AriaButton } from "react-aria-components";
 import { cx } from "../cx";
 import { Icon, type IconName } from "./Icon";
 import { IconButton } from "./IconButton";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export type AlertTone = "neutral" | "info" | "success" | "warning" | "danger";
 
@@ -16,6 +17,8 @@ export interface AlertProps {
   action?: { label: string; href?: string; onPress?: () => void };
   /** Shows a Dismiss button. */
   onDismiss?: () => void;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 const ICON: Record<AlertTone, IconName> = { neutral: "info", info: "info", success: "circle-check", warning: "triangle-alert", danger: "circle-alert" };
@@ -24,9 +27,9 @@ const ICON: Record<AlertTone, IconName> = { neutral: "info", info: "info", succe
  * A message on the page about the page: saved state, a renewal, a file that would not read. It stays until
  * dismissed. Danger alerts interrupt screen readers (`role="alert"`); the rest wait their turn (`role="status"`).
  */
-export function Alert({ tone = "neutral", title, children, action, onDismiss }: AlertProps) {
+export function Alert({ tone = "neutral", title, children, action, onDismiss, styles }: AlertProps) {
   return (
-    <div className={cx("nk-alert", `nk-alert--${tone}`)} role={tone === "danger" ? "alert" : "status"}>
+    <div className={cx("nk-alert", `nk-alert--${tone}`)} role={tone === "danger" ? "alert" : "status"} style={layoutStyle(styles)}>
       <Icon name={ICON[tone]} />
       <div className="nk-alert__body">
         <div className="nk-alert__title">{title}</div>

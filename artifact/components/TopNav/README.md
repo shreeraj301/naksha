@@ -20,6 +20,7 @@ import { TopNav, SegmentedControl } from "naksha";
 | --- | --- | --- |
 | `name`, `role`, `homeHref` | identity on the left |  |
 | `items` | `{ label, sub?, href, section, isCurrent? }[]`; `section` picks the colour square |  |
+| `navLabel` | the name of the sections nav; give each TopNav on a page its own | `"Sections"` |
 | `trailing` | a control on the right; on a phone it moves into the menu sheet | none |
 | `isCompact` | the phone version: identity and a menu button that opens the menu sheet | `false` |
 | `hideOnScroll` | steps aside while reading down, returns on the way up; makes the bar sticky | `false` |

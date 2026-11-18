@@ -6,13 +6,13 @@ import "./globals.css";
 import { TopBar } from "@/components/TopBar";
 import { Toasts } from "@/components/Nk";
 import { Skip } from "@/components/Skip";
-import { VERSION, GITHUB, componentNames } from "@/lib/content";
+import { VERSION, GITHUB, componentCount } from "@/lib/content";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://127.0.0.1:4401")),
   title: { default: "Naksha, a design system for my products", template: "%s · Naksha" },
   // Components are the capitalised names; announce() is a function, not a component.
-  description: `Tokens, ${componentNames().filter((n) => /^[A-Z]/.test(n)).length} React components on React Aria, and rules an agent can read. The design system of Shreeraj Narwade.`,
+  description: `Tokens, ${componentCount()} React components, and rules an agent can read. The design system of Shreeraj Narwade.`,
   openGraph: { title: "Naksha", description: "A design system for my products.", type: "website" },
 };
 export const viewport: Viewport = { themeColor: "#151413" };

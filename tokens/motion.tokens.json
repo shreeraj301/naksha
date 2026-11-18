@@ -42,7 +42,35 @@
         "value": 900,
         "unit": "ms"
       },
-      "$description": "Hero sequences and seamless loops. The portfolio --d-5."
+      "$description": "Hero sequences and seamless loops: the Spinner's turn. The portfolio --d-5."
+    },
+    "loop-pulse": {
+      "$value": {
+        "value": 1500,
+        "unit": "ms"
+      },
+      "$description": "One breath of a waiting pulse: Skeleton, and the thinking dots."
+    },
+    "loop-sweep": {
+      "$value": {
+        "value": 1400,
+        "unit": "ms"
+      },
+      "$description": "One pass of the indeterminate ProgressBar."
+    },
+    "loop-blink": {
+      "$value": {
+        "value": 1000,
+        "unit": "ms"
+      },
+      "$description": "The streaming caret, on then off."
+    },
+    "loop-calm": {
+      "$value": {
+        "value": 2000,
+        "unit": "ms"
+      },
+      "$description": "The slow pulse that replaces a spin or sweep under reduced motion."
     }
   },
   "ease": {

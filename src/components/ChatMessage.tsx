@@ -7,6 +7,7 @@ import { ResponseStatus, type ResponseStep } from "./ResponseStatus";
 import { SourceChip } from "./SourceChip";
 import { Tooltip } from "./Tooltip";
 import { useThread } from "./Thread";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface MessageSource {
   label: string;
@@ -42,13 +43,15 @@ export interface ChatMessageProps {
   onFeedback?: (value: "good" | "bad") => void;
   /** On a person's turn: edit and send again. */
   onEdit?: () => void;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 const isInline = (c: ReactNode) => typeof c === "string" || (Array.isArray(c) && c.every((x) => typeof x === "string" || typeof x === "number" || (x && typeof x === "object" && "type" in (x as object))));
 
 /** One turn in a conversation with an AI. Put it in a <Thread>. */
 export function ChatMessage({
-  from, name = "Assistant", status, children, state = "done", steps, sources, error, onRetry, onCopy, feedback, onFeedback, onEdit,
+  from, name = "Assistant", status, children, state = "done", steps, sources, error, onRetry, onCopy, feedback, onFeedback, onEdit, styles,
 }: ChatMessageProps) {
   const thread = useThread();
   const body = useRef<HTMLDivElement>(null);
@@ -65,7 +68,7 @@ export function ChatMessage({
 
   if (from === "user") {
     return (
-      <article className="nk-msg nk-msg--user" aria-label="You said">
+      <article className="nk-msg nk-msg--user" aria-label="You said" style={layoutStyle(styles)}>
         <div className="nk-msg__bubble">{children}</div>
         {onEdit && (
           <div className="nk-msg__actions nk-msg__actions--user">
@@ -97,7 +100,7 @@ export function ChatMessage({
   const done = state === "done";
 
   return (
-    <article className="nk-msg" aria-label={`${name} said`}>
+    <article className="nk-msg" aria-label={`${name} said`} style={layoutStyle(styles)}>
       <span className="nk-avatar nk-avatar--agent" role="img" aria-label={name}>
         <Icon name="sparkles" />
       </span>
@@ -173,13 +176,15 @@ export interface GeneratedProps {
   title: string;
   children: ReactNode;
   onCopy?: () => void;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /** Content the agent made for the person to use (a draft, a summary to send), set apart from the conversation in the reading face. */
-export function Generated({ title, children, onCopy }: GeneratedProps) {
+export function Generated({ title, children, onCopy, styles }: GeneratedProps) {
   const id = useId();
   return (
-    <figure className="nk-generated" aria-labelledby={id}>
+    <figure className="nk-generated" aria-labelledby={id} style={layoutStyle(styles)}>
       <figcaption className="nk-generated__head">
         <span id={id}>{title}</span>
         {onCopy && <IconButton label={`Copy ${title}`} icon="copy" size="sm" variant="ghost" onPress={onCopy} />}

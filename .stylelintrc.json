@@ -33,10 +33,16 @@
       {
         "/.*/": [
           "/(^|[^0-9.])([3-9]|[1-9][0-9]+)(\\.[0-9]+)?px/"
+        ],
+        "/^animation(-duration|-delay)?$/": [
+          "/(^|[^-\\w.])\\d*\\.?\\d+m?s\\b/"
+        ],
+        "/^transition(-duration|-delay)?$/": [
+          "/(^|[^-\\w.])\\d*\\.?\\d+m?s\\b/"
         ]
       },
       {
-        "message": "Use rem (px / 16) or a token. px is only for 1px and 2px hairlines and optical nudges."
+        "message": "Use a token: rem (px / 16) for lengths above 2px, var(--dur-*) for durations. px is only for 1px and 2px hairlines and optical nudges."
       }
     ],
     "declaration-property-unit-allowed-list": [
@@ -51,6 +57,40 @@
         ]
       }
     ],
-    "comment-no-empty": true
-  }
+    "comment-no-empty": true,
+    "declaration-property-value-allowed-list": [
+      {
+        "z-index": [
+          "/^var\\(--z-/",
+          "auto",
+          "0",
+          "1",
+          "-1",
+          "var(--z)"
+        ],
+        "font-size": [
+          "/^var\\(/",
+          "/^(0\\.75|0\\.8125|0\\.9375|1\\.0625|1\\.1875|1\\.25|1\\.75|2\\.5|3\\.25|6\\.25|15)rem$/",
+          "/^(clamp|max|min)\\(/",
+          "inherit",
+          "1em",
+          "100%"
+        ]
+      },
+      {
+        "message": "z-index takes a --z-* token; font-size takes a step of the type scale (12, 13, 15, 17, 19, 20, 28, 40, 52, 100 or 240px, in rem) or a token."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "site/**/*.css"
+      ],
+      "rules": {
+        "declaration-property-value-allowed-list": null,
+        "declaration-property-value-disallowed-list": null
+      }
+    }
+  ]
 }

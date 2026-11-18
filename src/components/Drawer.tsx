@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Dialog, DialogTrigger, Heading, Modal as AriaModal, ModalOverlay } from "react-aria-components";
 import { cx } from "../cx";
 import { IconButton } from "./IconButton";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface DrawerProps {
   /** What the drawer holds, as a name: "New project", "Index", "Filters". */
@@ -19,6 +20,8 @@ export interface DrawerProps {
   isDismissable?: boolean;
   /** Preview only: draw the panel in the flow, without the overlay. */
   isInline?: boolean;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /**
@@ -26,9 +29,9 @@ export interface DrawerProps {
  * The same dialog as Modal: focus moves in and stays, the page behind is hidden from screen readers,
  * Escape closes, and focus returns to what opened it.
  */
-export function Drawer({ title, children, footer, isOpen, defaultOpen, onOpenChange, side = "end", isDismissable = false, isInline }: DrawerProps) {
+export function Drawer({ title, children, footer, isOpen, defaultOpen, onOpenChange, side = "end", isDismissable = false, isInline, styles }: DrawerProps) {
   const dialog = (
-    <Dialog className={cx("nk-drawer", side === "start" && "nk-drawer--start", isInline && "nk-drawer--inline")}>
+    <Dialog className={cx("nk-drawer", side === "start" && "nk-drawer--start", isInline && "nk-drawer--inline")} style={layoutStyle(styles)}>
       {({ close }) => (
         <>
           <div className="nk-modal__head">

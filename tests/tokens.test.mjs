@@ -65,6 +65,8 @@ const PAIRS = [
   ...["bg.canvas", "bg.subtle", "bg.raised"].flatMap((bg) => [["border.control", bg, UI], ["border.focus", bg, UI]]),
   ["spec.redline", "bg.canvas", TEXT],
   ["fg.default", "selection", TEXT],
+  ["fg.code", "bg.code", TEXT],
+  ...["read", "play", "build", "pause", "sit", "gather", "plug"].map((x) => ["fg.on-section", `section.${x}`, TEXT]),
 ];
 
 for (const th of themes) {
@@ -146,4 +148,12 @@ test("fluid layout tokens: clamp in naksha.css, fixed largest value in the artif
   const art = readFileSync(join(tmp, "artifact/tokens.css"), "utf8");
   assert.match(art, /--layout-gutter: 40px;/);
   for (const t of maps.light.values()) if (t.ext.fluid) assert.ok(t.ext.min, `${t.name} is fluid but has no min`);
+});
+
+test("the token count written in the README and on the site matches the tokens", () => {
+  const n = maps.light.size;
+  const readme = readFileSync(join(ROOT, "README.md"), "utf8");
+  const page = readFileSync(join(ROOT, "site/app/foundations/page.tsx"), "utf8");
+  assert.match(readme, new RegExp(`\\*\\*${n} tokens\\*\\*`), `README should say ${n} tokens`);
+  assert.match(page, new RegExp(`all ${n}, with both themes`), `the foundations page should say ${n}`);
 });

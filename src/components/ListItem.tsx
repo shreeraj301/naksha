@@ -38,13 +38,15 @@ export interface ListItemProps {
   href?: string;
   /** Preview only. */
   forceState?: "hover" | "focus";
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /**
  * One row of a List: a picture, a title with a line under it, a sentence, something on the right, and actions.
  * With `href` the row's content is one link; its actions sit outside that link, so nothing is nested.
  */
-export function ListItem({ title, media, meta, description, trailing, actions, href, forceState }: ListItemProps) {
+export function ListItem({ title, media, meta, description, trailing, actions, href, forceState, styles }: ListItemProps) {
   const content = (
     <>
       {media && (
@@ -61,7 +63,7 @@ export function ListItem({ title, media, meta, description, trailing, actions, h
     </>
   );
   return (
-    <li className={cx("nk-listitem", !media && "nk-listitem--bare")}>
+    <li className={cx("nk-listitem", !media && "nk-listitem--bare")} style={layoutStyle(styles)}>
       {href ? (
         <AriaLink
           href={href}

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link as AriaLink } from "react-aria-components";
 import { cx } from "../cx";
 import { Icon } from "./Icon";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface CardProps {
   /** Where the whole card goes. The card is one link: no buttons or links inside it. */
@@ -19,12 +20,14 @@ export interface CardProps {
   cta?: string;
   /** Preview only. */
   forceState?: "hover" | "focus";
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /** A project or an item to open: picture, reference, title, a line or two, and where it leads. */
-export function Card({ href, title, children, code, tag, media, cta, forceState }: CardProps) {
+export function Card({ href, title, children, code, tag, media, cta, forceState, styles }: CardProps) {
   return (
-    <AriaLink href={href} className={cx("nk-card", forceState === "hover" && "is-hover", forceState === "focus" && "is-focus")}>
+    <AriaLink href={href} style={layoutStyle(styles)} className={cx("nk-card", forceState === "hover" && "is-hover", forceState === "focus" && "is-focus")}>
       {media && <div className="nk-card__media">{media}</div>}
       <div className="nk-card__body">
         {(code || tag) && (

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Dialog, DialogTrigger, Heading, Modal as AriaModal, ModalOverlay } from "react-aria-components";
 import { IconButton } from "./IconButton";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface ModalProps {
   /** The question the modal asks: "Cancel this subscription?". */
@@ -16,6 +17,8 @@ export interface ModalProps {
   isDismissable?: boolean;
   /** Preview only: draw the dialog in the flow, without the overlay. */
   isInline?: boolean;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 function Parts({ title, children, footer, close }: Pick<ModalProps, "title" | "children" | "footer"> & { close: () => void }) {
@@ -37,9 +40,9 @@ function Parts({ title, children, footer, close }: Pick<ModalProps, "title" | "c
  * Blocks the page for one decision. Focus moves in on open and stays inside, the page behind cannot be reached
  * with Tab or a screen reader, Escape closes, and focus returns to what opened it.
  */
-export function Modal({ title, children, footer, isOpen, defaultOpen, onOpenChange, isDismissable = false, isInline }: ModalProps) {
+export function Modal({ title, children, footer, isOpen, defaultOpen, onOpenChange, isDismissable = false, isInline, styles }: ModalProps) {
   const dialog = (
-    <Dialog className="nk-modal">
+    <Dialog className="nk-modal" style={layoutStyle(styles)}>
       {({ close }) => (
         <Parts title={title} footer={footer} close={close}>
           {children}

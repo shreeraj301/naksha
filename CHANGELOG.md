@@ -7,9 +7,27 @@
 - Site: with reduced motion on, React's page load failed on 43 of 51 pages (error #418), because Ask Naksha read the motion setting while rendering. The failure re-rendered the page from the server copy, which reset readers who chose light to dark. Ask now reads the setting after the page loads.
 - Site: with reduced motion on, page titles were cut off on 40 pages. Reduced motion shortened every transition to 1ms, which still held the old width for a frame, so the title fitting measured the wrong size. Transitions are now off under reduced motion.
 - Site: code blocks scroll sideways but couldn't take focus. Each one now takes Tab focus and shows the focus ring, so the arrow keys can scroll it.
+- Slider: the track line was 2.48:1 against the page in light. It now uses `fg-subtle`: 4.56:1 in light, 7.17:1 in dark.
+- Type sizes off the scale: 11px labels (redline dimensions, TopNav role and item notes, the prompt key hint, citation marks) are now 12; the Modal and Drawer title is 20 (`title-s`), not 22; the TopNav sheet footer is 13, not 14; a Generated block's serif body is 19 (`serif-body`), not 18.
+- Stacking follows the tokens: overlays (Modal, Drawer, the full-size Image) sit at `z-overlay` (80, was 100) and toasts at `z-toast` (90, was 200).
+- Preview pages had two landmarks with the same name: the Breadcrumb card's first trail is now "Breadcrumb, example", and the open TopNav menu's nav is "Sections, open menu".
+- The site said 42 components; announce() is a function, so it is 41. One count, from `components.json`, is used everywhere.
 
 ### Added
 - `npm run test:site` and a CI job: every site page in light and dark, with reduced motion on, against saved screenshots, plus checks for clipped text, console errors, a lost theme, axe at every severity, and reflow at 320px (ADR 0013). Issues that exist today are listed in `tests/site/known-issues.json` and can only be removed.
+- `styles` on every component (ADR 0009 said so; 25 of 41 didn't take it): Accordion, Alert, Avatar, Breadcrumb, Card, ChatMessage and Generated, Divider, Drawer, DropdownMenu, EmptyState, Kbd, Link, ListItem, Modal, ProgressBar, ResponseStatus, Skeleton, SkipLink, SourceChip, Spinner, SuggestionChip, Table, Tabs, Tag and TagGroup, Toaster, Tooltip, TopNav. A test renders all 41 with `styles` and checks it lands.
+- `forceState` on Accordion, Breadcrumb, DropdownMenu, SegmentedControl, Table, Tabs and TopNav, as `{ hover, focus }` naming the item to draw. `forceHover` and `forceFocus` still work, are marked deprecated, and go in 0.6.0.
+- `navLabel` on TopNav, to name its sections nav when a page has more than one.
+- Tokens: `dur-loop-pulse` (1500ms), `dur-loop-sweep` (1400ms), `dur-loop-blink` (1000ms) and `dur-loop-calm` (2000ms) for the loops that had raw times; the Spinner turns on `dur-hero` (900ms). `bg-code` and `fg-code` for code blocks, and `fg-on-section` for text on a section colour.
+- Tests for EmptyState, Skeleton and Spinner. States sections in the PromptInput and Toast READMEs.
+
+### Removed
+- `radius-2`, `radius-4` and `radius-8`: reserved, never used. Corners stay square; a product softens them through `radius-control` and `radius-surface`.
+- `z-dropdown`: never used. Popovers stack by DOM order, which keeps a Select's list above the Modal it sits in.
+
+### Changed
+- Lint: stylelint now rejects a raw z-index, a font size off the type scale, and a raw duration in `css/`, and checks the site's CSS for raw colours. ADR 0009 and 0010 say exactly what it enforces.
+- The site's code blocks and section bands use tokens instead of raw hex. In dark, code blocks are a step lighter than the page (`stone-900`) instead of a darker colour that wasn't in the palette.
 
 ## 0.4.0 · Phase 2 done: SkipLink and announce()
 

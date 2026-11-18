@@ -1,10 +1,6 @@
 {
   "about": "Site issues that exist today. Each one names the fix-list row that removes it. The site gates fail on anything new, and on any entry here that is already gone, so this list only shrinks. It must reach empty.",
   "issues": [
-    {"fix": "2.9", "check": "axe", "page": "/components/breadcrumb/", "theme": "dark", "id": "landmark-unique"},
-    {"fix": "2.9", "check": "axe", "page": "/components/breadcrumb/", "theme": "light", "id": "landmark-unique"},
-    {"fix": "2.9", "check": "axe", "page": "/components/top-nav/", "theme": "dark", "id": "landmark-unique"},
-    {"fix": "2.9", "check": "axe", "page": "/components/top-nav/", "theme": "light", "id": "landmark-unique"},
     {"fix": "4.2", "check": "reflow", "page": "/components/accordion/", "theme": "any", "id": "horizontal-scroll"},
     {"fix": "4.2", "check": "reflow", "page": "/components/chat-message/", "theme": "any", "id": "horizontal-scroll"},
     {"fix": "4.2", "check": "reflow", "page": "/components/checkbox/", "theme": "any", "id": "horizontal-scroll"},

@@ -104,10 +104,6 @@
       "$value": 50,
       "$description": "Top nav."
     },
-    "dropdown": {
-      "$value": 60,
-      "$description": "Menus and popovers."
-    },
     "overlay": {
       "$value": 80,
       "$description": "Scrim and modal."

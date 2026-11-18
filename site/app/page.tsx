@@ -5,7 +5,7 @@ import { Ask } from "@/components/Ask";
 import { NkButtons } from "@/components/Buttons";
 import { indexData } from "@/lib/index-data";
 import { HOME_ASKS } from "@/lib/asks";
-import { GITHUB } from "@/lib/content";
+import { GITHUB, componentCount } from "@/lib/content";
 
 export default function Home() {
   const { items, bands } = indexData();
@@ -16,7 +16,7 @@ export default function Home() {
         <Giant />
         <div className="base">
           <p className="tag">A design system for my products.</p>
-          <p className="lede">Tokens, {items.length} React components on React Aria, and rules an agent can read. One type family carries all of it, from the smallest label to this name.</p>
+          <p className="lede">Tokens, {componentCount()} React components, and rules an agent can read. One type family carries all of it, from the smallest label to this name.</p>
           <NkButtons className="row cta" items={[{ href: "/get-started/", label: "Get started", variant: "highlight", iconEnd: "arrow-right" }, { href: "/ai/", label: "Read with Claude", variant: "secondary" }]} />
         </div>
       </section>

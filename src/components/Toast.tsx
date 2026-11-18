@@ -12,6 +12,7 @@ import {
 import { cx } from "../cx";
 import { Icon } from "./Icon";
 import { IconButton } from "./IconButton";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 /*
  * Naksha's own small toast API over React Aria's toast region, which React Aria still marks UNSTABLE.
@@ -96,10 +97,12 @@ toast.dismiss = (id: string) => dismissFrom(globalQueue, id);
 export interface ToasterProps {
   /** Preview only: show these toasts at rest, without timers: as a list, or as the collapsed stack. */
   preview?: { layout: "list" | "stack"; toasts: Array<{ message: ReactNode; tone?: ToastTone; action?: ToastAction }> };
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /** Where toasts appear: bottom left, 16 from the edges. Place it once, near the root. F6 moves focus to it. */
-export function Toaster({ preview }: ToasterProps) {
+export function Toaster({ preview, styles }: ToasterProps) {
   const [queue] = useState(() => {
     if (!preview) return globalQueue;
     const q = makeQueue();
@@ -151,10 +154,10 @@ export function Toaster({ preview }: ToasterProps) {
       {preview ? (
         // React Aria portals its region to <body>; a preview draws the same toasts in the flow instead.
         <ToastStateContext.Provider value={queue}>
-          <div className={cx("nk-toaster", layout === "list" ? "nk-toaster--list" : "nk-toaster--stack")}>{queue.visibleToasts.map((t) => renderItem(t))}</div>
+          <div className={cx("nk-toaster", layout === "list" ? "nk-toaster--list" : "nk-toaster--stack")} style={layoutStyle(styles)}>{queue.visibleToasts.map((t) => renderItem(t))}</div>
         </ToastStateContext.Provider>
       ) : (
-        <AriaToastRegion queue={queue} className="nk-toaster">
+        <AriaToastRegion queue={queue} className="nk-toaster" style={layoutStyle(styles)}>
           {({ toast: t }) => renderItem(t)}
         </AriaToastRegion>
       )}

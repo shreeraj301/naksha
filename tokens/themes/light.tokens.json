@@ -30,6 +30,11 @@
       "$type": "color",
       "$value": "{stone.300}",
       "$description": "Fill of a disabled control."
+    },
+    "code": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "Code blocks in docs: dark in both themes, a step off the canvas in dark."
     }
   },
   "state": {
@@ -74,6 +79,16 @@
       "$type": "color",
       "$value": "{stone.500}",
       "$description": "Secondary text on bg-inverse. 7.2:1 light, 6.3:1 dark."
+    },
+    "code": {
+      "$type": "color",
+      "$value": "{stone.100}",
+      "$description": "Text on bg-code."
+    },
+    "on-section": {
+      "$type": "color",
+      "$value": "{stone.950}",
+      "$description": "Text and rules on a section colour, in both themes."
     }
   },
   "border": {

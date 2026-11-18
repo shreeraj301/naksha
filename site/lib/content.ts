@@ -52,6 +52,9 @@ export function componentNames(): string[] {
   return JSON.parse(read("src/components.json"));
 }
 
+/** React components only: components.json also lists announce(), which is a function. */
+export const componentCount = () => componentNames().filter((n) => /^[A-Z]/.test(n)).length;
+
 let cache: ComponentDoc[] | null = null;
 export function components(): ComponentDoc[] {
   if (cache) return cache;

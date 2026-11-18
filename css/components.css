@@ -30,7 +30,7 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 
 /* ---------- spec redlines (the drafting signature) ---------- */
 .nk-spec { position: relative; display: inline-block; }
-.nk-dim { position: absolute; pointer-events: none; color: var(--spec-redline); font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1; letter-spacing: 0.02em; }
+.nk-dim { position: absolute; pointer-events: none; color: var(--spec-redline); font-family: var(--font-mono); font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; }
 .nk-dim--h { height: 0; border-top: 1px solid currentColor; }
 .nk-dim--h::before, .nk-dim--h::after { content: ""; position: absolute; top: -0.25rem; height: 0.4375rem; border-left: 1px solid currentColor; }
 .nk-dim--h::before { left: 0; } .nk-dim--h::after { right: 0; }
@@ -318,7 +318,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 /* Toaster: bottom left, 16 from the edges. Toasts stack on the front one: each one behind peeks 8 above it and is 5% smaller.
    Hover or focus spreads them 8 apart. Everything moves with transitions, which retarget when a new toast arrives mid-flight. */
 .nk-toaster-host { display: contents; }
-.nk-toaster { position: fixed; left: var(--space-16); bottom: var(--space-16); z-index: 200; width: min(26.25rem, calc(100vw - var(--space-32))); outline: none; }
+.nk-toaster { position: fixed; left: var(--space-16); bottom: var(--space-16); z-index: var(--z-toast); width: min(26.25rem, calc(100vw - var(--space-32))); outline: none; }
 .nk-toaster .nk-toast { position: absolute; left: 0; bottom: 0; display: flex; width: 100%; max-width: none; z-index: var(--z);
   transform-origin: top center; touch-action: none; user-select: none;
   --y: calc(-1 * var(--index) * var(--gap)); --scale: calc(1 - var(--index) * 0.05);
@@ -347,7 +347,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-progress__head .nk-num { font-family: var(--font-mono); color: var(--fg-muted); }
 .nk-progress__track { height: 0.25rem; background: var(--bg-band); overflow: hidden; }
 .nk-progress__bar { height: 100%; background: var(--fg-default); transform-origin: left center; transition: width var(--dur-page) var(--ease-settle); }
-.nk-progress--indeterminate .nk-progress__bar { width: 32%; animation: nk-indet 1.4s var(--ease-in-out) infinite; }
+.nk-progress--indeterminate .nk-progress__bar { width: 32%; animation: nk-indet var(--dur-loop-sweep) var(--ease-in-out) infinite; }
 @keyframes nk-indet { from { transform: translateX(-100%); } to { transform: translateX(320%); } }
 
 /* ---------- Slider ----------
@@ -358,7 +358,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-slider__value { font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.2; font-variant-numeric: tabular-nums; color: var(--fg-muted); }
 .nk-slider__track { position: relative; height: 1.5rem; cursor: pointer; touch-action: none; }
 .nk-slider__track::before, .nk-slider__fill { position: absolute; top: 50%; height: var(--border-thick); margin-top: calc(var(--border-thick) / -2); }
-.nk-slider__track::before { content: ""; inset-inline: 0; background: var(--border-strong); }
+.nk-slider__track::before { content: ""; inset-inline: 0; background: var(--fg-subtle); }
 .nk-slider__fill { background: var(--fg-default); }
 .nk-slider__thumb { top: 50%; display: grid; place-items: center; width: 1.5rem; height: 1.5rem; outline: none; }
 .nk-slider__thumb::after { content: ""; width: 1rem; height: 1rem; background: var(--fg-default); transition: transform var(--dur-press) var(--ease-out); }
@@ -370,13 +370,13 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-slider[data-disabled] .nk-slider__track { cursor: not-allowed; }
 .nk-slider[data-disabled] .nk-slider__track::before { background: var(--border-default); }
 .nk-slider[data-disabled] .nk-slider__fill, .nk-slider[data-disabled] .nk-slider__thumb::after { background: var(--fg-disabled); transform: none; }
-.nk-spin { width: var(--size-icon-lg); height: var(--size-icon-lg); animation: nk-rot 900ms linear infinite; flex: none; }
+.nk-spin { width: var(--size-icon-lg); height: var(--size-icon-lg); animation: nk-rot var(--dur-hero) linear infinite; flex: none; }
 .nk-spin--sm { width: var(--size-icon-sm); height: var(--size-icon-sm); }
 .nk-spin--lg { width: 2rem; height: 2rem; }
 .nk-spin circle { fill: none; stroke-width: 2; }
 .nk-spin .t { stroke: currentColor; opacity: 0.2; } .nk-spin .a { stroke: currentColor; stroke-linecap: butt; }
 @keyframes nk-rot { to { transform: rotate(360deg); } }
-.nk-skel { background: var(--bg-band); animation: nk-pulse 1.5s ease-in-out infinite; }
+.nk-skel { background: var(--bg-band); animation: nk-pulse var(--dur-loop-pulse) ease-in-out infinite; }
 .nk-skel--circle { border-radius: var(--radius-round); flex: none; }
 @keyframes nk-pulse { 50% { opacity: 0.55; } }
 
@@ -477,12 +477,12 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-nav .nk-iconbtn--ghost { color: var(--fg-default); }
 .nk-nav__id { display: flex; flex-direction: column; gap: var(--space-4); text-decoration: none; color: var(--fg-default); white-space: nowrap; }
 .nk-nav__name { font-family: var(--font-sans); font-weight: 700; font-size: 0.9375rem; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
-.nk-nav__role { font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }
+.nk-nav__role { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }
 .nk-nav__items { display: flex; gap: var(--space-4); }
 .nk-navitem { all: unset; position: relative; display: grid; grid-template-columns: 0.75rem auto; column-gap: var(--space-8); align-items: center; padding: var(--space-8) var(--space-8); cursor: pointer; }
 .nk-navitem i { grid-row: 1 / span 2; width: 0.75rem; height: 0.75rem; background: var(--sw, var(--section-gather)); }
 .nk-navitem b { font-family: var(--font-mono); font-weight: 500; font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-default); }
-.nk-navitem small { font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }
+.nk-navitem small { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted); }
 .nk-navitem::after { content: ""; position: absolute; left: var(--space-8); right: var(--space-8); bottom: 0; height: 2px; background: var(--fg-default); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-ui) var(--ease-out); }
 .nk-navitem[aria-current="page"]::after { transform: scaleX(1); }
 .nk-navitem.is-hover::after { transform: scaleX(1); background: var(--border-strong); }
@@ -512,7 +512,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-sheetitem[aria-current="page"]::after { transform: scaleX(1); }
 @media (hover: hover) and (pointer: fine) { .nk-sheetitem:hover b { transform: translateX(var(--space-4)); } }
 .nk-sheet__tools, .nk-sheet__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-12); }
-.nk-sheet__foot { margin-top: auto; padding-top: var(--space-16); border-top: var(--border-hairline) solid var(--border-default); font-size: 0.875rem; }
+.nk-sheet__foot { margin-top: auto; padding-top: var(--space-16); border-top: var(--border-hairline) solid var(--border-default); font-size: 0.8125rem; }
 
 /* ---------- SkipLink ----------
    Off the top of the screen until it has focus, then it drops into the start corner, 16 in, above the nav. */
@@ -586,7 +586,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 /* ---------- Modal ---------- */
 .nk-modal { width: 100%; max-width: 30rem; background: var(--bg-raised); border: var(--border-hairline) solid var(--border-default); border-radius: var(--radius-surface); box-shadow: var(--shadow-overlay); }
 .nk-modal__head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: var(--space-16); padding: var(--space-24) var(--space-16) 0 var(--space-24); }
-.nk-modal__title { margin: 0; padding-top: var(--space-4); font-size: 1.375rem; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; }
+.nk-modal__title { margin: 0; padding-top: var(--space-4); font-size: 1.25rem; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; }
 .nk-modal__body { padding: var(--space-12) var(--space-24) var(--space-24); color: var(--fg-muted); font-size: 0.9375rem; line-height: 1.55; }
 .nk-modal__body p { margin: 0; }
 .nk-modal__foot { display: flex; justify-content: flex-end; gap: var(--space-8); padding: var(--space-16) var(--space-24); background: var(--bg-subtle); border-top: var(--border-hairline) solid var(--border-default); }
@@ -603,7 +603,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-tooltip[data-placement="left"] { --origin: center right; } .nk-tooltip[data-placement="right"] { --origin: center left; }
 .nk-tooltip[data-entering] { animation: nk-scale-in var(--dur-hover) var(--ease-out); }
 .nk-tooltip[data-exiting] { animation: nk-fade var(--dur-hover) ease reverse; }
-.nk-overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: var(--space-16); background: var(--overlay-scrim); }
+.nk-overlay { position: fixed; inset: 0; z-index: var(--z-overlay); display: flex; align-items: center; justify-content: center; padding: var(--space-16); background: var(--overlay-scrim); }
 .nk-overlay[data-entering] { animation: nk-fade var(--dur-overlay) var(--ease-out); }
 .nk-overlay[data-exiting] { animation: nk-fade var(--dur-ui) ease reverse; }
 .nk-overlay[data-entering] .nk-modal { animation: nk-scale-in var(--dur-overlay) var(--ease-out); }
@@ -699,7 +699,7 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-file__remove { --h: 1.5rem; }
 .nk-prompt__drop[data-drop-target] .nk-prompt__box { border-color: var(--border-focus); box-shadow: inset 0 0 0 1px var(--border-focus); }
 .nk-prompt__note { display: flex; justify-content: space-between; gap: var(--space-16); padding: var(--space-8) var(--space-8) 0; font-size: 0.75rem; line-height: 1.4; color: var(--fg-subtle); }
-.nk-prompt__note .nk-kbd { height: 1.125rem; min-width: 1.125rem; font-size: 0.6875rem; }
+.nk-prompt__note .nk-kbd { height: 1.125rem; min-width: 1.125rem; font-size: 0.75rem; }
 
 /* ---------- AI: Chat message ---------- */
 .nk-msg { display: grid; grid-template-columns: 1.75rem 1fr; column-gap: var(--space-12); width: 100%; max-width: 42.5rem; }
@@ -709,11 +709,11 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-msg__name { font-size: 0.9375rem; font-weight: 600; }
 .nk-msg__status { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-subtle); }
 .nk-msg__text { margin: 0; font-size: 1.0625rem; line-height: 1.55; letter-spacing: -0.003em; max-width: 64ch; }
-.nk-msg__text sup { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--fg-muted); margin-left: 1px; }
+.nk-msg__text sup { font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-muted); margin-left: 1px; }
 .nk-msg__sources { display: flex; flex-wrap: wrap; gap: var(--space-6); }
 .nk-msg__actions { display: flex; gap: var(--space-2); margin-left: calc(var(--space-8) * -1); }
 .nk-msg__actions .nk-iconbtn { --h: var(--size-control-sm); }
-.nk-msg__caret { display: inline-block; width: 0.5em; height: 1.1em; margin-left: 2px; vertical-align: -0.18em; background: var(--fg-default); animation: nk-blink 1s steps(1) infinite; }
+.nk-msg__caret { display: inline-block; width: 0.5em; height: 1.1em; margin-left: 2px; vertical-align: -0.18em; background: var(--fg-default); animation: nk-blink var(--dur-loop-blink) steps(1) infinite; }
 @keyframes nk-blink { 50% { opacity: 0; } }
 .nk-msg__error { display: flex; align-items: flex-start; gap: var(--space-8); color: var(--status-danger-fg); font-size: 0.9375rem; line-height: 1.5; }
 .nk-msg__error svg { width: var(--size-icon-sm); height: var(--size-icon-sm); margin-top: calc((1lh - var(--size-icon-sm)) / 2); flex: none; }
@@ -721,8 +721,8 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-msg--user .nk-msg__bubble { max-width: 75%; padding: var(--space-12) var(--space-16); background: var(--bg-subtle); font-size: 1.0625rem; line-height: 1.55; letter-spacing: -0.003em; }
 /* stylelint-disable-next-line declaration-property-value-disallowed-list -- optical: at 0.25rem the three dots read as separate marks, at 0.1875rem as one beat */
 .nk-thinking { display: inline-flex; gap: 0.1875rem; }
-.nk-thinking i { width: 0.25rem; height: 0.25rem; background: var(--fg-subtle); animation: nk-pulse 1.2s ease-in-out infinite; }
-.nk-thinking i:nth-child(2) { animation-delay: 160ms; } .nk-thinking i:nth-child(3) { animation-delay: 320ms; }
+.nk-thinking i { width: 0.25rem; height: 0.25rem; background: var(--fg-subtle); animation: nk-pulse var(--dur-loop-pulse) ease-in-out infinite; }
+.nk-thinking i:nth-child(2) { animation-delay: calc(var(--dur-loop-pulse) * 2 / 15); } .nk-thinking i:nth-child(3) { animation-delay: calc(var(--dur-loop-pulse) * 4 / 15); }
 
 /* ---------- Thread, response status, generated content ---------- */
 .nk-thread-host { display: flex; flex-direction: column; min-height: 0; }
@@ -754,7 +754,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
 .nk-generated { margin: 0; border: var(--border-hairline) solid var(--border-default); background: var(--bg-raised); border-radius: var(--radius-surface); max-width: 64ch; }
 .nk-generated__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: 2.5rem; padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16);
   border-bottom: var(--border-hairline) solid var(--border-default); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-subtle); }
-.nk-generated__body { padding: var(--space-16); font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.55; }
+.nk-generated__body { padding: var(--space-16); font-family: var(--font-serif); font-size: 1.1875rem; line-height: 1.55; }
 .nk-generated__body > :first-child { margin-top: 0; } .nk-generated__body > :last-child { margin-bottom: 0; }
 
 /* ---------- touch and motion ---------- */
@@ -776,8 +776,8 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   .nk-overlay[data-entering] .nk-viewer__figure { animation-name: nk-fade !important; }
   .nk-image__zoom img { transform: none !important; }
   [class*="nk-"] { animation-iteration-count: 1 !important; }
-  .nk-spin { animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
-  .nk-progress--indeterminate .nk-progress__bar { width: 100%; animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
+  .nk-spin { animation: nk-pulse var(--dur-loop-calm) ease-in-out infinite !important; animation-iteration-count: infinite !important; }
+  .nk-progress--indeterminate .nk-progress__bar { width: 100%; animation: nk-pulse var(--dur-loop-calm) ease-in-out infinite !important; animation-iteration-count: infinite !important; }
 }
 
 /* ---------- focus: one method for everything you can tab to ----------

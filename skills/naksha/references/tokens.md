@@ -78,9 +78,6 @@
 | `space-80` | dimension | 80px | same | Large breaks. |
 | `space-96` | dimension | 96px | same | Hero breathing room. |
 | `space-128` | dimension | 128px | same | Desktop section gap (8 × --u). |
-| `radius-2` | dimension | 2px | same | Reserve. |
-| `radius-4` | dimension | 4px | same | Reserve. |
-| `radius-8` | dimension | 8px | same | Reserve. |
 | `radius-control` | dimension | 0px | same | Buttons, fields, tags, segmented controls. |
 | `radius-surface` | dimension | 0px | same | Cards, menus, modals, toasts, alerts. |
 | `radius-round` | dimension | 9999px | same | Only where a circle means something: radio, people avatars, status dots, spinner. |
@@ -106,7 +103,6 @@
 | `bp-large` | dimension | 1200px | same | Full desktop grid. The portfolio switches at 1199px. |
 | `bp-xlarge` | dimension | 1440px | same | Wide screens. The portfolio adds a step at 1440px. |
 | `z-nav` | number | 50 | same | Top nav. |
-| `z-dropdown` | number | 60 | same | Menus and popovers. |
 | `z-overlay` | number | 80 | same | Scrim and modal. |
 | `z-toast` | number | 90 | same | Toasts. |
 | `z-garu` | number | 95 | same | The garu dock. The portfolio --z-garu. |
@@ -115,7 +111,11 @@
 | `dur-ui` | duration | 200ms | same | Menus, tooltips, accordion, tab rule. The portfolio --d-1. |
 | `dur-overlay` | duration | 280ms | same | Modals, toasts, sheets entering. Exit at 200ms. |
 | `dur-page` | duration | 450ms | same | Section reveals. The portfolio --d-3. |
-| `dur-hero` | duration | 900ms | same | Hero sequences and seamless loops. The portfolio --d-5. |
+| `dur-hero` | duration | 900ms | same | Hero sequences and seamless loops: the Spinner's turn. The portfolio --d-5. |
+| `dur-loop-pulse` | duration | 1500ms | same | One breath of a waiting pulse: Skeleton, and the thinking dots. |
+| `dur-loop-sweep` | duration | 1400ms | same | One pass of the indeterminate ProgressBar. |
+| `dur-loop-blink` | duration | 1000ms | same | The streaming caret, on then off. |
+| `dur-loop-calm` | duration | 2000ms | same | The slow pulse that replaces a spin or sweep under reduced motion. |
 | `ease-out` | cubicBezier | cubic-bezier(0.16, 1, 0.3, 1) | same | Anything entering or responding: menus, toasts, press. The portfolio --e-out. |
 | `ease-settle` | cubicBezier | cubic-bezier(0.22, 1, 0.36, 1) | same | Things settling into place like paper. The portfolio --e-set. |
 | `ease-in-out` | cubicBezier | cubic-bezier(0.77, 0, 0.175, 1) | same | Things moving between two places on screen (tab rule, segmented thumb). |
@@ -134,6 +134,7 @@
 | `bg-band` | color | #bdb7ac | #34312e | Skeletons, progress tracks, media placeholders. |
 | `bg-inverse` | color | #151413 | #ece8e0 | Tooltips, toasts, the source number tile. |
 | `bg-disabled` | color | #ddd8ce | #24221f | Fill of a disabled control. |
+| `bg-code` | color | #151413 | #1c1b19 | Code blocks in docs: dark in both themes, a step off the canvas in dark. |
 | `state-hover` | color | #15141314 | #ece8e014 | Layer over a transparent control on hover. |
 | `state-pressed` | color | #15141329 | #ece8e029 | Layer on press, and for selected rows. |
 | `fg-default` | color | #151413 | #ece8e0 | Body text, titles and icons on bg-canvas, bg-subtle and bg-raised. 14.5:1 light, 15:1 dark. |
@@ -142,6 +143,8 @@
 | `fg-disabled` | color | #a7a196 | #57534d | Text and icons of disabled controls only (exempt from contrast). |
 | `fg-on-inverse` | color | #ece8e0 | #151413 | Text on bg-inverse and action-primary. |
 | `fg-on-inverse-muted` | color | #a7a196 | #57534d | Secondary text on bg-inverse. 7.2:1 light, 6.3:1 dark. |
+| `fg-code` | color | #ece8e0 | same | Text on bg-code. |
+| `fg-on-section` | color | #151413 | same | Text and rules on a section colour, in both themes. |
 | `border-default` | color | #15141329 | #ece8e029 | Hairlines: dividers, card and table edges. Decorative, never the only edge of a control. |
 | `border-strong` | color | #15141366 | #ece8e066 | Emphasised rules, table header rule, composer edge at rest. |
 | `border-control` | color | #6a655d | #a7a196 | Edges of inputs, checkboxes, switches. 3:1 or better on every ground. |

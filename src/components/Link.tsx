@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link as AriaLink } from "react-aria-components";
 import { cx } from "../cx";
 import { renderIcon, type IconName } from "./Icon";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface LinkProps {
   children: ReactNode;
@@ -17,15 +18,18 @@ export interface LinkProps {
   isDisabled?: boolean;
   /** Preview only. */
   forceState?: "hover" | "focus";
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /** Goes somewhere. Underlined so it reads as a link without colour. */
-export function Link({ children, href, onPress, isExternal, variant = "default", iconEnd, isDisabled, forceState }: LinkProps) {
+export function Link({ children, href, onPress, isExternal, variant = "default", iconEnd, isDisabled, forceState, styles }: LinkProps) {
   return (
     <AriaLink
       href={href}
       onPress={onPress}
       isDisabled={isDisabled}
+      style={layoutStyle(styles)}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
       className={cx("nk-link", variant === "muted" && "nk-link--muted", forceState === "hover" && "is-hover", forceState === "focus" && "is-focus")}

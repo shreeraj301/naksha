@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Dialog, Link as AriaLink, Modal, ModalOverlay } from "react-aria-components";
 import { cx } from "../cx";
 import { IconButton } from "./IconButton";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export type Section = "read" | "build" | "pause" | "play" | "sit" | "gather" | "plug";
 
@@ -21,6 +22,8 @@ export interface TopNavProps {
   role?: string;
   homeHref?: string;
   items?: NavItem[];
+  /** The name of the sections nav. Give it another when a page has more than one TopNav, so each landmark has its own name. */
+  navLabel?: string;
   /** Controls on the right, such as the Human / Agent SegmentedControl. On a phone they move into the menu sheet. */
   trailing?: ReactNode;
   /** The phone version: name and a menu button that opens the menu sheet. */
@@ -37,10 +40,14 @@ export interface TopNavProps {
    * Use `onMenuChange` instead.
    */
   onMenu?: () => void;
-  /** Preview only: the item label to draw hovered. */
+  /** Preview only: the item label to draw in each state, e.g. `{ hover: … }`. */
+  forceState?: { hover?: string };
+  /** @deprecated Use `forceState={{ hover }}`. Removed in 0.6.0. */
   forceHover?: string;
   /** Preview only: draw the open menu sheet in place of the bar, instead of over the page. */
   previewMenu?: boolean;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 /**
@@ -82,14 +89,14 @@ function Identity({ name, role, homeHref, onPress }: { name: string; role?: stri
   );
 }
 
-function SheetBody({ name, role, homeHref, items, trailing, menuFooter, close }: Pick<TopNavProps, "name" | "role" | "items" | "trailing" | "menuFooter"> & { homeHref: string; close: () => void }) {
+function SheetBody({ name, role, homeHref, items, trailing, menuFooter, navLabel = "Sections", close }: Pick<TopNavProps, "name" | "role" | "items" | "trailing" | "menuFooter" | "navLabel"> & { homeHref: string; close: () => void }) {
   return (
     <>
       <div className="nk-nav nk-nav--compact nk-sheet__bar">
         <Identity name={name} role={role} homeHref={homeHref} onPress={close} />
         <IconButton label="Close menu" icon="x" variant="ghost" onPress={close} />
       </div>
-      <nav className="nk-sheet__nav" aria-label="Sections">
+      <nav className="nk-sheet__nav" aria-label={navLabel}>
         <ul className="nk-sheet__list">
           {(items ?? []).map((it, i) => (
             <li key={it.label} style={{ ["--i" as string]: i }}>
@@ -119,9 +126,10 @@ function SheetBody({ name, role, homeHref, items, trailing, menuFooter, close }:
  * Compact, it becomes the name and a menu button that opens a full-screen sheet of the same sections.
  */
 export function TopNav({
-  name, role, homeHref = "/", items = [], trailing, isCompact, hideOnScroll, menuFooter,
-  isMenuOpen, onMenuChange, onMenu, forceHover, previewMenu,
+  name, role, homeHref = "/", items = [], navLabel = "Sections", trailing, isCompact, hideOnScroll, menuFooter,
+  isMenuOpen, onMenuChange, onMenu, forceState, forceHover: legacyHover, previewMenu, styles,
 }: TopNavProps) {
+  const forceHover = forceState?.hover ?? legacyHover;
   const ref = useRef<HTMLElement>(null);
   const [ownOpen, setOwnOpen] = useState(false);
   const controlled = isMenuOpen !== undefined;
@@ -132,8 +140,8 @@ export function TopNav({
 
   if (isCompact && drawsSheet && previewMenu) {
     return (
-      <div className="nk-sheet nk-sheet--inline" role="group" aria-label="Menu">
-        <SheetBody name={name} role={role} homeHref={homeHref} items={items} trailing={trailing} menuFooter={menuFooter} close={() => {}} />
+      <div className="nk-sheet nk-sheet--inline" role="group" aria-label="Menu" style={layoutStyle(styles)}>
+        <SheetBody name={name} role={role} homeHref={homeHref} items={items} trailing={trailing} menuFooter={menuFooter} navLabel={navLabel} close={() => {}} />
       </div>
     );
   }
@@ -144,6 +152,7 @@ export function TopNav({
         ref={ref}
         className={cx("nk-nav", isCompact && "nk-nav--compact", hideOnScroll && "nk-nav--sticky")}
         data-hidden={hidden || undefined}
+        style={layoutStyle(styles)}
       >
         <Identity name={name} role={role} homeHref={homeHref} />
         {isCompact ? (
@@ -157,7 +166,7 @@ export function TopNav({
           />
         ) : (
           <>
-            <nav className="nk-nav__items" aria-label="Sections">
+            <nav className="nk-nav__items" aria-label={navLabel}>
               {items.map((it) => (
                 <AriaLink
                   key={it.label}
@@ -180,7 +189,7 @@ export function TopNav({
         <ModalOverlay className="nk-sheet-overlay" isOpen={open} onOpenChange={setOpen} isDismissable={false}>
           <Modal className="nk-sheet">
             <Dialog className="nk-sheet__dialog" aria-label="Menu">
-              {({ close }) => <SheetBody name={name} role={role} homeHref={homeHref} items={items} trailing={trailing} menuFooter={menuFooter} close={close} />}
+              {({ close }) => <SheetBody name={name} role={role} homeHref={homeHref} items={items} trailing={trailing} menuFooter={menuFooter} navLabel={navLabel} close={close} />}
             </Dialog>
           </Modal>
         </ModalOverlay>

@@ -53,7 +53,16 @@ The placeholder suggests a real question ("Ask garu about this paper"), not "Typ
 - Box: `bg-raised`, 1px `border-strong` at rest, 8 padding all round. Focus doubles the edge to 2px ink; no offset ring on a box this large. Dragging files over the box shows the same edge.
 - Text: `body-m` (15/1.5) with 8 / 8 / 4 inner padding, so the first character sits 16 from the edge. Two lines minimum, grows to eight, then scrolls.
 - Toolbar: every control is 32. Ghost IconButtons for attach and dictate (their glyphs also land 16 from the edge), a quiet `mono-label` reading-level trigger, and one primary send.
-- Under the box: the trust line and the keyboard hint, `body-s` 12 in `fg-subtle`.
+- Under the box: the trust line and the keyboard hint, 12 in `fg-subtle`.
+
+## States
+
+- Rest: 1px `border-strong` edge.
+- Focus anywhere in the box, or files dragged over it: the edge doubles to 2px ink (`border-focus`), drawn inside the box, with no offset ring. In Windows High Contrast the second line is an inset `Highlight` outline, since forced colours drop box shadows.
+- Empty: Send is disabled until there is text.
+- Generating: Send becomes Stop ("Stop generating"), always enabled.
+- Disabled (`isDisabled`): the text area, attach, dictate, reading level and Send are all disabled.
+- The reading-level trigger tints with `state-hover` on hover and takes the system outline (2px `border-focus`, 2 off) on keyboard focus.
 
 ## Behaviour
 

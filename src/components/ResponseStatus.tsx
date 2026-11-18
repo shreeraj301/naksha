@@ -3,6 +3,7 @@ import { Button as AriaButton } from "react-aria-components";
 import { cx } from "../cx";
 import { Icon } from "./Icon";
 import { Spinner } from "./Spinner";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export type StepStatus = "pending" | "running" | "done" | "failed";
 
@@ -19,6 +20,8 @@ export interface ResponseStatusProps {
   isExpanded?: boolean;
   defaultExpanded?: boolean;
   onExpandedChange?: (isExpanded: boolean) => void;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 const SAID: Record<StepStatus, string> = { pending: "waiting", running: "in progress", done: "done", failed: "failed" };
@@ -34,7 +37,7 @@ function StepMark({ status }: { status: StepStatus }) {
  * The trace of what an agent did for a reply: a quiet toggle ("2 of 4 steps") that opens the list of steps,
  * each pending, running, done or failed. It replaces the bare thinking dots, so people can see the work.
  */
-export function ResponseStatus({ steps, isExpanded, defaultExpanded = false, onExpandedChange }: ResponseStatusProps) {
+export function ResponseStatus({ steps, isExpanded, defaultExpanded = false, onExpandedChange, styles }: ResponseStatusProps) {
   const [inner, setInner] = useState(defaultExpanded);
   const open = isExpanded ?? inner;
   const id = useId();
@@ -45,7 +48,7 @@ export function ResponseStatus({ steps, isExpanded, defaultExpanded = false, onE
     onExpandedChange?.(!open);
   };
   return (
-    <div className="nk-status">
+    <div className="nk-status" style={layoutStyle(styles)}>
       <AriaButton className="nk-status__toggle" aria-expanded={open} aria-controls={open ? id : undefined} onPress={toggle}>
         {open ? "Hide steps" : `${done} of ${steps.length} steps${failed ? `, ${failed} failed` : ""}`}
         <Icon name="chevron-down" />

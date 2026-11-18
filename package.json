@@ -43,7 +43,7 @@
     "test:visual": "playwright test",
     "test:site": "playwright test -c playwright.site.config.ts",
     "typecheck": "tsc --noEmit",
-    "lint": "stylelint \"css/**/*.css\"",
+    "lint": "stylelint \"css/**/*.css\" \"site/app/**/*.css\"",
     "check": "npm run lint && npm run typecheck && npm test && npm run check:skill && npm run test:visual",
     "check:skill": "node scripts/skill.mjs --check"
   },

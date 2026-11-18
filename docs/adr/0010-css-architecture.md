@@ -16,7 +16,7 @@ Stays in px: border widths (`border.hairline`, `border.thick`), 1px and 2px opti
 
 Proof: all 68 previews (34 components, light and dark) match the 0.2.0 screenshots within 4 pixels.
 
-Lint: stylelint rejects any px value above 2 in `css/`.
+Lint: stylelint rejects any px value above 2 in `css/`. Since 19 Nov 2026 it also rejects a raw z-index, a font size off the type scale, and a raw duration in a transition or animation.
 
 ## Forced colours (Windows High Contrast)
 

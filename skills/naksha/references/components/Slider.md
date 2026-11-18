@@ -55,7 +55,7 @@ When a number format cannot say it, write it with `formatValue`. A playback posi
 
 ## Anatomy and spacing
 
-The label row is the field label (13, weight 500) on the left and the value in mono 13, muted, on the right. 4 below it is the track: a hit area 24 tall (44 under touch), with a 2px line in `border-strong` across its middle, an ink fill from the start edge to the thumb, and a 16 square ink thumb in a 24 hit area (44 under touch). The thumb's top sits 8 under the label. Max width 360, like a field. Corners 0.
+The label row is the field label (13, weight 500) on the left and the value in mono 13, muted, on the right. 4 below it is the track: a hit area 24 tall (44 under touch), with a 2px line in `fg-subtle` across its middle (4.56:1 on the page in light, 7.17:1 in dark), an ink fill from the start edge to the thumb, and a 16 square ink thumb in a 24 hit area (44 under touch). The thumb's top sits 8 under the label. Max width 360, like a field. Corners 0.
 
 ## States
 

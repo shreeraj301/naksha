@@ -3,6 +3,7 @@ import { Header, Menu, MenuItem, MenuSection, MenuTrigger, Popover, Separator, t
 import { cx } from "../cx";
 import { Icon, type IconName } from "./Icon";
 import { renderShortcut } from "./Shortcut";
+import { layoutStyle, type LayoutStyles } from "../styles";
 
 export interface MenuAction {
   id: string;
@@ -38,16 +39,21 @@ export interface DropdownMenuProps {
   placement?: "bottom start" | "bottom end" | "top start" | "top end";
   /** Preview only: draw the open list in the flow, without a trigger. */
   isInline?: boolean;
-  /** Preview only: the item id to draw hovered. */
+  /** Preview only: the item id to draw in each state, e.g. `{ hover: … }`. */
+  forceState?: { hover?: string };
+  /** @deprecated Use `forceState={{ hover }}`. Removed in 0.6.0. */
   forceHover?: string;
+  /** Layout only: margin, width, placement, position (ADR 0009). */
+  styles?: LayoutStyles;
 }
 
 const isSeparator = (e: MenuEntry): e is MenuSeparator => "separator" in e;
 
 /** A list of actions or choices that opens from a trigger. Focus moves into the list; arrow keys move, Enter acts, Escape closes and returns focus to the trigger. */
 export function DropdownMenu({
-  label, trigger, items, onAction, title, selectionMode = "none", selectedKey, defaultSelectedKey, onSelectionChange, placement = "bottom start", isInline, forceHover,
+  label, trigger, items, onAction, title, selectionMode = "none", selectedKey, defaultSelectedKey, onSelectionChange, placement = "bottom start", isInline, forceState, forceHover: legacyHover, styles,
 }: DropdownMenuProps) {
+  const forceHover = forceState?.hover ?? legacyHover;
   const entries = items.map((e, i) =>
     isSeparator(e) ? (
       <Separator key={`sep-${i}`} className="nk-menu__sep" />
@@ -73,6 +79,7 @@ export function DropdownMenu({
   const keys = (k?: string) => (k === undefined ? undefined : [k]);
   const menu = (
     <Menu
+      style={layoutStyle(styles)}
       aria-label={label}
       className="nk-menu"
       onAction={(key) => onAction?.(String(key))}
