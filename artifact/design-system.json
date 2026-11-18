@@ -304,9 +304,9 @@
     "Fonts"
   ],
   "lastChange": {
-    "at": "2026-11-18T04:56:45Z",
+    "at": "2026-11-18T05:30:10Z",
     "by": "Shreeraj Narwade",
-    "note": "Naksha 0.3.1 (0209954): TopNav's phone menu sheet and hide on scroll.",
+    "note": "Naksha 0.3.2 (aebdd8a): ToggleButton and CopyButton, the first Phase 2 pair.",
     "via": "Cowork, from GitHub shreeraj301/naksha"
   },
   "layout": "files",
