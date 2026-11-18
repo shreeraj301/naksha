@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,36 +10,55 @@
 <script src="../../dist/artifact/components/lib/react-dom.production.min.js"></script>
 <script src="../../dist/artifact/components/bundle.js"></script>
 <style>
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg-canvas); color: var(--fg-default); font-family: var(--font-sans); }
-a { color: inherit; }
-::selection { background: var(--action-highlight); color: #151413; }
-.skip { position: absolute; left: var(--space-16); top: -4rem; z-index: 99; padding: var(--space-8) var(--space-12); background: var(--fg-default); color: var(--bg-canvas); }
-.skip:focus { top: var(--space-16); }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-pre.code { margin: 0; padding: var(--space-20) var(--space-24); background: #0b0b0a; color: #ece8e0; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; overflow-x: auto; border: 1px solid var(--border-default); }
-pre.code .k { color: #a7a196; } pre.code .s { color: var(--action-highlight); }
-table.props { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
-table.props th { text-align: left; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; color: var(--fg-muted); padding: var(--space-8) var(--space-12) var(--space-8) 0; border-bottom: 1px solid var(--border-strong); }
-table.props td { padding: var(--space-12) var(--space-12) var(--space-12) 0; border-bottom: 1px solid var(--border-default); vertical-align: top; line-height: 1.45; }
-table.props .pn { font-family: var(--font-mono); font-size: 0.8125rem; white-space: nowrap; }
-table.props .pd { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--fg-muted); white-space: nowrap; }
-.row { display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; }
-.navlinks { display: flex; gap: var(--space-24); font-size: 0.875rem; }
-.navlinks a { position: relative; text-decoration: none; padding: var(--space-8) 0; color: var(--fg-muted); transition: color var(--dur-hover) ease; }
-.navlinks a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform var(--dur-ui) var(--ease-out); }
-.navlinks a:hover, .navlinks a[aria-current] { color: var(--fg-default); }
-.navlinks a:hover::after, .navlinks a[aria-current]::after { transform: scaleX(1); transform-origin: left; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
-@media (max-width: 760px) { table.props .pn, table.props .pd { white-space: normal; } .navlinks { display: none; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; } }
-body{padding:var(--space-48) var(--space-32)} h1{font-family:var(--font-display);font-weight:800;font-size:clamp(3rem,7vw,6rem);line-height:.86;letter-spacing:-.02em;margin:0 0 var(--space-32)}
-ol{list-style:none;margin:0;padding:0;border-top:2px solid var(--fg-default)} li{display:grid;grid-template-columns:3rem 14rem 1fr auto;gap:var(--space-24);align-items:baseline;padding:var(--space-20) 0;border-bottom:1px solid var(--border-default)}
-li b{font-family:var(--font-display);font-size:2rem} li h2{margin:0;font-size:1.5rem} li p{margin:0;color:var(--fg-muted);line-height:1.5;max-width:60ch} li span{display:flex;gap:var(--space-16);white-space:nowrap}
-@media(max-width:760px){body{padding:var(--space-32) var(--space-16)} li{grid-template-columns:2rem 1fr} li p,li span{grid-column:2}}</style>
+*{box-sizing:border-box} html,body{height:100%} body{margin:0;background:#0b0b0a;color:#ece8e0;font-family:var(--font-sans);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+.chrome{display:flex;flex-wrap:nowrap;align-items:center;gap:var(--space-16);padding:var(--space-12) var(--space-20);border-bottom:1px solid #2b2926}
+.chrome h1{white-space:nowrap;margin:0 var(--space-8) 0 0;font-family:var(--font-display);font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:.01em}
+.grp{display:flex;border:1px solid #4a4743}
+.grp button{appearance:none;border:0;background:transparent;color:#a7a196;font:inherit;font-size:.875rem;padding:var(--space-8) var(--space-12);cursor:pointer;transition:background-color 150ms ease,color 150ms ease}
+.grp button+button{border-left:1px solid #4a4743}
+.grp button:hover{color:#ece8e0;background:#1f1d1b}
+.grp button[aria-pressed=true]{background:#ece8e0;color:#151413}
+.grp button b{font-family:var(--font-mono);font-weight:500;margin-right:6px}
+.grp button:focus-visible,.open:focus-visible{outline:2px solid #e2c463;outline-offset:2px}
+.sp{flex:1}
+.note{flex:1;min-width:0;font-size:.8125rem;color:#a7a196;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.open{color:#ece8e0;font-size:.875rem;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.stage{position:relative;display:grid;place-items:center;overflow:auto;background:#151413}
+.stage iframe{border:0;background:#fff;display:block;width:100%;height:100%;transition:width 280ms cubic-bezier(.16,1,.3,1),height 280ms cubic-bezier(.16,1,.3,1)}
+.stage.phone{padding:var(--space-24)}
+.stage.phone iframe{width:390px;height:min(844px,calc(100% - 8px));outline:1px solid #4a4743;outline-offset:8px}
+.keys{font-family:var(--font-mono);font-size:.75rem;color:#7a756d}
+</style>
 </head>
 <body>
-<main><h1>Naksha site, three directions</h1><ol><li><b>A</b><h2>Elastic</h2><p>Dark. The name and every heading breathe along Archivo's width axis; every component name is solved to fill the page.</p><span><a href="a-elastic.html">Home</a><a href="a-elastic-button.html">Button page</a></span></li><li><b>B</b><h2>Ask Naksha</h2><p>Dark. The home page is a prompt, and Naksha answers by building interface from its own components.</p><span><a href="b-ask.html">Home</a><a href="b-ask-button.html">Button page</a></span></li><li><b>C</b><h2>Seven fields</h2><p>Light. The page moves through seven full-bleed colour fields, one per component group.</p><span><a href="c-fields.html">Home</a><a href="c-fields-button.html">Button page</a></span></li></ol></main>
+<header class="chrome"><h1>Naksha directions</h1>
+<div class="grp" role="group" aria-label="Direction"><button data-d="a" aria-pressed="true"><b>A</b>Elastic</button><button data-d="b" aria-pressed="false"><b>B</b>Ask Naksha</button><button data-d="c" aria-pressed="false"><b>C</b>Seven fields</button></div>
+<div class="grp" role="group" aria-label="Page"><button data-p="home" aria-pressed="true">Home</button><button data-p="button" aria-pressed="false">Button page</button></div>
+<div class="grp" role="group" aria-label="Device"><button data-v="desktop" aria-pressed="true">Desktop</button><button data-v="phone" aria-pressed="false">Phone</button></div>
+<span class="note" id="note"></span><a class="open" id="open" href="a-elastic.html" target="_blank" rel="noopener">Open full page</a></header>
+<main class="stage" id="stage"><iframe id="frame" title="Direction preview" src="a-elastic.html"></iframe></main>
+<script>
+(function () {
+  var FILES = { a: ["a-elastic.html", "a-elastic-button.html"], b: ["b-ask.html", "b-ask-button.html"], c: ["c-fields.html", "c-fields-button.html"] };
+  var NOTES = { a: "Dark. The name breathes on the width axis; every component name fills the page. Move the pointer across NAKSHA.",
+    b: "Dark. The home page builds interface from Naksha's own AI components. Pick a suggestion or type a request.",
+    c: "Light. Seven colour bands, then the page turns each group's colour as you scroll. Point at a band." };
+  var st = { d: "a", p: "home", v: "desktop" };
+  try { var h = location.hash.slice(1).split("-"); if (FILES[h[0]]) st = { d: h[0], p: h[1] === "button" ? "button" : "home", v: h[2] === "phone" ? "phone" : "desktop" }; } catch (e) {}
+  var frame = document.getElementById("frame"), stage = document.getElementById("stage"), open = document.getElementById("open"), note = document.getElementById("note");
+  function render() {
+    var url = FILES[st.d][st.p === "home" ? 0 : 1];
+    if (frame.getAttribute("src") !== url) frame.setAttribute("src", url);
+    open.href = url; note.textContent = NOTES[st.d]; stage.classList.toggle("phone", st.v === "phone");
+    document.querySelectorAll("[data-d]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.d === st.d); });
+    document.querySelectorAll("[data-p]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.p === st.p); });
+    document.querySelectorAll("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === st.v); });
+    try { history.replaceState(null, "", "#" + st.d + "-" + st.p + "-" + st.v); } catch (e) {}
+  }
+  document.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; if (b.dataset.d) st.d = b.dataset.d; if (b.dataset.p) st.p = b.dataset.p; if (b.dataset.v) st.v = b.dataset.v; render(); });
+  document.addEventListener("keydown", function (e) { if (e.target.closest("input, textarea")) return; var k = e.key.toLowerCase(), m = { "1": ["d", "a"], "2": ["d", "b"], "3": ["d", "c"], h: ["p", "home"], b: ["p", "button"], d: ["v", "desktop"], p: ["v", "phone"] }[k]; if (m) { st[m[0]] = m[1]; render(); } });
+  render();
+})();
+</script>
 </body>
 </html>
