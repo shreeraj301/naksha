@@ -30,7 +30,7 @@ for (const p of previews()) {
 }
 
 // Windows High Contrast: controls must keep visible edges, focus and selection.
-const FORCED = ["Button", "IconButton", "Input", "Textarea", "Checkbox", "Radio", "Switch", "SegmentedControl", "Tabs", "Select", "DropdownMenu", "Table", "TopNav", "Skeleton", "PromptInput", "ProgressBar"];
+const FORCED = ["Button", "IconButton", "ToggleButton", "CopyButton", "Input", "Textarea", "Checkbox", "Radio", "Switch", "SegmentedControl", "Tabs", "Select", "DropdownMenu", "Table", "TopNav", "Skeleton", "PromptInput", "ProgressBar"];
 for (const name of FORCED) {
   test(`${name} forced colours`, async ({ page }) => {
     const p = previews().find((x) => x.name === name)!;

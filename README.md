@@ -15,7 +15,7 @@ I trained as an architect before I designed software. A good plan reads at a gla
 | **192 tokens** | Colour (paper and ink, seven section colours, four status sets), space, size, radius, stroke, layout, breakpoints, motion, z-index, type |
 | **Two themes** | Light (ink on paper) and dark (paper on ink). Every semantic colour exists in both, and every text pair is tested for WCAG 2.2 AA |
 | **15 type styles** | Archivo Condensed for display, Archivo for UI, Newsreader for reading, IBM Plex Mono for data |
-| **34 components** | In `css/components.css`: buttons, fields, menus, tables, modals, toasts, and the AI set (prompt input, messages, steps, sources) |
+| **36 components** | In `css/components.css`: buttons, toggles, fields, menus, tables, modals, toasts, and the AI set (prompt input, messages, steps, sources) |
 
 ## Use it
 
@@ -81,7 +81,7 @@ Written down in [`docs/adr`](docs/adr): why GitHub is the source of truth, the t
 
 ## Roadmap
 
-Phases 0 and 1 are done: all 34 components are React components on React Aria and run live in the artifact. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+Phases 0 and 1 are done: every component is a React component on React Aria and runs live in the artifact. Phase 2, the components still missing, is under way. The full plan, with a done-check for each step, is in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licence
 

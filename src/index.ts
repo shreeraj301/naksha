@@ -9,6 +9,10 @@ export { Button } from "./components/Button";
 export type { ButtonProps, ForcedState } from "./components/Button";
 export { IconButton } from "./components/IconButton";
 export type { IconButtonProps } from "./components/IconButton";
+export { ToggleButton } from "./components/ToggleButton";
+export type { ToggleButtonProps } from "./components/ToggleButton";
+export { CopyButton } from "./components/CopyButton";
+export type { CopyButtonProps } from "./components/CopyButton";
 export { PromptInput, PromptLevel } from "./components/PromptInput";
 export type { PromptInputProps, PromptAttachment, PromptLevelProps, PromptLevelOption } from "./components/PromptInput";
 

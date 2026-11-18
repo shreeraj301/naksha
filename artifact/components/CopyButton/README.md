@@ -1,0 +1,71 @@
+# CopyButton
+
+Copies a value and says so. The label changes to "Copied" for two seconds, and if the browser refuses the clipboard the value appears in a field, selected, so it can be copied by hand.
+
+## Usage
+
+```jsx
+import { CopyButton } from "naksha";
+
+<CopyButton value={approvalUrl} valueLabel="Approval link" announcement="Approval link copied.">Copy link</CopyButton>
+<CopyButton value={() => buildLink(token)} variant="ghost" size="sm">Copy</CopyButton>
+<CopyButton value={command} isIconOnly>Copy command</CopyButton>
+```
+
+| Prop | Values | Default |
+| --- | --- | --- |
+| `value` | the text, or a function that returns it at the moment of the press | |
+| `children` | the label at rest; with `isIconOnly`, the button's name | `"Copy"` |
+| `copiedLabel` | the label after copying | `"Copied"` |
+| `announcement` | what screen readers hear after copying | `copiedLabel` |
+| `valueLabel` | names the field that appears when the clipboard is refused | `"Text to copy"` |
+| `isIconOnly` | a square button with the copy icon | `false` |
+| `variant` | `secondary`, `ghost` | `secondary` |
+| `size` | `sm`, `md`, `lg`, like Button | `md` |
+| `isDisabled` | | `false` |
+| `onCopy` | called with the text after it is on the clipboard | |
+| `styles` | layout only (ADR 0009) | |
+
+## Best practices
+
+- Say what is copied: "Copy link", "Copy questions", "Copy as Markdown". "Copy" alone only where the value sits right beside it.
+- Use `announcement` when "Copied" alone would not say what was copied: "Approval link copied."
+- Never show a toast for a copy as well. The label already says it.
+
+## Content
+
+Label: "Copy" and the thing, in sentence case. Copied label: "Copied", or "Link copied" if the button is far from what it copies.
+
+## Anatomy and spacing
+
+A secondary or ghost Button with the `copy` icon, which becomes `check` for two seconds. "Copy" and "Copied" share one grid cell, so the button is as wide as the longer label and nothing beside it moves. The field for a refused clipboard sits 12 below: a small read-only field with its label and one line of help.
+
+## States
+
+Rest, just copied (check icon and "Copied" for 2000ms, then back), hover, pressed and focus as Button. Refused: the field appears, takes focus and selects the text, and stays until the next successful copy.
+
+## Accessibility
+
+**What Naksha provides.** A real button. After copying, a polite status message says the announcement once, without moving focus. If the clipboard is refused, focus moves to a labelled read-only field with the text selected, and its help line says what happened.
+
+**What the designer decides.** The label, the announcement, and the field's name.
+
+**What the developer must not break.** Keep the button in the page while it shows "Copied"; do not remove it or move focus.
+
+| Test | Status |
+| --- | --- |
+| Default state (axe, screenshots in light and dark) | Tested |
+| Rest, copied, focus, refused (screenshots, forced colours) | Tested |
+| Copies, announces, returns after 2 seconds, late value, refused field with focus (component tests) | Tested |
+| Real clipboard on phones | Not tested yet |
+| Screen reader | Not tested yet |
+
+## Release phase
+
+Beta. Stable at Naksha 1.0.
+
+## Change log
+
+| Version | Change |
+| --- | --- |
+| 0.3.2 | New. Built by hand before in Ledger (Copy link), Plain Paper (Copy questions), the link-in-bio page and this site. |

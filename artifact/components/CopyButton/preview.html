@@ -1,0 +1,26 @@
+<!-- @dsCard group="Actions" height=424 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CopyButton · preview</title>
+
+</head>
+<body>
+<div class="nk-stage"><div class="nk-matrix" style="grid-template-columns:max-content repeat(3,max-content)"><span></span><span class="nk-cap">At rest</span><span class="nk-cap">Just copied</span><span class="nk-cap">Focus</span><span class="nk-matrix__row">Secondary</span><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy link&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy link&quot;, &quot;forceResult&quot;: &quot;copied&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy link&quot;, &quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span></div><span class="nk-matrix__row">Ghost, small</span><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy&quot;, &quot;variant&quot;: &quot;ghost&quot;, &quot;size&quot;: &quot;sm&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy&quot;, &quot;variant&quot;: &quot;ghost&quot;, &quot;size&quot;: &quot;sm&quot;, &quot;forceResult&quot;: &quot;copied&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy&quot;, &quot;variant&quot;: &quot;ghost&quot;, &quot;size&quot;: &quot;sm&quot;, &quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span></div><span class="nk-matrix__row">Icon only</span><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;npx github:shreeraj301/naksha init-agents .&quot;, &quot;children&quot;: &quot;Copy command&quot;, &quot;isIconOnly&quot;: true}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;npx github:shreeraj301/naksha init-agents .&quot;, &quot;children&quot;: &quot;Copy command&quot;, &quot;isIconOnly&quot;: true, &quot;forceResult&quot;: &quot;copied&quot;}}" style="display:contents"></span></div><div><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;npx github:shreeraj301/naksha init-agents .&quot;, &quot;children&quot;: &quot;Copy command&quot;, &quot;isIconOnly&quot;: true, &quot;forceState&quot;: &quot;focus&quot;}}" style="display:contents"></span></div></div><div><span class="nk-cap">Browser refused the clipboard</span><span data-nk="{&quot;$c&quot;: &quot;CopyButton&quot;, &quot;p&quot;: {&quot;value&quot;: &quot;https://example.com/approve/7q2xk&quot;, &quot;children&quot;: &quot;Copy link&quot;, &quot;valueLabel&quot;: &quot;Approval link&quot;, &quot;forceResult&quot;: &quot;refused&quot;}}" style="display:contents"></span></div></div>
+<script>
+/* Mount live Naksha components: each [data-nk] is {"$c": name, "p": props}. "$noop" becomes a no-op handler,
+   nested {"$c": ...} values become elements, and "spec" puts a redline target on the rendered element. */
+(function(){
+  var h = React.createElement;
+  function val(v){ if (v === '$noop') return function(){}; if (Array.isArray(v)) return v.map(val); if (v && typeof v === 'object') { if (v.$c) return el(v); if (v.$html) return h('div', { style: { height: '100%' }, dangerouslySetInnerHTML: { __html: v.$html } }); var o = {}; for (var k in v) o[k] = val(v[k]); return o; } return v; }
+  function el(s){ var p = {}; for (var k in (s.p || {})) p[k] = val(s.p[k]); return h(Naksha[s.$c], p); }
+  document.querySelectorAll('[data-nk]').forEach(function(node){
+    var s = JSON.parse(node.getAttribute('data-nk'));
+    ReactDOM.flushSync(function(){ ReactDOM.createRoot(node).render(el(s)); });
+    if (s.spec) { var t = s.specTarget ? node.querySelector(s.specTarget) : node.firstElementChild; if (t) t.setAttribute('data-spec', s.spec); }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.2 · Phase 2 starts: ToggleButton and CopyButton
+
+The first two components from the Phase 2 scope, each built by hand before in at least two of the products.
+
+### Added
+- `ToggleButton`: one button that stays pressed (`aria-pressed`), on React Aria's ToggleButton. Off it is a secondary Button or IconButton; on it fills with ink. Disabled and on keeps a faded fill, so the state still reads. The name never changes with the state.
+- `CopyButton`: copies a value (or a value built at the moment of the press), shows "Copied" with a check for two seconds without changing width, and announces it politely. If the browser refuses the clipboard, a labelled read-only field appears with the text selected and focused.
+- Cards for both in the Actions group, and both in the forced-colours screenshot run.
+- Tests: 7 component tests (82 in all).
+
 ## 0.3.1 · TopNav on phones, and fluid type written down
 
 ### Added

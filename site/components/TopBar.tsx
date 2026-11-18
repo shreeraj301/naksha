@@ -40,7 +40,7 @@ export function TopBar() {
   );
 }
 
+/** The page's Markdown on the clipboard, with Naksha's own CopyButton. */
 export function CopyMarkdown({ text }: { text: string }) {
-  const [done, setDone] = useState(false);
-  return <N.Button variant="secondary" size="sm" iconStart={done ? "check" : "copy"} onPress={() => { navigator.clipboard?.writeText(text).then(() => { setDone(true); setTimeout(() => setDone(false), 1600); }, () => {}); }}>{done ? "Copied" : "Copy as Markdown"}</N.Button>;
+  return <N.CopyButton value={text} size="sm" valueLabel="This page as Markdown" announcement="Page copied as Markdown.">Copy as Markdown</N.CopyButton>;
 }

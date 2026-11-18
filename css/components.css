@@ -110,6 +110,23 @@ svg.nk-i { width: var(--size-icon-sm); height: var(--size-icon-sm); flex: none; 
 .nk-iconbtn--primary:disabled { background: var(--bg-disabled); }
 .nk-iconbtn--secondary:disabled { border-color: var(--border-default); }
 
+/* ---------- Toggle button ----------
+   Off it is a secondary Button or IconButton; on it fills with ink, like a selected segment. The selectors are as specific
+   as the secondary hover and press rules above, so the ink holds under the pointer. */
+.nk-toggle[data-selected] { background: var(--action-primary); color: var(--action-on-primary); border-color: var(--action-primary); }
+.nk-toggle[data-selected].is-hover { background: var(--action-primary-hover); color: var(--action-on-primary); }
+.nk-toggle[data-selected]:active:not(:disabled), .nk-toggle[data-selected][data-pressed], .nk-toggle[data-selected].is-active { background: var(--action-primary-pressed); color: var(--action-on-primary); }
+@media (hover: hover) and (pointer: fine) { .nk-toggle[data-selected]:hover:not(:disabled) { background: var(--action-primary-hover); color: var(--action-on-primary); } }
+/* Disabled but on still reads as on: a faded fill, where disabled and off is a faded edge. */
+.nk-toggle[data-selected]:disabled { background: var(--fg-disabled); color: var(--bg-canvas); border-color: var(--fg-disabled); }
+
+/* ---------- Copy button ---------- */
+.nk-copy { display: inline-flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); }
+/* "Copy" and "Copied" sit in one grid cell, so the button keeps the width of the longer label. */
+.nk-copy__labels { display: inline-grid; text-align: start; }
+.nk-copy__labels > span { grid-area: 1 / 1; }
+.nk-copy__off { visibility: hidden; }
+
 /* ---------- Link ---------- */
 .nk-link { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--fg-default); font: inherit; font-weight: 500;
   text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: var(--border-strong);
@@ -662,7 +679,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
    Last in the file so nothing above overrides it. */
 @media (forced-colors: active) {
   .nk-radio__box::after, .nk-switch__track, .nk-switch__track::after, .nk-tab::after, .nk-navitem::after, .nk-navitem i, .nk-sheetitem::after, .nk-sheetitem i,
-  .nk-progress__track, .nk-progress__bar, .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected], .nk-skel,
+  .nk-progress__track, .nk-progress__bar, .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected], .nk-toggle[data-selected], .nk-skel,
   .nk-menu__item.is-hover, .nk-menu__item:focus-visible { forced-color-adjust: none; }
   .nk-radio__box::after { background: CanvasText; }
   .nk-radio[data-disabled] .nk-radio__box::after { background: GrayText; }
@@ -673,6 +690,9 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   .nk-switch[data-disabled] .nk-switch__track { border-color: GrayText; }
   .nk-switch[data-disabled] .nk-switch__track::after { background: GrayText; }
   .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected] { background: Highlight; color: HighlightText; }
+  /* :is() lifts these above the hover and press rules, so on stays the system highlight under the pointer. */
+  .nk-toggle[data-selected]:not(:disabled):is(*, .is-hover, .is-active, :hover, :active, [data-pressed]) { background: Highlight; color: HighlightText; border-color: Highlight; }
+  .nk-toggle[data-selected]:disabled { background: GrayText; color: Canvas; border-color: GrayText; }
   .nk-tab::after, .nk-navitem::after, .nk-sheetitem::after { background: CanvasText; }
   .nk-tab[aria-selected="true"]::after, .nk-navitem[aria-current="page"]::after, .nk-sheetitem[aria-current="page"]::after { background: Highlight; }
   .nk-progress__track { background: Canvas; box-shadow: inset 0 0 0 1px CanvasText; }

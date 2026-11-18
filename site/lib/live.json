@@ -371,5 +371,20 @@
   "p": {
    "label": "or"
   }
+ },
+ "ToggleButton": {
+  "$c": "ToggleButton",
+  "p": {
+   "children": "Agent view",
+   "icon": "sparkles",
+   "defaultSelected": true
+  }
+ },
+ "CopyButton": {
+  "$c": "CopyButton",
+  "p": {
+   "value": "https://example.com/approve/7q2xk",
+   "children": "Copy link"
+  }
  }
 }
