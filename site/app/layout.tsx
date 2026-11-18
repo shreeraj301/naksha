@@ -7,6 +7,7 @@ import "./globals.css";
 import { TopBar } from "@/components/TopBar";
 import { Toasts } from "@/components/Nk";
 import { Skip } from "@/components/Skip";
+import { Portals } from "@/components/Portals";
 import { VERSION, GITHUB, componentCount } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 import { FIT_SCRIPT } from "@/lib/fit";
@@ -43,7 +44,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
         <Skip />
         <TopBar />
-        <main id="main">{children}</main>
+        <main id="main"><Portals>{children}</Portals><div id="portals" /></main>
         <footer className="foot">
           <ul>
             <li><Link href="/get-started/">Getting started</Link></li>

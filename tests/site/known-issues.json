@@ -1,26 +1,5 @@
 {
   "about": "Site issues that exist today. Each one names the fix-list row that removes it. The site gates fail on anything new, and on any entry here that is already gone, so this list only shrinks. It must reach empty.",
   "issues": [
-    {"fix": "4.2", "check": "reflow", "page": "/components/accordion/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/chat-message/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/checkbox/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/copy-button/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/prompt-input/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/radio/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/response-status/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/slider/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/source-chip/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/switch/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/toggle-button/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/tooltip/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.2", "check": "reflow", "page": "/components/top-nav/", "theme": "any", "id": "horizontal-scroll"},
-    {"fix": "4.5", "check": "axe", "page": "/get-started/", "theme": "dark", "id": "empty-table-header"},
-    {"fix": "4.5", "check": "axe", "page": "/get-started/", "theme": "light", "id": "empty-table-header"},
-    {"fix": "4.10", "check": "axe", "page": "/components/accordion/", "theme": "dark", "id": "heading-order"},
-    {"fix": "4.10", "check": "axe", "page": "/components/accordion/", "theme": "light", "id": "heading-order"},
-    {"fix": "4.10", "check": "axe", "page": "/components/card/", "theme": "dark", "id": "heading-order"},
-    {"fix": "4.10", "check": "axe", "page": "/components/card/", "theme": "light", "id": "heading-order"},
-    {"fix": "4.11", "check": "axe", "page": "/components/tooltip/", "theme": "dark", "id": "region"},
-    {"fix": "4.11", "check": "axe", "page": "/components/tooltip/", "theme": "light", "id": "region"}
   ]
 }

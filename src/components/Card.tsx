@@ -8,6 +8,8 @@ export interface CardProps {
   /** Where the whole card goes. The card is one link: no buttons or links inside it. */
   href: string;
   title: string;
+  /** Heading level of the title, to fit the page's outline. */
+  headingLevel?: 2 | 3 | 4;
   /** One or two sentences. */
   children?: ReactNode;
   /** The mono reference above the title: "RD-02 · Fintech". */
@@ -25,7 +27,8 @@ export interface CardProps {
 }
 
 /** A project or an item to open: picture, reference, title, a line or two, and where it leads. */
-export function Card({ href, title, children, code, tag, media, cta, forceState, styles }: CardProps) {
+export function Card({ href, title, headingLevel = 3, children, code, tag, media, cta, forceState, styles }: CardProps) {
+  const Title = `h${headingLevel}` as "h2" | "h3" | "h4";
   return (
     <AriaLink href={href} style={layoutStyle(styles)} className={cx("nk-card", forceState === "hover" && "is-hover", forceState === "focus" && "is-focus")}>
       {media && <div className="nk-card__media">{media}</div>}
@@ -36,7 +39,7 @@ export function Card({ href, title, children, code, tag, media, cta, forceState,
             {tag}
           </div>
         )}
-        <h3 className="nk-card__title">{title}</h3>
+        <Title className="nk-card__title">{title}</Title>
         {children && <p className="nk-card__text">{children}</p>}
       </div>
       {cta && (

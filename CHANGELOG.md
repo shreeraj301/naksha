@@ -12,6 +12,12 @@
 - Stacking follows the tokens: overlays (Modal, Drawer, the full-size Image) sit at `z-overlay` (80, was 100) and toasts at `z-toast` (90, was 200).
 - Preview pages had two landmarks with the same name: the Breadcrumb card's first trail is now "Breadcrumb, example", and the open TopNav menu's nav is "Sections, open menu".
 - The site said 42 components; announce() is a function, so it is 41. One count, from `components.json`, is used everywhere.
+- Site, phones: 13 component pages scrolled sideways at 320px. React Aria's hidden inputs in a preview were placed against the page, not the preview frame, and long "Next" names didn't wrap. The frame now holds its own parts, and the pager stacks on phones.
+- Site: the phone menu now closes on Escape and returns focus to the Menu button.
+- Site: the Accordion and Card pages skipped from the title to a level-3 heading. Card takes `headingLevel` (2, 3 or 4, default 3), like Accordion, and both cards use level 2.
+- Site: an open tooltip in a preview sat outside every landmark. Overlays from previews now land at the end of `<main>`.
+- Site: React Aria was loaded twice (the package's `module` entry and the ESM files its own imports use), so a provider set in one copy wasn't seen by the other. The site now points at the ESM entry only.
+- Site: README table headers were empty; the get-started page's table now says what each column holds.
 
 ### Added
 - `npm run test:site` and a CI job: every site page in light and dark, with reduced motion on, against saved screenshots, plus checks for clipped text, console errors, a lost theme, axe at every severity, and reflow at 320px (ADR 0013). Issues that exist today are listed in `tests/site/known-issues.json` and can only be removed.
@@ -20,7 +26,9 @@
 - `navLabel` on TopNav, to name its sections nav when a page has more than one.
 - Tokens: `dur-loop-pulse` (1500ms), `dur-loop-sweep` (1400ms), `dur-loop-blink` (1000ms) and `dur-loop-calm` (2000ms) for the loops that had raw times; the Spinner turns on `dur-hero` (900ms). `bg-code` and `fg-code` for code blocks, and `fg-on-section` for text on a section colour.
 - Tests for EmptyState, Skeleton and Spinner. States sections in the PromptInput and Toast READMEs.
-
+- Site: the contents list marks the section being read, and phones get an "On this page" list at the top of each doc page.
+- Site: nav links take a wider hit area without moving.
+- `headingLevel` on Card.
 ### Removed
 - `radius-2`, `radius-4` and `radius-8`: reserved, never used. Corners stay square; a product softens them through `radius-control` and `radius-surface`.
 - `z-dropdown`: never used. Popovers stack by DOM order, which keeps a Select's list above the Modal it sits in.

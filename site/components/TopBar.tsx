@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as Naksha from "naksha";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const N = Naksha as unknown as Record<string, any>;
 export const NAV = [
@@ -20,6 +20,14 @@ export function TopBar() {
   const [theme, setTheme] = useState<string>("dark");
   useEffect(() => { setTheme(document.documentElement.dataset.theme || "dark"); }, []);
   useEffect(() => { setOpen(false); }, [path]);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  // Escape closes the phone menu and puts focus back on its button, like any disclosure.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(false); menuButton.current?.focus(); } };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
   const pick = (t: string) => { setTheme(t); document.documentElement.dataset.theme = t; try { localStorage.setItem("naksha-theme", t); } catch {} };
   const cur = (href: string) => (path.startsWith(href) ? "page" : undefined);
   return (
@@ -30,7 +38,7 @@ export function TopBar() {
       </nav>
       <div className="right">
         <N.SegmentedControl label="Theme" variant="quiet" value={theme} onChange={pick} options={[{ id: "dark", label: "Dark" }, { id: "light", label: "Light" }]} />
-        <button className="menu" type="button" aria-expanded={open} aria-controls="m-nav" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}</button>
+        <button ref={menuButton} className="menu" type="button" aria-expanded={open} aria-controls="m-nav" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}</button>
       </div>
       <nav id="m-nav" className="mnav" aria-label="Main" hidden={!open}>
         {NAV.map((n) => <Link key={n.href} href={n.href} aria-current={cur(n.href)}>{n.label}</Link>)}

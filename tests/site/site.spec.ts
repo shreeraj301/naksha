@@ -139,3 +139,38 @@ for (const path of pages()) {
 test("known-issues.json names a fix-list row for every entry", () => {
   for (const k of KNOWN) expect(k.fix, `${k.check} ${k.page} ${k.id}`).toMatch(/^\d+\.\d+$/);
 });
+
+test("phone menu: Escape closes it and focus goes back to the button", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  const button = page.locator("button.menu");
+  await button.click();
+  await expect(page.locator("#m-nav")).toBeVisible();
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#m-nav")).toBeHidden();
+  await expect(button).toBeFocused();
+  await expect(button).toHaveAttribute("aria-expanded", "false");
+});
+
+test("contents: the section being read is marked, and phones get the list at the top", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/get-started/", { waitUntil: "networkidle" });
+  // Bring the second section's heading to 100px from the top: it is then the one being read.
+  const id = await page.evaluate(() => {
+    const h = document.querySelectorAll(".dbody .prose h2")[1] as HTMLElement;
+    window.scrollTo(0, window.scrollY + h.getBoundingClientRect().top - 100);
+    return h.id;
+  });
+  await page.waitForTimeout(200);
+  await expect(page.locator(`.dbody .toc a[href="#${id}"]`)).toHaveAttribute("aria-current", "location");
+  await expect(page.locator(".dbody .toc a[aria-current]")).toHaveCount(1);
+  await page.setViewportSize({ width: 390, height: 800 });
+  await expect(page.locator(".toc-phone summary")).toBeVisible();
+});
+
+test("a tooltip opened in a preview lands inside <main>", async ({ page }) => {
+  await page.goto("/components/tooltip/", { waitUntil: "networkidle" });
+  const outside = await page.evaluate(() => [...document.querySelectorAll(".nk-tooltip")].filter((t) => !t.closest("main")).length);
+  expect(outside).toBe(0);
+});

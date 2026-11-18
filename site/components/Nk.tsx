@@ -2,6 +2,7 @@
 import * as Naksha from "naksha";
 import { createElement, useEffect, useRef, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import { Portals } from "./Portals";
 
 /* Naksha components described as data: {"$c": "Button", "p": {...}}. The README previews and the home page use the same shape.
    "$noop" becomes an empty handler, "$html" a block of markup, a nested {"$c"} an element, "$name" a handler from `handlers`,
@@ -48,7 +49,8 @@ export function LivePreview({ html, className }: { html: string; className?: str
     ref.current?.querySelectorAll<HTMLScriptElement>("script[data-nk-fn]").forEach((s) => new Function(s.textContent ?? "")());
     ref.current?.querySelectorAll<HTMLElement>("[data-nk]").forEach((n) => {
       const r = createRoot(n);
-      r.render(el(JSON.parse(n.getAttribute("data-nk")!)));
+      // Each preview is its own React root, so it needs its own portal setting to keep overlays inside <main>.
+      r.render(<Portals>{el(JSON.parse(n.getAttribute("data-nk")!))}</Portals>);
       roots.push(r);
     });
     return () => { const rs = roots.splice(0); setTimeout(() => rs.forEach((r) => r.unmount())); };

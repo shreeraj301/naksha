@@ -10,7 +10,7 @@ I trained as an architect before I designed software. A good plan reads at a gla
 
 ## What is in it today
 
-| | |
+| Part | What it holds |
 | --- | --- |
 | **195 tokens** | Colour (paper and ink, seven section colours, four status sets), space, size, radius, stroke, layout, breakpoints, motion, z-index, type |
 | **Two themes** | Light (ink on paper) and dark (paper on ink). Every semantic colour exists in both, and every text pair is tested for WCAG 2.2 AA |

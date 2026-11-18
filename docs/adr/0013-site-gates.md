@@ -34,4 +34,4 @@ About four minutes of CI and 102 screenshots in the repo. Any visual change to t
 
 ## Revisit
 
-When `known-issues.json` is empty, remove it and the `gate` helper, and let every check fail directly.
+The list reached empty on 19 Nov 2026 (268 entries to 0 across fix-list Phases 1 to 4). It stays, empty, as the place to park a regression found later, with the fix row that will remove it. Any entry without a row fails the build.

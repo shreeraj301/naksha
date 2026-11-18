@@ -18,6 +18,7 @@ import { Card, Tag } from "naksha";
 | --- | --- | --- |
 | `href` | where the whole card goes |  |
 | `title` | the name |  |
+| `headingLevel` | level of the title's heading, to fit the page's outline | `3` |
 | `children` | one or two sentences |  |
 | `code` | the mono reference: "RD-02 · Fintech" | none |
 | `tag` | one Tag on the right of the code | none |

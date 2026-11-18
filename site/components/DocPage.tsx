@@ -2,6 +2,7 @@ import { doc } from "@/lib/content";
 import { fixLinks, swatches } from "@/lib/links";
 import { Fit } from "./Fit";
 import { CopyMarkdown } from "./TopBar";
+import { Toc } from "./Toc";
 
 /* A page made of one or more markdown files from the repo. Each section keeps its own heading; the table of contents lists them. */
 export function DocPage({ title, files, intro, only }: { title: string; files: string[]; intro?: string; only?: string[] }) {
@@ -13,7 +14,7 @@ export function DocPage({ title, files, intro, only }: { title: string; files: s
     <>
       <div className="band plain"><Fit text={title} /></div>
       <div className="dbody">
-        <nav className="toc" aria-label="On this page"><b>On this page</b>{sections.map((s) => <a key={s.id} href={`#${s.id}`}>{s.title}</a>)}</nav>
+        <Toc sections={sections.map((s) => ({ id: s.id, title: s.title }))} />
         <div className="prose">
           {firstIntro && <div className="intro" dangerouslySetInnerHTML={{ __html: fixLinks(firstIntro, "") }} />}
           <div className="row" style={{ marginTop: "var(--space-16)" }}><CopyMarkdown text={raw} /></div>
