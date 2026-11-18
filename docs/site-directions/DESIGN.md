@@ -1,4 +1,25 @@
-# Naksha site: art direction, round 2
+# Naksha site: art direction
+
+## D. Combined (the pick)
+
+`naksha.html` and `naksha-button.html`. One direction built from the best of A, B and C.
+
+Kept:
+
+- From A: the breathing NAKSHA hero, every component name solved to fill the page on the width axis, and the index where the row under the pointer stretches and shows its live component. Dark ground.
+- From C: the seven groups as colour bands. Here they filter the index: pick AI and the list shows its five components. The stretched row takes its group colour, and so does the preview panel. Component pages open on a band in their group colour, with the fitted name across it.
+- From B: Ask Naksha, as a section on the home page instead of the whole home page, and "Ask about Button" beside the docs on every component page.
+
+Left out:
+
+- C's whole-page colour changes and its seven full screens, one per group. The colour now marks the group without taking over the page.
+- B's question as the hero. The name leads; the demo comes after the components.
+- The facts row (192, 2, 40, 0) and the slogan footers. The footer is links and the release.
+
+The open questions at the end of this file still apply.
+
+# Round 2: the three directions
+
 
 Round 1 (the map, the measured drawing, the behaviour score) read as too quiet. This round goes bolder. All three directions drop the architecture references and lean on Naksha's own strongest material: the Archivo type family, the AI set and the seven section colours.
 
