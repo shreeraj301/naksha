@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Menu items in Select and DropdownMenu: keyboard focus was only the 8% hover tint, 1.17:1 against the menu. A focused item now also has a 2px inset ring in the focus colour. A new test checks it reaches 3:1 in both themes.
+- Site: with reduced motion on, React's page load failed on 43 of 51 pages (error #418), because Ask Naksha read the motion setting while rendering. The failure re-rendered the page from the server copy, which reset readers who chose light to dark. Ask now reads the setting after the page loads.
+- Site: with reduced motion on, page titles were cut off on 40 pages. Reduced motion shortened every transition to 1ms, which still held the old width for a frame, so the title fitting measured the wrong size. Transitions are now off under reduced motion.
+- Site: code blocks scroll sideways but couldn't take focus. Each one now takes Tab focus and shows the focus ring, so the arrow keys can scroll it.
+
+### Added
+- `npm run test:site` and a CI job: every site page in light and dark, with reduced motion on, against saved screenshots, plus checks for clipped text, console errors, a lost theme, axe at every severity, and reflow at 320px (ADR 0013). Issues that exist today are listed in `tests/site/known-issues.json` and can only be removed.
+
 ## 0.4.0 · Phase 2 done: SkipLink and announce()
 
 The last pair of Phase 2. All eight components the products built by hand now come from Naksha.

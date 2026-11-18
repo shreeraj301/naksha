@@ -795,6 +795,8 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
 .nk-card:focus-visible, .nk-card.is-focus { outline-offset: 0.1875rem; }
 .nk-menu__item:focus-visible { outline: none; background: var(--state-hover); }
+/* Keyboard focus needs more than the 8% hover tint (1.17:1): an inset ring, inside the menu's 4px padding. */
+.nk-menu__item[data-focus-visible] { outline: var(--border-thick) solid var(--border-focus); outline-offset: calc(var(--border-thick) * -1); }
 
 /* ---------- forced colours (Windows High Contrast) ----------
    The browser swaps every colour for a system colour and drops backgrounds. Indicators drawn with a background

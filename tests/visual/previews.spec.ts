@@ -130,6 +130,27 @@ test("live Select: the list opens under the trigger, as wide as it, and closes o
   await expect(trigger).toBeFocused();
 });
 
+for (const theme of ["light", "dark"] as const) {
+  test(`live Select: a keyboard-focused option has a ring with 3:1 contrast (${theme})`, async ({ page }) => {
+    await page.goto(framed("Select", theme));
+    await page.locator(".nk-control--select").first().focus();
+    await page.keyboard.press("ArrowDown");
+    const item = page.locator(".nk-popover .nk-menu__item[data-focus-visible]");
+    await expect(item).toHaveCount(1);
+    const ratio = await item.evaluate((el) => {
+      const lum = (c: string) => {
+        const [r, g, b] = (c.match(/[\d.]+/g) ?? []).slice(0, 3).map((v) => { const x = Number(v) / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      };
+      const cs = getComputedStyle(el);
+      if (cs.outlineStyle !== "solid" || parseFloat(cs.outlineWidth) < 2) return 0;
+      const [a, b] = [lum(cs.outlineColor), lum(getComputedStyle(el.closest(".nk-menu")!).backgroundColor)];
+      return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    });
+    expect(ratio, "focus ring against the menu").toBeGreaterThanOrEqual(3);
+  });
+}
+
 test("live form controls: keyboard focus shows the ring on the drawn box", async ({ page }) => {
   await page.goto(framed("Checkbox", "light"));
   await page.keyboard.press("Tab");

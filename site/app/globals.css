@@ -143,6 +143,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .prose a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .prose code { font-family: var(--font-mono); font-size: 0.875em; background: var(--bg-subtle); padding: 0.1em 0.3em; }
 .prose pre { margin: 0 0 var(--space-16); padding: var(--space-20) var(--space-24); background: #0b0b0a; color: #ece8e0; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; overflow-x: auto; border: 1px solid var(--border-default); }
+.prose pre:focus-visible { outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
 .prose pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; margin: 0 0 var(--space-24); display: block; overflow-x: auto; }
 .prose th { text-align: left; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; color: var(--fg-muted); padding: var(--space-8) var(--space-16) var(--space-8) 0; border-bottom: 1px solid var(--border-strong); white-space: nowrap; }
@@ -187,4 +188,5 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .cbody, .dbody { grid-template-columns: minmax(0, 1fr); padding: var(--space-24) var(--pad) var(--space-64); }
   .cbody .main, .cbody .pane, .dbody .prose { grid-column: 1 / -1; } .cbody .pane { position: static; } .dbody .toc { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; } }
+/* Transitions off, not shortened: a 1ms transition still holds the old value for a frame, and Fit measures right after it sets one. */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0s !important; animation-duration: 1ms !important; } }

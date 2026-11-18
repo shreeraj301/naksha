@@ -11,7 +11,8 @@ export const VERSION: string = JSON.parse(read("package.json")).version;
 export const GITHUB = "https://github.com/shreeraj301/naksha";
 
 marked.setOptions({ gfm: true });
-export const md = (s: string) => marked.parse(s, { async: false }) as string;
+/* Code blocks scroll sideways, so each takes Tab focus: keyboard users can then scroll it with the arrow keys. */
+export const md = (s: string) => (marked.parse(s, { async: false }) as string).replaceAll("<pre>", '<pre tabindex="0">');
 
 /** Markdown to one line of plain text, for summaries and answers. */
 export function plain(s: string) {

@@ -21,8 +21,9 @@ function build(kind: string): ReactNode {
 }
 
 function Feed({ r, n }: { r: Req; n: number }) {
-  const reduce = typeof window !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const [step, setStep] = useState(reduce ? 99 : 0);
+  // Start where the server did; with reduced motion, jump to the answer after hydrating, so the HTML always matches.
+  const [step, setStep] = useState(0);
+  useEffect(() => { if (matchMedia("(prefers-reduced-motion: reduce)").matches) setStep(99); }, []);
   useEffect(() => {
     if (step > r.steps.length) return;
     const t = setTimeout(() => setStep(step + 1), step === 0 ? 500 : 700);
