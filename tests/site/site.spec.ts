@@ -3,7 +3,8 @@
 //   2. no text clipped by an ancestor that hides overflow;
 //   3. no errors in the console;
 //   4. axe at every severity (WCAG 2.0 to 2.2 A and AA, plus best practice).
-// And every page at 320px wide: no sideways scroll (WCAG 1.4.10 Reflow).
+// And every page at 320px wide: no sideways scroll (WCAG 1.4.10 Reflow). Every page has its own title, a 120 to 160
+// character description, a canonical link, a share image and an icon.
 //
 // Issues that exist today are listed by name in known-issues.json, each with the fix-list row that removes it.
 // Anything not on that list fails the build, and so does a listed issue that is gone, so the list only shrinks.
@@ -108,6 +109,24 @@ for (const path of pages()) {
       gate("axe", theme, path, axe);
     });
   }
+
+  test(`${path} metadata`, async ({ page }) => {
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+    const m = await page.evaluate(() => ({
+      title: document.title,
+      description: document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "",
+      canonical: document.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? "",
+      image: document.querySelector('meta[property="og:image"]')?.getAttribute("content") ?? "",
+      icon: document.querySelector('link[rel="icon"]')?.getAttribute("href") ?? "",
+    }));
+    const found: string[] = [];
+    if (m.description.length < 120 || m.description.length > 160) found.push(`description-length-${m.description.length}`);
+    if (!m.image) found.push("no-og-image");
+    if (!m.icon) found.push("no-icon");
+    const missing = path === "/no-such-page/";
+    if (missing ? !/not found/i.test(m.title) : !m.canonical.endsWith(path)) found.push(missing ? "404-title" : "no-canonical");
+    gate("meta", "any", path, found);
+  });
 
   test(`${path} reflow at 320px`, async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 640 });

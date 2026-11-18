@@ -9,7 +9,8 @@
     "dev": "next dev --webpack -p 4401",
     "prebuild": "node scripts/ensure-naksha.mjs",
     "build": "next build --webpack",
-    "start": "node scripts/serve.mjs"
+    "start": "node scripts/serve.mjs",
+    "postbuild": "node scripts/preload-fonts.mjs"
   },
   "dependencies": {
     "@types/node": "^22",

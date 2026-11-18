@@ -28,6 +28,10 @@
 ### Changed
 - Lint: stylelint now rejects a raw z-index, a font size off the type scale, and a raw duration in `css/`, and checks the site's CSS for raw colours. ADR 0009 and 0010 say exactly what it enforces.
 - The site's code blocks and section bands use tokens instead of raw hex. In dark, code blocks are a step lighter than the page (`stone-900`) instead of a darker colour that wasn't in the palette.
+- Site speed, measured on a throttled phone (4x CPU, 1.6 Mbps, 150ms) with compression: /components/ showed its title after 7.0s, now 0.7s, and no page is above 1s. Page titles are sized in CSS from the font's own widths and fitted by a small script in the page head as soon as the title font arrives, instead of after React loads.
+- Layout shift: 0.22 on /ai/, 0.18 on Button and 0.11 on /brand/ came from titles fitting late and from the body font swapping in. Now no page is above 0.03: titles have their final size at first paint, and the body font is preloaded.
+- The title font is cut to what the site draws (uppercase, weight 800 to 820): 90 KB to 24 KB. No page loads more than 142 KB of fonts.
+- Site metadata: every page has its own title, a description of 120 to 160 characters and a canonical link; the 404 page is titled "Page not found" and is not indexed. Added an icon, a share image, robots.txt, a sitemap and JSON-LD. The components page said 34 components; it now counts them.
 
 ## 0.4.0 · Phase 2 done: SkipLink and announce()
 

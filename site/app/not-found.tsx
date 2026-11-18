@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Fit } from "@/components/Fit";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "Nothing is built at this address. Find the component you were after in the full list of Naksha components, or start again from the home page.",
+  robots: { index: false },
+};
 
 export default function NotFound() {
   return (

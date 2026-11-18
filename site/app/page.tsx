@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Giant } from "@/components/Giant";
 import { Index } from "@/components/Index";
@@ -6,6 +7,8 @@ import { NkButtons } from "@/components/Buttons";
 import { indexData } from "@/lib/index-data";
 import { HOME_ASKS } from "@/lib/asks";
 import { GITHUB, componentCount } from "@/lib/content";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function Home() {
   const { items, bands } = indexData();

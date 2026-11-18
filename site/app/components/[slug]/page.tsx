@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { components, component, asksFor, GITHUB } from "@/lib/content";
+import { components, component, asksFor, describe, GITHUB } from "@/lib/content";
 import { hueVar } from "@/lib/groups";
 import { fixLinks } from "@/lib/links";
 import { Fit } from "@/components/Fit";
@@ -14,7 +14,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const c = component((await params).slug);
-  return c ? { title: c.name, description: c.summary } : {};
+  return c ? { title: c.name, description: describe(c), alternates: { canonical: `/components/${c.slug}/` } } : {};
 }
 
 const SKIP = new Set(["Release phase"]);

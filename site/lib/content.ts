@@ -77,6 +77,19 @@ export function components(): ComponentDoc[] {
 }
 export const component = (slug: string) => components().find((c) => c.slug === slug);
 
+/** A search description of 120 to 160 characters: the README's first sentence, then what the page holds. */
+export function describe(c: { name: string; summary: string }): string {
+  const tails = [
+    ` The ${c.name} page shows it live, with its states, its API, and how it works with a keyboard and a screen reader.`,
+    ` Its page shows it live, with its states, its API, and keyboard and screen reader support.`,
+    ` Live here, with its states, API, and keyboard and screen reader notes.`,
+    ` Live, with its states, API and accessibility notes.`,
+    ` Live, with its API.`,
+  ];
+  // The longest that fits in 160.
+  return tails.map((t) => c.summary + t).find((d) => d.length <= 160) ?? `${c.summary.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+}
+
 /** Questions a component page can answer, each quoted from its own README section. */
 export interface Ask { ask: string; steps: [string, string][]; say: string; build: string; sources: string[] }
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);

@@ -29,7 +29,10 @@ npm start        # serves ./out on http://127.0.0.1:4401
 | `lib/content.ts` | Reads the READMEs, previews, changelog and roadmap at build time |
 | `lib/groups.ts` | The seven groups (from each card's `@dsCard group`) and the section colour each one wears |
 | `components/Giant.tsx` | The breathing NAKSHA on the home page |
-| `components/Fit.tsx` | Fits each page title to the measure on Archivo's width axis |
+| `components/Fit.tsx`, `lib/fit.ts` | Fits each page title to the measure on Archivo's width axis. The size is set in CSS from `lib/flex-metrics.json`, and a script in the page head picks the width as soon as the font arrives, before React loads |
+| `scripts/flex-metrics.py`, `scripts/subset-flex.py` | Rebuild the title font's width table and its subset (uppercase, weight 800 to 820). Rerun both if the font changes |
+| `scripts/og-image.mjs` | Draws `app/opengraph-image.png`, the share image, from the site's fonts and colours |
+| `scripts/preload-fonts.mjs` | Runs after the build: preloads the body font on every page |
 | `components/Index.tsx` | Group bands and the stretching component list |
 | `components/Ask.tsx` | Ask Naksha, a scripted demo that answers from the docs |
 | `components/Nk.tsx` | Renders Naksha components from data, and mounts the README previews |

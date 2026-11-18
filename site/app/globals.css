@@ -1,6 +1,6 @@
 /* The Naksha site. Everything here is built from Naksha's own tokens; the site adds one font, Archivo with its
    width axis, for the breathing name and the fitted component names. */
-@font-face { font-family: "Archivo Flex"; src: url("/fonts/ArchivoFlex-Variable.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: block; }
+@font-face { font-family: "Archivo Flex"; src: url("/fonts/ArchivoFlex-Variable.woff2") format("woff2"); font-weight: 800 820; font-stretch: 62% 125%; font-display: block; }
 :root { --flex: "Archivo Flex", var(--font-display); --pad: var(--space-32); --ink: var(--fg-on-section); }
 /* Resets live in Naksha's base layer so its components (a link wearing nk-btn, say) still win over them. */
 @layer naksha.base {
@@ -108,7 +108,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 /* ---------- band header (component and doc pages) ---------- */
 .band { background: var(--hue); color: var(--ink); padding: var(--space-24) var(--pad) var(--space-32); }
 .band .nk-crumb, .band .nk-crumb a, .band .nk-crumb li, .band .nk-crumb [aria-current] { color: var(--ink); }
-.fitwrap { overflow: hidden; margin-top: var(--space-24); }
+.fitwrap { overflow: hidden; margin-top: var(--space-24); container-type: inline-size; }
 .fit { display: inline-block; margin: 0; font-family: var(--flex); font-weight: 800; text-transform: uppercase; line-height: 0.8; letter-spacing: -0.015em; white-space: nowrap; font-size: 16vw; font-variation-settings: "wdth" 62, "wght" 800; padding-top: 0.06em; }
 .fit.go { transition: font-variation-settings 1100ms var(--ease-out); }
 .band.plain { --hue: var(--bg-raised); color: var(--fg-default); border-bottom: 1px solid var(--border-strong); }
