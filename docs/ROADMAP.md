@@ -115,9 +115,9 @@ Result, 0.3.0:
 
 ## Phase 2: components still missing
 
-Scope written on 18 Nov 2026 from the code and case-study screens of the products themselves, not from other design systems. Samo is left out on purpose. The rule from the roadmap holds: a component joins when two products need it, or when it replaces one with evidence that it is better. Where a product builds the thing by hand today, that is the evidence.
+Scope written on 18 Nov 2026 from the code and case-study screens of the products themselves, not from other design systems. The rule from the roadmap holds: a component joins when two products need it, or when it replaces one with evidence that it is better. Where a product builds the thing by hand today, that is the evidence.
 
-Products read: Ledger (`CASE STUDIES/LEDGER/ledger/src`), Otla Pages (`CASE STUDIES/OTLA PAGES/otla-pages`), the portfolio (`portfolio-v1/src` and the `m12-build-loop` branch, including the Found It and Plain Paper case-study screens), the link-in-bio page (`link in bio - my version/prototypes/link-page`) and this site.
+Products read: Ledger, Otla Pages, the portfolio (including the Found It and Plain Paper case-study screens), the link-in-bio page and this site.
 
 ### In: built by hand in two products or more
 

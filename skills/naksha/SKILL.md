@@ -144,7 +144,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [Breadcrumb](references/components/Breadcrumb.md) | Where this page sits, in `mono-label` caps like the portfolio's sheet labels. |
 | [Button](references/components/Button.md) | Buttons start an action. One `primary` per region; everything else is `secondary` or `ghost`. |
 | [Card](references/components/Card.md) | A sheet in the set: media, sheet code, title, one line, one link. |
-| [ChatMessage](references/components/ChatMessage.md) | One turn in a conversation with an AI. Put turns in a `Thread`. |
+| [ChatMessage](references/components/ChatMessage.md) | One turn in a conversation with an AI. Put turns in a `Thread`. The examples use garu, the AI assistant on Shreeraj's portfolio, which writes in lowercase. |
 | [Checkbox](references/components/Checkbox.md) | An on or off choice that takes effect when the form is sent, or "select all" with the indeterminate state. If the change applies at once, use Switch. |
 | [CopyButton](references/components/CopyButton.md) | Copies a value and says so. The label changes to "Copied" for two seconds, and if the browser refuses the clipboard the value appears in a field, selected, so it can be copied by hand. |
 | [Divider](references/components/Divider.md) | Hairline rules between content, like the lines between sheets on the portfolio. |
@@ -159,7 +159,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [ListItem](references/components/ListItem.md) | One row of a List: a small picture, a title with a line under it, a sentence, something on the right, and actions. |
 | [Modal](references/components/Modal.md) | Blocks the page for one decision that needs full attention. |
 | [ProgressBar](references/components/ProgressBar.md) | Progress for tasks longer than about two seconds. |
-| [PromptInput](references/components/PromptInput.md) | The composer for talking to an AI like garu. |
+| [PromptInput](references/components/PromptInput.md) | The composer for talking to an AI like garu, the assistant on Shreeraj's portfolio. |
 | [Radio](references/components/Radio.md) | One choice from a short list where every option stays visible. Use `RadioGroup` with a `Radio` per option. |
 | [ResponseStatus](references/components/ResponseStatus.md) | What an agent did for a reply, as a trace of steps. It replaces the bare thinking dots, so people can see the work and judge it. |
 | [SegmentedControl](references/components/SegmentedControl.md) | Switch between two to four views or modes with every option visible, like the portfolio's Human / Agent toggle. The choice applies at once. |

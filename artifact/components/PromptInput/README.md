@@ -1,6 +1,6 @@
 # PromptInput
 
-The composer for talking to an AI like garu.
+The composer for talking to an AI like garu, the assistant on Shreeraj's portfolio.
 
 ## Usage
 

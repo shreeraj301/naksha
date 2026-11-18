@@ -2,7 +2,7 @@
 
 # ChatMessage
 
-One turn in a conversation with an AI. Put turns in a `Thread`.
+One turn in a conversation with an AI. Put turns in a `Thread`. The examples use garu, the AI assistant on Shreeraj's portfolio, which writes in lowercase.
 
 ## Usage
 
