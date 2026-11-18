@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.3 · Slider and Drawer
+
+The second Phase 2 pair, each built by hand before in two of the products.
+
+### Added
+- `Slider`: one value from a range, on React Aria's Slider. A real range input inside a 16 square ink thumb on a 2px line, with an ink fill up to the thumb. The value beside the label and the value screen readers hear both come from `formatOptions`, so the unit is said aloud. `onChangeEnd` fires once at the end of a drag or key press. The hit area is 24 tall, 44 under touch.
+- `Drawer` and `DrawerTrigger`: Modal's dialog as a 400 wide panel on the `end` (or `start`) edge, for a short task or a list of links. The body scrolls between a fixed head and foot. It slides in while only the scrim fades, so the page never shows through the panel; under reduced motion it fades. Full width below 600. Click outside closes it only with `isDismissable`.
+- Cards for Slider (Forms) and Drawer (Surfaces). Slider joins the forced-colours screenshot run.
+- Tests: 6 component tests (88 in all).
+
+### Known limits
+- A slider's value is written with `Intl.NumberFormat`, so a clock time like "1:23" cannot be written or spoken yet. Use seconds or minutes as a unit.
+
 ## 0.3.2 · Phase 2 starts: ToggleButton and CopyButton
 
 The first two components from the Phase 2 scope, each built by hand before in at least two of the products.

@@ -386,5 +386,24 @@
    "value": "https://example.com/approve/7q2xk",
    "children": "Copy link"
   }
+ },
+ "Slider": {
+  "$c": "Slider",
+  "p": {
+   "label": "Volume",
+   "defaultValue": 0.4,
+   "maxValue": 1,
+   "step": 0.01,
+   "formatOptions": {
+    "style": "percent"
+   }
+  }
+ },
+ "Drawer": {
+  "$c": "Button",
+  "p": {
+   "variant": "secondary",
+   "children": "Open drawer"
+  }
  }
 }

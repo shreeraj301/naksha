@@ -7,7 +7,7 @@ description: Build or review UI with Naksha, Shreeraj Narwade's design system (t
 
 # Naksha
 
-Version 0.3.2.
+Version 0.3.3.
 
 A design system drawn like a set of architectural sheets: paper and ink, square edges, hairline rules, mono sheet labels, and seven section hues that mark where you are. It comes straight from the live portfolio CSS, and it is built for product work: AI tools, fintech, legal and other information-heavy screens.
 
@@ -145,6 +145,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [Checkbox](references/components/Checkbox.md) | An on or off choice that takes effect when the form is sent, or "select all" with the indeterminate state. If the change applies at once, use Switch. |
 | [CopyButton](references/components/CopyButton.md) | Copies a value and says so. The label changes to "Copied" for two seconds, and if the browser refuses the clipboard the value appears in a field, selected, so it can be copied by hand. |
 | [Divider](references/components/Divider.md) | Hairline rules between content, like the lines between sheets on the portfolio. |
+| [Drawer](references/components/Drawer.md) | A panel that slides in from the side for a short task or a list of links, while the page stays in view behind it. |
 | [DropdownMenu](references/components/DropdownMenu.md) | A list of actions, or a choice, that opens from a trigger: usually a ghost IconButton with `ellipsis`. |
 | [EmptyState](references/components/EmptyState.md) | What a view shows before it has data: what will appear here, and one way to start. |
 | [IconButton](references/components/IconButton.md) | A square button that holds one icon, for frequent actions in toolbars, cards and composers. |
@@ -159,6 +160,7 @@ Every token, both themes: [references/tokens.md](references/tokens.md).
 | [SegmentedControl](references/components/SegmentedControl.md) | Switch between two to four views or modes with every option visible, like the portfolio's Human / Agent toggle. The choice applies at once. |
 | [Select](references/components/Select.md) | Pick one option from a list of five or more. For two to four options use SegmentedControl or RadioGroup, so every choice stays visible. |
 | [Skeleton](references/components/Skeleton.md) | A placeholder in the shape of the content that is loading, so nothing shifts when it arrives. |
+| [Slider](references/components/Slider.md) | A number picked from a range by dragging or with the arrow keys: volume, a budget ceiling, a playback position. |
 | [SourceChip](references/components/SourceChip.md) | Ties an AI claim to where it came from: a clause, a page, a URL. |
 | [Spinner](references/components/Spinner.md) | An indeterminate wait inside a control or a small area. |
 | [SuggestionChip](references/components/SuggestionChip.md) | A prompt starter, written the way the person would ask. |

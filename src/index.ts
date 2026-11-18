@@ -30,12 +30,16 @@ export { Switch } from "./components/Switch";
 export type { SwitchProps } from "./components/Switch";
 export { SegmentedControl } from "./components/SegmentedControl";
 export type { SegmentedControlProps, SegmentedOption } from "./components/SegmentedControl";
+export { Slider } from "./components/Slider";
+export type { SliderProps } from "./components/Slider";
 export type { FieldProps } from "./components/Field";
 
 export { DropdownMenu } from "./components/DropdownMenu";
 export type { DropdownMenuProps, MenuAction, MenuSeparator, MenuEntry } from "./components/DropdownMenu";
 export { Modal, ModalTrigger } from "./components/Modal";
 export type { ModalProps } from "./components/Modal";
+export { Drawer, DrawerTrigger } from "./components/Drawer";
+export type { DrawerProps } from "./components/Drawer";
 export { Tooltip } from "./components/Tooltip";
 export type { TooltipProps } from "./components/Tooltip";
 export { toast, Toaster, Toast } from "./components/Toast";

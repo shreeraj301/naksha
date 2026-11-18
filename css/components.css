@@ -349,6 +349,27 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
 .nk-progress__bar { height: 100%; background: var(--fg-default); transform-origin: left center; transition: width var(--dur-page) var(--ease-settle); }
 .nk-progress--indeterminate .nk-progress__bar { width: 32%; animation: nk-indet 1.4s var(--ease-in-out) infinite; }
 @keyframes nk-indet { from { transform: translateX(-100%); } to { transform: translateX(320%); } }
+
+/* ---------- Slider ----------
+   The track is the hit area, 24 tall (44 under touch); the 2px line, the ink fill and the 16 square thumb are drawn inside it.
+   React Aria places the thumb with left and a -50% translate, so size changes go on the thumb's ::after, never the thumb. */
+.nk-slider { display: flex; flex-direction: column; gap: var(--space-4); width: 100%; max-width: 22.5rem; }
+.nk-slider__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-8); }
+.nk-slider__value { font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.2; font-variant-numeric: tabular-nums; color: var(--fg-muted); }
+.nk-slider__track { position: relative; height: 1.5rem; cursor: pointer; touch-action: none; }
+.nk-slider__track::before, .nk-slider__fill { position: absolute; top: 50%; height: var(--border-thick); margin-top: calc(var(--border-thick) / -2); }
+.nk-slider__track::before { content: ""; inset-inline: 0; background: var(--border-strong); }
+.nk-slider__fill { background: var(--fg-default); }
+.nk-slider__thumb { top: 50%; display: grid; place-items: center; width: 1.5rem; height: 1.5rem; outline: none; }
+.nk-slider__thumb::after { content: ""; width: 1rem; height: 1rem; background: var(--fg-default); transition: transform var(--dur-press) var(--ease-out); }
+.nk-slider.is-hover .nk-slider__thumb::after { transform: scale(1.125); }
+@media (hover: hover) and (pointer: fine) { .nk-slider__track[data-hovered] .nk-slider__thumb::after { transform: scale(1.125); } }
+.nk-slider.is-dragging .nk-slider__thumb::after, .nk-slider__thumb[data-dragging]::after { transform: scale(1.25); }
+/* Disabled fades the line and the thumb only. The label and value keep their colours: React Aria's slider label is not tied
+   to the disabled input, so faded text there is flagged by contrast checks. */
+.nk-slider[data-disabled] .nk-slider__track { cursor: not-allowed; }
+.nk-slider[data-disabled] .nk-slider__track::before { background: var(--border-default); }
+.nk-slider[data-disabled] .nk-slider__fill, .nk-slider[data-disabled] .nk-slider__thumb::after { background: var(--fg-disabled); transform: none; }
 .nk-spin { width: var(--size-icon-lg); height: var(--size-icon-lg); animation: nk-rot 900ms linear infinite; flex: none; }
 .nk-spin--sm { width: var(--size-icon-sm); height: var(--size-icon-sm); }
 .nk-spin--lg { width: 2rem; height: 2rem; }
@@ -527,6 +548,32 @@ button.nk-control--select { margin: 0; width: 100%; font: inherit; text-align: l
   .nk-overlay .nk-modal { max-width: none; border-width: var(--border-hairline) 0 0; }
 }
 
+/* ---------- Drawer ----------
+   Modal's overlay with the panel on one edge instead of in the middle. Head and foot are Modal's own classes. */
+.nk-overlay.nk-overlay--drawer { align-items: stretch; justify-content: flex-end; padding: 0; }
+.nk-overlay.nk-overlay--start { justify-content: flex-start; }
+.nk-drawer-frame { --from: 100%; width: 100%; max-width: 25rem; height: 100%; outline: none; }
+.nk-drawer-frame:dir(rtl) { --from: -100%; }
+.nk-overlay--start .nk-drawer-frame { --from: -100%; }
+.nk-overlay--start .nk-drawer-frame:dir(rtl) { --from: 100%; }
+/* Only the scrim fades; the panel slides in solid, so the page never shows through it. */
+.nk-overlay.nk-overlay--drawer[data-entering] { animation: nk-scrim-in var(--dur-overlay) var(--ease-out); }
+.nk-overlay.nk-overlay--drawer[data-exiting] { animation: nk-scrim-in var(--dur-ui) ease reverse; }
+@keyframes nk-scrim-in { from { background-color: transparent; } }
+.nk-drawer-frame[data-entering] { animation: nk-drawer-in var(--dur-overlay) var(--ease-out); }
+.nk-drawer-frame[data-exiting] { animation: nk-drawer-in var(--dur-ui) ease reverse; }
+@keyframes nk-drawer-in { from { transform: translateX(var(--from)); } }
+.nk-drawer { display: flex; flex-direction: column; height: 100%; background: var(--bg-raised); border-inline-start: var(--border-hairline) solid var(--border-default); box-shadow: var(--shadow-overlay); outline: none; }
+.nk-drawer--start { border-inline-start: 0; border-inline-end: var(--border-hairline) solid var(--border-default); }
+.nk-drawer--inline { width: 25rem; max-width: 100%; }
+.nk-drawer__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-12) var(--space-24) var(--space-24); font-size: 0.9375rem; line-height: 1.55; color: var(--fg-default); }
+.nk-drawer__body > p { margin: 0; color: var(--fg-muted); }
+/* Below 600 the panel takes the whole width. */
+@media (width < 37.5rem) {
+  .nk-drawer-frame { max-width: none; }
+  .nk-drawer { border-width: 0; }
+}
+
 /* ---------- Table ---------- */
 .nk-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
 .nk-table th { height: 2.25rem; padding: 0 var(--space-16); text-align: left; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-muted);
@@ -646,6 +693,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   .nk-btn { --h: var(--size-control-touch-md); } .nk-btn--sm { --h: var(--size-control-touch-sm); } .nk-btn--lg { --h: var(--size-control-touch-lg); }
   .nk-iconbtn { --h: var(--size-control-touch-md); } .nk-iconbtn--sm { --h: var(--size-control-touch-sm); }
   .nk-control { height: var(--size-control-touch-md); }
+  .nk-slider__track { height: var(--size-control-touch-md); } .nk-slider__thumb { width: var(--size-control-touch-md); height: var(--size-control-touch-md); }
 }
 @media (prefers-reduced-motion: reduce) {
   /* Nothing moves. Colour, border and opacity changes stay, so state still reads; durations come from the tokens.
@@ -655,6 +703,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   .nk-btn, .nk-iconbtn, .nk-chip { transform: none !important; }
   .nk-popover[data-entering], .nk-tooltip[data-entering], .nk-overlay[data-entering] .nk-modal { animation-name: nk-fade !important; }
   .nk-sheet[data-entering], .nk-sheet[data-exiting], .nk-sheet__list li { animation-name: nk-fade !important; }
+  .nk-drawer-frame[data-entering], .nk-drawer-frame[data-exiting] { animation-name: nk-fade !important; }
   [class*="nk-"] { animation-iteration-count: 1 !important; }
   .nk-spin { animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
   .nk-progress--indeterminate .nk-progress__bar { width: 100%; animation: nk-pulse 2s ease-in-out infinite !important; animation-iteration-count: infinite !important; }
@@ -668,7 +717,8 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
 .nk-check[data-focus-visible] .nk-check__box, .nk-radio[data-focus-visible] .nk-radio__box, .nk-switch[data-focus-visible] .nk-switch__track,
 .nk-check.is-focus .nk-check__box, .nk-radio.is-focus .nk-radio__box, .nk-switch.is-focus .nk-switch__track,
 .nk-btn.is-focus, .nk-iconbtn.is-focus, .nk-link.is-focus, .nk-tab.is-focus, .nk-seg__opt.is-focus, .nk-chip.is-focus,
-.nk-source.is-focus, .nk-card.is-focus, .nk-acc__head.is-focus, .nk-navitem.is-focus {
+.nk-source.is-focus, .nk-card.is-focus, .nk-acc__head.is-focus, .nk-navitem.is-focus,
+.nk-slider__thumb[data-focus-visible]::after, .nk-slider.is-focus .nk-slider__thumb::after {
   outline: var(--border-thick) solid var(--border-focus); outline-offset: 2px; }
 .nk-card:focus-visible, .nk-card.is-focus { outline-offset: 0.1875rem; }
 .nk-menu__item:focus-visible { outline: none; background: var(--state-hover); }
@@ -680,7 +730,7 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
 @media (forced-colors: active) {
   .nk-radio__box::after, .nk-switch__track, .nk-switch__track::after, .nk-tab::after, .nk-navitem::after, .nk-navitem i, .nk-sheetitem::after, .nk-sheetitem i,
   .nk-progress__track, .nk-progress__bar, .nk-seg__opt[aria-checked="true"], .nk-seg__opt[data-selected], .nk-toggle[data-selected], .nk-skel,
-  .nk-menu__item.is-hover, .nk-menu__item:focus-visible { forced-color-adjust: none; }
+  .nk-menu__item.is-hover, .nk-menu__item:focus-visible, .nk-slider__track::before, .nk-slider__fill, .nk-slider__thumb::after { forced-color-adjust: none; }
   .nk-radio__box::after { background: CanvasText; }
   .nk-radio[data-disabled] .nk-radio__box::after { background: GrayText; }
   .nk-switch__track { background: Canvas; border-color: CanvasText; }
@@ -697,6 +747,9 @@ button.nk-link { margin: 0; padding: 0; border: 0; background: none; }
   .nk-tab[aria-selected="true"]::after, .nk-navitem[aria-current="page"]::after, .nk-sheetitem[aria-current="page"]::after { background: Highlight; }
   .nk-progress__track { background: Canvas; box-shadow: inset 0 0 0 1px CanvasText; }
   .nk-progress__bar { background: Highlight; }
+  .nk-slider__track::before { background: CanvasText; }
+  .nk-slider__fill, .nk-slider__thumb::after { background: Highlight; }
+  .nk-slider[data-disabled] .nk-slider__track::before, .nk-slider[data-disabled] .nk-slider__fill, .nk-slider[data-disabled] .nk-slider__thumb::after { background: GrayText; }
   .nk-skel { background: Canvas; box-shadow: inset 0 0 0 1px GrayText; }
   .nk-menu__item.is-hover, .nk-menu__item:focus-visible { background: Highlight; color: HighlightText; }
   .nk-menu__item.is-hover svg, .nk-menu__item:focus-visible svg { color: HighlightText; }
