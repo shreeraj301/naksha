@@ -18,7 +18,11 @@ export function TopBar() {
   const path = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<string>("dark");
-  useEffect(() => { setTheme(document.documentElement.dataset.theme || "dark"); }, []);
+  useEffect(() => {
+    setTheme(document.documentElement.dataset.theme || "dark");
+    // Marks the page as hydrated, for the site tests to wait on before they look.
+    document.documentElement.dataset.ready = "";
+  }, []);
   useEffect(() => { setOpen(false); }, [path]);
   const menuButton = useRef<HTMLButtonElement>(null);
   // Escape closes the phone menu and puts focus back on its button, like any disclosure.

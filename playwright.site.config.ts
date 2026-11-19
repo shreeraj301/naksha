@@ -12,6 +12,8 @@ export default defineConfig({
   fullyParallel: true,
   // On CI, also report each failure as an annotation, which shows on the run page without signing in.
   reporter: process.env.CI ? [["list"], ["github"]] : [["list"]],
+  // One retry on CI; a test that passes only on retry is still listed as flaky in the run summary.
+  retries: process.env.CI ? 1 : 0,
   expect: { toHaveScreenshot: { maxDiffPixels: 4, threshold: 0.1, animations: "disabled", caret: "hide" } },
   webServer: {
     command: "node site/scripts/serve.mjs",

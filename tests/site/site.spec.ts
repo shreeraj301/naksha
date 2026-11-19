@@ -44,8 +44,12 @@ async function open(page: Page, path: string, theme: string) {
   await page.addInitScript((t) => { try { localStorage.setItem("naksha-theme", t); } catch {} }, theme);
   await page.goto(path, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
-  // Page titles stay hidden until they are fitted to the measure.
-  await page.waitForFunction(() => [...document.querySelectorAll("h1")].every((h) => getComputedStyle(h).visibility === "visible"));
+  // Page titles stay hidden until they are fitted to the measure. React has hydrated (TopBar marks it) and every
+  // live preview has mounted, so a slow machine is not caught halfway.
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll("h1")].every((h) => getComputedStyle(h).visibility === "visible") &&
+    "ready" in document.documentElement.dataset &&
+    [...document.querySelectorAll("[data-nk]")].every((n) => n.childElementCount > 0));
   await page.waitForTimeout(300);
   return errors;
 }
