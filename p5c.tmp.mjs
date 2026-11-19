@@ -1,0 +1,10 @@
+import { chromium } from "playwright";
+const b = await chromium.launch({ args: ["--font-render-hinting=none"] });
+const grab = async (path, file, wdth) => { const p = await b.newPage({ viewport: { width: 1280, height: 440 }, reducedMotion: "reduce" }); await p.goto("http://127.0.0.1:4410" + path, { waitUntil: "networkidle" }); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(300);
+  if (wdth) await p.evaluate((w) => { const h = document.querySelector("h1.fit"); h.style.fontVariationSettings = `"wdth" ${w}, "wght" 800`; }, wdth);
+  await p.screenshot({ path: `/tmp/p5/${file}.png` }); await p.close(); };
+await grab("/components/button/", "t-old");
+await grab("/components/input/", "t-new");
+await grab("/components/button/", "t-old62", 62);
+await grab("/components/input/", "t-new62", 62);
+await b.close();

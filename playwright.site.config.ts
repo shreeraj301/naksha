@@ -10,7 +10,8 @@ export default defineConfig({
   testDir: "tests/site",
   snapshotPathTemplate: "{testDir}/__screenshots__/{arg}{ext}",
   fullyParallel: true,
-  reporter: [["list"]],
+  // On CI, also report each failure as an annotation, which shows on the run page without signing in.
+  reporter: process.env.CI ? [["list"], ["github"]] : [["list"]],
   expect: { toHaveScreenshot: { maxDiffPixels: 4, threshold: 0.1, animations: "disabled", caret: "hide" } },
   webServer: {
     command: "node site/scripts/serve.mjs",
